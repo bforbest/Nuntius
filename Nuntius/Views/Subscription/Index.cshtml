@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Nuntius.Models.Source>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-xs-6 col-md-3">
+            <a href="#" class="thumbnail">
+                <img src="@Html.DisplayFor(modelItem => item.urlsToLogos.medium)" alt="...">
+            </a>
+        </div>
+
+
+    }
+
+</div>
