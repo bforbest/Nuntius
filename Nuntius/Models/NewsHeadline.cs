@@ -10,7 +10,7 @@ namespace Nuntius.Models
 {
         public class Newsheadline
         {
-            [JsonProperty("status")]
+            [JsonProperty("status")] 
             public string Status { get; set; }
             [JsonProperty("source")]
             public string Source { get; set; }
