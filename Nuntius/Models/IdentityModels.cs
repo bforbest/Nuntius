@@ -6,6 +6,8 @@ using Nuntius.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Nuntius.Models
 {
@@ -21,6 +23,7 @@ namespace Nuntius.Models
             return userIdentity;
         }
         public  Favourite Favourite { get; set; }
+        public IList<Source> Sources { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
