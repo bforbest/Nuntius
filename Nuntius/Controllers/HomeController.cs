@@ -10,43 +10,28 @@ namespace Nuntius.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index(string id)
-        {
+		public ActionResult Index(string id)
+		{
 
-            string source = "nosource";
+			var list = new List<string>(new[] { "bbc-news", "ars-technica", "associated-press","bbc-sport", "bild", "bloomberg",
+				"business-insider", "business-insider-uk", "buzzfeed", "cnbc", "cnn", "daily-mail", "engadget", "entertainment-weekly",
+				"espn", "financial-times", "focus", "google-news", "ign", "independent", "mashable", "metro", "mirror", "new-scientist",
+				"newsweek","reuters", "sky-news", "techcrunch", "techradar", "the-guardian-uk", "the-huffington-post", "the-new-york-times",
+				"the-telegraph", "the-verge", "the-wallstreet-journal", "the-washinton-post", "time"});
+			var rng = new Random();
+			var randomElement = list[rng.Next(list.Count)];
+			string source = randomElement;
+			WebClient c = new WebClient();
+			string downloadjson = "https://newsapi.org/v1/articles?source=" + source + /*"&sortBy="+sortedby+*/
+								  "&apiKey=346e17ce990f4aacac337fe81afb6f50";
+			var json =
+				c.DownloadString(downloadjson);
+			Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
+			@ViewBag.Source = newsheadline.Source;
+			return View(newsheadline);
+		}
 
-            string sortedby = "latest";
-            if (id == null)
-            {
-                source = "the-next-web";
-            }
-            else if (id == "bbc-news" || id == "google-news")
-            {
-                source = id;
-                sortedby = "popular";
-            }
-            else
-            {
-                source = id;
-            }
-            WebClient c = new WebClient();
-            string downloadjson = "https://newsapi.org/v1/articles?source=" + source + /*"&sortBy="+sortedby+*/
-                                  "&apiKey=346e17ce990f4aacac337fe81afb6f50";
-            var json =
-                c.DownloadString(downloadjson);
-
-
-            Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
-
-
-
-            return View(newsheadline);
-
-
-        }
-
-
-        public ActionResult About()
+		public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
