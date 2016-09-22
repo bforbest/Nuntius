@@ -73,15 +73,15 @@ namespace Nuntius.Models
         {
             [Key]
             public int SubscriptionId { get; set; }
-            public virtual ICollection<Source> Source { get; set; }
-            [ForeignKey("Id")]
-            public ApplicationUser User { get; set; }
-            public string Id { get; set; }
-        }
+            public string Title { get; set; }
+            //public string ApplicationUserID { get; set; }
+            //public virtual ApplicationUser ApplicationUser { get; set; }
+            public virtual ICollection<Source> Sources { get; set; }
+    }
         //ONE SOURCE CAN HAVE MANY CATEGORIES
         public class Source
         {
-            public string SourceId { get; set; }
+            public string Id { get; set; }
             public string name { get; set; }
             public string description { get; set; }
             public string url { get; set; }
@@ -90,7 +90,8 @@ namespace Nuntius.Models
             public string country { get; set; }
             public UrlsToLogos urlsToLogos { get; set; }
             public List<string> sortBysAvailable { get; set; }
-        }
+            public virtual ICollection<Subscription> Subscriptions { get; set; }
+    }
         public class UrlsToLogos
         {
             public string small { get; set; }

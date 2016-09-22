@@ -151,10 +151,13 @@ namespace Nuntius.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Favourite = null };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Favourite = null, Subscription = new Subscription() };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    ApplicationDbContext db = new ApplicationDbContext();
+                    db.Subscriptions.Add(new Subscription { Title = "Subscribed" });
+                    db.SaveChanges();
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

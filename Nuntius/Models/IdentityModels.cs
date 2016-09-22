@@ -23,7 +23,8 @@ namespace Nuntius.Models
             return userIdentity;
         }
         public  Favourite Favourite { get; set; }
-        public IList<Source> Sources { get; set; }
+        public int? SubscriptionId { get; set; }
+        public virtual Subscription Subscription { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
