@@ -29,7 +29,7 @@ namespace Nuntius.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("Nuntius_2", throwIfV1Schema: false)
         {
         }
 
