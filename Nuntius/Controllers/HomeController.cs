@@ -38,8 +38,6 @@ namespace Nuntius.Controllers
 
             Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
 
-
-
             return View(newsheadline);
 
 
@@ -48,14 +46,14 @@ namespace Nuntius.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.ContactEmail = "";
+            ViewBag.ContactPhone = "";
+            ViewBag.ContactAddress = "";
 
             return View();
         }
