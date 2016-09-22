@@ -82,25 +82,25 @@ namespace Nuntius.Models
         public class Source
         {
             public string SourceId { get; set; }
-            public string name { get; set; }
-            public string description { get; set; }
-            public string url { get; set; }
-            public string category { get; set; }
-            public string language { get; set; }
-            public string country { get; set; }
-            public UrlsToLogos urlsToLogos { get; set; }
+            public string Name { get; set; }
+            public string Description { get; set; }
+            public string Url { get; set; }
+            public string Category { get; set; }
+            public string Language { get; set; }
+            public string Country { get; set; }
+            public UrlsToLogos UrlsToLogos { get; set; }
             public List<string> sortBysAvailable { get; set; }
         }
         public class UrlsToLogos
         {
-            public string small { get; set; }
-            public string medium { get; set; }
-            public string large { get; set; }
+            public string Small { get; set; }
+            public string Medium { get; set; }
+            public string Large { get; set; }
         }
         public class AllSources
         {
-            public string status { get; set; }
-            public List<Source> sources { get; set; }
+            public string Status { get; set; }
+            public List<Source> Sources { get; set; }
         }
 
 
