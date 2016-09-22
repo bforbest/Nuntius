@@ -151,7 +151,7 @@ namespace Nuntius.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Favourite = null, Subscription = new Subscription() };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Favourite = new Favourite(), Subscription = new Subscription() };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

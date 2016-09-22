@@ -46,7 +46,7 @@ namespace Nuntius.Models
             public virtual IList<VotingArticle> VotingArticles { get; set; }
             public virtual IList<Comment> Comments { get; set; }
             [Required]
-            public int? SourceId { get; set; }
+            public string SourceId { get; set; }
             //[ForeignKey("SourceId")]
             public Source Source { get; set; }
         }
