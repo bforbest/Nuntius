@@ -23,7 +23,7 @@ namespace Nuntius.Controllers
 
 
 
-            return View(allSources.sources);
+            return View(allSources.Sources);
         }
     }
 }
