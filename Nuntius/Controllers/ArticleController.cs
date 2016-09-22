@@ -5,13 +5,15 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace Nuntius.Controllers
 {
     public class ArticleController : Controller
     {
-		// GET: Article
-		public ActionResult Index(string id, string source)
+        DbActions action = new DbActions();
+        // GET: Article
+        public ActionResult Index(string id, string source)
 		{
 			ApplicationDbContext context = new ApplicationDbContext();
 
@@ -39,14 +41,32 @@ namespace Nuntius.Controllers
 			  c.DownloadString(downloadjson);
 			Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
 			var x = newsheadline.Articles.FirstOrDefault(a => a.Title.Split(' ').Last() == id);
-
-			return View(x);
+       
+            var p = x;
+            x.Source = context.Sources.FirstOrDefault(a => a.Id == source);
+            @ViewBag.Source = x.Source.Id;
+            return View(x);
 		}
 
-		// GET: Article/Create
-		public ActionResult Create()
+        // GET: Article/Create
+        public ActionResult Create(string id, string source)
         {
-            return View();
+            WebClient c = new WebClient();
+            //This makes sure it uses the real source and thus duplicates of same titles are to be very rare
+            string downloadjson = "https://newsapi.org/v1/articles?source=" + source +
+                            "&apiKey=346e17ce990f4aacac337fe81afb6f50";
+            var json =
+              c.DownloadString(downloadjson);
+            var currentUserId = User.Identity.GetUserId();
+            Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
+            //Finds the Article that is favorite based on the last index of the title
+            var xArticle = newsheadline.Articles.FirstOrDefault(a => a.Title.Split(' ').Last() == id);
+
+
+            action.SaveToFavorite(xArticle, source, currentUserId);
+
+
+            return Redirect(Request.UrlReferrer.PathAndQuery);
         }
 
         // POST: Article/Create

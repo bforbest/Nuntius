@@ -22,7 +22,10 @@ namespace Nuntius.Models
             // Add custom user claims here
             return userIdentity;
         }
-        public  Favourite Favourite { get; set; }
+        public string ProfilePicture { get; set; }
+        [ForeignKey("FavouriteId")]
+        public Favourite Favourite { get; set; }
+        public int FavouriteId { get; set; }
         public int? SubscriptionId { get; set; }
         public virtual Subscription Subscription { get; set; }
     }
@@ -45,5 +48,7 @@ namespace Nuntius.Models
 
         public DbSet<Source> Sources  { get; set; }
         public DbSet<VotingArticle> VotingArticles { get; set; }
+
+    
     }
 }

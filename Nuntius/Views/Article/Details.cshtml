@@ -9,6 +9,8 @@
 <div>
     <h4>Article</h4>
     <hr />
+    @{  var lastWord = @Model.Title.Split(' ').Last();}
+    <a class="glyphicon-bullhorn" data-id="0" href="@Url.Action("Create", null, new { id = lastWord, source = @ViewBag.Source})">Save to favorites</a>
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Author)
