@@ -57,13 +57,10 @@ namespace Nuntius.Models
             [Key]
             public int CommentId { get; set; }
             public string CommentText { get; set; }
-            public int UpvoteComment { get; set; }
-            public int DownvoteComment { get; set; }
             public DateTime DatePublished { get; set; }
             [ForeignKey("Id")]
             public ApplicationUser User { get; set; }
             public string Id { get; set; }
-            [ForeignKey("ArticleId")]
             public Article Article { get; set; }
             public int ArticleId { get; set; }
             public virtual IList<Comment> Comments { get; set; }

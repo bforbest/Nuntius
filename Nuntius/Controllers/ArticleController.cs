@@ -108,5 +108,11 @@ namespace Nuntius.Controllers
                 return View();
             }
         }
+        public ActionResult AddComment(int id, String comment)
+        {
+            ApplicationDbContext context = new ApplicationDbContext();
+            context.Comments.Add(new Comment { ArticleId = id, CommentText = comment });
+            return Json(comment);
+        }
     }
 }
