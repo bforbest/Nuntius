@@ -21,6 +21,7 @@
 
 
 <div class="row">
+<<<<<<< HEAD
     @foreach (var item in Model)
     {
         <div class="col-xs-6 col-md-3">
@@ -32,24 +33,34 @@
 
     }
 
+=======
+>>>>>>> 7ac4b7903ecc319dec15004731b76167086fbcc0
     @using (Html.BeginForm())
     {
-        @Html.AntiForgeryToken()
 
         for (var i = 0; i < Model.Count; i++)
         {
             <tr>
                 <td>
-                    @Html.HiddenFor(x => x[i].SourceId)
-                    <input name="orderNumbers" type="checkbox" value="1" />
+
+                   @* @Html.HiddenFor(x=>x[i].description)*@
+                    <input type="checkbox" name="sourceList" value="@Model[i].Id">
                 </td>
                 <td>
+<<<<<<< HEAD
                     @Html.DisplayFor(x => x[i].Url)
+=======
+                    @Html.DisplayFor(x => x[i].name)
+>>>>>>> 7ac4b7903ecc319dec15004731b76167086fbcc0
                 </td>
             </tr>
         }
         <div>
+<<<<<<< HEAD
             <input type="submit" value="" />
+=======
+            <input type="submit" value="save" />
+>>>>>>> 7ac4b7903ecc319dec15004731b76167086fbcc0
         </div>
     }
 

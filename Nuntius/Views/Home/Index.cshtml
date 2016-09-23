@@ -1,5 +1,7 @@
 ﻿@model Nuntius.Models.Newsheadline
+
 @{
+<<<<<<< HEAD
         ViewBag.Title = "Latest News";
 
 }
@@ -37,5 +39,49 @@
 
 </div>
 
+=======
+	ViewBag.Title = "Home Page";
+	
+}
 
+<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead"></p>
+    <p><a href="#" class="btn btn-primary btn-lg">Read more &raquo;</a></p>
+</div>
 
+<div class="row">
+   @foreach (var item in Model.Articles)
+   {
+>>>>>>> 7ac4b7903ecc319dec15004731b76167086fbcc0
+
+	<div class="col-md-4">
+		<h2>@item.SourceId</h2>
+		<h3>@item.Title</h3>
+		<br />
+		@*<small>@item.Author</small>*@
+		<p>
+			@*<small> @item.PublishedAt</small>*@
+			<br />
+			<img src="@item.UrlToImage" href="@item.Url" style="max-height:200px; padding: 5px, 5px, 5px, 5px;max-width:250px;display:inline-block;" />
+			<br />
+		</p>
+
+<<<<<<< HEAD
+=======
+		
+		<div>
+			@{
+				var lastWord = item.Title.Split(' ').Last();
+
+				<a class="glyphicon-bullhorn" data-id="0" href="@Url.Action("Details", "Article", new { id = lastWord, source = @ViewBag.Source})">View Article</a>
+
+			}
+		</div>
+
+	</div>
+	}
+	
+	
+</div>
+>>>>>>> 7ac4b7903ecc319dec15004731b76167086fbcc0

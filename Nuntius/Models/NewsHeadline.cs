@@ -46,7 +46,7 @@ namespace Nuntius.Models
             public virtual IList<VotingArticle> VotingArticles { get; set; }
             public virtual IList<Comment> Comments { get; set; }
             [Required]
-            public int? SourceId { get; set; }
+            public string SourceId { get; set; }
             //[ForeignKey("SourceId")]
             public Source Source { get; set; }
         }
@@ -57,13 +57,10 @@ namespace Nuntius.Models
             [Key]
             public int CommentId { get; set; }
             public string CommentText { get; set; }
-            public int UpvoteComment { get; set; }
-            public int DownvoteComment { get; set; }
             public DateTime DatePublished { get; set; }
             [ForeignKey("Id")]
             public ApplicationUser User { get; set; }
             public string Id { get; set; }
-            [ForeignKey("ArticleId")]
             public Article Article { get; set; }
             public int ArticleId { get; set; }
             public virtual IList<Comment> Comments { get; set; }
@@ -73,14 +70,15 @@ namespace Nuntius.Models
         {
             [Key]
             public int SubscriptionId { get; set; }
-            public virtual ICollection<Source> Source { get; set; }
-            [ForeignKey("Id")]
-            public ApplicationUser User { get; set; }
-            public string Id { get; set; }
-        }
+            public string Title { get; set; }
+            //public string ApplicationUserID { get; set; }
+            //public virtual ApplicationUser ApplicationUser { get; set; }
+            public virtual ICollection<Source> Sources { get; set; }
+    }
         //ONE SOURCE CAN HAVE MANY CATEGORIES
         public class Source
         {
+<<<<<<< HEAD
             public string SourceId { get; set; }
             public string Name { get; set; }
             public string Description { get; set; }
@@ -89,8 +87,19 @@ namespace Nuntius.Models
             public string Language { get; set; }
             public string Country { get; set; }
             public UrlsToLogos UrlsToLogos { get; set; }
+=======
+            public string Id { get; set; }
+            public string name { get; set; }
+            public string description { get; set; }
+            public string url { get; set; }
+            public string category { get; set; }
+            public string language { get; set; }
+            public string country { get; set; }
+            public UrlsToLogos urlsToLogos { get; set; }
+>>>>>>> 7ac4b7903ecc319dec15004731b76167086fbcc0
             public List<string> sortBysAvailable { get; set; }
-        }
+            public virtual ICollection<Subscription> Subscriptions { get; set; }
+    }
         public class UrlsToLogos
         {
             public string Small { get; set; }

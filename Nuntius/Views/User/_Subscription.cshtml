@@ -1,0 +1,39 @@
+﻿@model Nuntius.Models.AllSources
+
+@*<table>*@
+<div id="two" class="container-fluid">
+    <div class="card">
+        <header>
+            <h1>Subscriptions</h1>
+        </header>
+        @foreach (var item in Model.sources)
+        {
+            <img class="card-img-top" src="@item.urlsToLogos.small" title="@item.description" style="max-width: 50px; max-height: auto;" alt="Card image cap" />
+            <div class="card-block">
+                <h4>@item.name</h4>
+                <p class="card-text">
+                    <b><small>description:</small> </b><small>@item.description</small>
+                    <b><small>category:</small> </b> <b><small>@item.category</small> </b><br />
+                    <a href="@item.url" class="btn btn-primary"> Go to Website</a>
+
+                </p>
+                @*@{
+                    var url = Url.Action("AddSubscription", "Subscription", new { id = @item.Id }, null);
+                }
+                @Html.CheckBox(@item.name, new { onclick = "window.location = '" + url + "'" }) Subscribe*@
+
+
+            </div>
+            <hr />
+                    }
+    </div>
+</div>
+<script>
+
+    $(document).on("click", "#Subscribe", function(){
+        if ($(this).is(':checked')){
+            $('form').submit();
+        }
+    });
+
+</script>
