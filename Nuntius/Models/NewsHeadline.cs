@@ -78,7 +78,6 @@ namespace Nuntius.Models
         //ONE SOURCE CAN HAVE MANY CATEGORIES
         public class Source
         {
-<<<<<<< HEAD
             public string SourceId { get; set; }
             public string Name { get; set; }
             public string Description { get; set; }
@@ -86,18 +85,10 @@ namespace Nuntius.Models
             public string Category { get; set; }
             public string Language { get; set; }
             public string Country { get; set; }
-            public UrlsToLogos UrlsToLogos { get; set; }
-=======
             public string Id { get; set; }
-            public string name { get; set; }
-            public string description { get; set; }
-            public string url { get; set; }
-            public string category { get; set; }
-            public string language { get; set; }
-            public string country { get; set; }
-            public UrlsToLogos urlsToLogos { get; set; }
->>>>>>> 7ac4b7903ecc319dec15004731b76167086fbcc0
-            public List<string> sortBysAvailable { get; set; }
+          //  public string Url { get; set; }
+            public UrlsToLogos UrlsToLogos { get; set; }
+            public List<string> SortBysAvailable { get; set; }
             public virtual ICollection<Subscription> Subscriptions { get; set; }
     }
         public class UrlsToLogos

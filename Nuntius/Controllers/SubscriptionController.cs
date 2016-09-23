@@ -23,13 +23,13 @@ namespace Nuntius.Controllers
             var json =
                 c.DownloadString(downloadjson);
             AllSources allSources = Newtonsoft.Json.JsonConvert.DeserializeObject<AllSources>(json);
-            foreach (var item in allSources.sources)
+            foreach (var item in allSources.Sources)
             {
                 if(!db.Sources.Any(o=>o.Id == item.Id))
                 db.Sources.Add(item);
             }
             db.SaveChanges();
-            return View(allSources.sources);
+            return View(allSources.Sources);
         }
 
         [HttpPost]
