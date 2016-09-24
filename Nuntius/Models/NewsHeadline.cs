@@ -58,11 +58,10 @@ namespace Nuntius.Models
             public int CommentId { get; set; }
             public string CommentText { get; set; }
             public DateTime DatePublished { get; set; }
-            [ForeignKey("Id")]
+            public string ApplicationUserId { get; set; }
             public ApplicationUser User { get; set; }
-            public string Id { get; set; }
-            public Article Article { get; set; }
             public int ArticleId { get; set; }
+            public Article Article { get; set; }    
             public virtual IList<Comment> Comments { get; set; }
         }
         //ONE SUBSCRIPTION CAN CONTAIN MANY SOURCES - ADDED FOREIGN KEY TO USER ID SO IT'S LINKED WITH A USER.

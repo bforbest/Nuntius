@@ -128,11 +128,54 @@ namespace Nuntius.Controllers
                 return View();
             }
         }
-        public ActionResult AddComment(int id, String comment)
+        [HttpPost]
+        public ActionResult AddComment(string urlId, String comment, string articleSource)
         {
             ApplicationDbContext context = new ApplicationDbContext();
-            context.Comments.Add(new Comment { ArticleId = id, CommentText = comment });
+            WebClient c = new WebClient();
+            //This makes sure it uses the real source and thus duplicates of same titles are to be very rare
+            string downloadjson = "https://newsapi.org/v1/articles?source=" + articleSource +
+                            "&apiKey=346e17ce990f4aacac337fe81afb6f50";
+            var json =
+              c.DownloadString(downloadjson);
+            string currentUserId = User.Identity.GetUserId();
+            ApplicationUser currentUser = context.Users.FirstOrDefault(o => o.Id == currentUserId);
+            Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);            
+            var article = newsheadline.Articles.Where(o=>o.Url==urlId).FirstOrDefault();
+            //Check if the article is already in the database if not save it in database
+            if (context.Articles.Any(o => o.Url != article.Url))
+            {
+                article.Source = context.Sources.Where(o => o.Id == articleSource).FirstOrDefault();
+                var savedArticle = context.Articles.Add(article);
+                context.Comments.Add(new Comment { CommentText = comment, Article = article, DatePublished = DateTime.Now, User = currentUser });
+                context.SaveChanges();
+            }
             return Json(comment);
+        }
+
+        public ActionResult ShowComments(string url)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            db.Configuration.ProxyCreationEnabled = false;
+            var comments = db.Comments.Include("User").Where(o => o.Article.Url == url);
+            return Json(comments.ToList());
+        }
+        public ActionResult DeleteComment(int id, string userId)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            string currentUserId = User.Identity.GetUserId();
+
+            db.Configuration.ProxyCreationEnabled = false;
+            string jsonMessage = "";
+            if (userId == currentUserId)
+            {
+                Comment comment = db.Comments.FirstOrDefault(o => o.CommentId == id);
+                
+                db.Comments.Remove(comment);
+                db.SaveChanges();
+                jsonMessage = "Deleted";
+            }
+            return Json(jsonMessage);
         }
     }
 }

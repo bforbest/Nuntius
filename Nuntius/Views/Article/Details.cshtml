@@ -74,3 +74,67 @@
     @*@Html.ActionLink("Edit", "Edit", new { id = Model.ArticleId }) |
     @Html.ActionLink("Back to List", "Index")*@
 </p>
+
+<div >profiel picture @ViewBag.profilePic</div>
+<div class="container">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <div class="row">
+        <!-- Contenedor Principal -->
+        <div class="comments-container">
+            <h1>Comments</h1>
+            <ul>
+                <li>
+                    <div class="comment-main-level">
+                        <div class="comment-box">
+                            <div class="comment-head">
+                                <i id="SendComment" class="glyphicon glyphicon-send"></i>
+                            </div>
+                            <div class="comment-content">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="message-text" class="control-label">Comment:</label>
+
+                                        <textarea class="form-control" id="message-text"></textarea>
+
+                                        <input id="urlId" hidden value="@Html.DisplayFor(model => model.Url)" />
+
+                                        <input id="articleSource" hidden value="@ViewBag.Source" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
+            <input id="url" hidden value="@Html.DisplayFor(model => model.Url)" />
+            <ul id="comments-list" class="comments-list">
+
+                
+            </ul>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+@*<div id="divMessage"></div>
+
+<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<form>
+    <div class="form-group">
+        <label for="message-text" class="control-label">Message:</label>
+
+        <textarea class="form-control" id="message-text"></textarea>
+
+        <input id="urlId" hidden value="@Html.DisplayFor(model => model.Url)" />
+
+        <input id="articleSource" hidden value="@ViewBag.Source" />
+    </div>
+</form>*@
+

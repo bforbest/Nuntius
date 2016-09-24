@@ -73,22 +73,22 @@ namespace Nuntius.Controllers
 
 
            
-            foreach (var item in RootObject.sources)
-            {
-                Source Saws = new Source();
-                Saws.Id = item.Id;
+            //foreach (var item in RootObject.sources)
+            //{
+            //    Source Saws = new Source();
+            //    Saws.Id = item.Id;
 
-                Saws.name = item.name;
-                Saws.sortBysAvailable = item.sortBysAvailable;
-                Saws.category = item.category;
-                Saws.country = item.country;
-                Saws.description = item.description;
-                Saws.language = item.language;
-                Saws.url = item.url;
-                Saws.urlsToLogos = item.urlsToLogos;
-                context.Sources.Add(Saws);
-                context.SaveChanges();
-            };
+            //    Saws.name = item.name;
+            //    Saws.sortBysAvailable = item.sortBysAvailable;
+            //    Saws.category = item.category;
+            //    Saws.country = item.country;
+            //    Saws.description = item.description;
+            //    Saws.language = item.language;
+            //    Saws.url = item.url;
+            //    Saws.urlsToLogos = item.urlsToLogos;
+            //    context.Sources.Add(Saws);
+            //    context.SaveChanges();
+            //};
 
 
 
