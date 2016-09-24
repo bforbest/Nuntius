@@ -10,6 +10,7 @@ namespace Nuntius.Controllers
 {
     public class HomeController : Controller
     {
+
 		public ActionResult Index(string id)
 		{
 
@@ -18,7 +19,8 @@ namespace Nuntius.Controllers
 				"espn", "financial-times", "focus", "google-news", "ign", "independent", "mashable", "metro", "mirror", "new-scientist",
 				"newsweek","reuters", "sky-news", "techcrunch", "techradar", "the-guardian-uk", "the-huffington-post", "the-new-york-times",
 				"the-telegraph", "the-verge", "the-wall-street-journal", "the-washington-post", "time"});
-			var rng = new Random();
+
+      var rng = new Random();
 			var randomElement = list[rng.Next(list.Count)];
 			string source = randomElement;
 			WebClient c = new WebClient();
@@ -32,15 +34,15 @@ namespace Nuntius.Controllers
 		}
 
 		public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
+    {
+        return View();
+    }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.ContactEmail = "";
+            ViewBag.ContactPhone = "";
+            ViewBag.ContactAddress = "";
 
             return View();
         }

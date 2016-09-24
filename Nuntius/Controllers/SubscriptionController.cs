@@ -23,13 +23,13 @@ namespace Nuntius.Controllers
             var json =
                 c.DownloadString(downloadjson);
             AllSources allSources = Newtonsoft.Json.JsonConvert.DeserializeObject<AllSources>(json);
-            foreach (var item in allSources.sources)
+            foreach (var item in allSources.Sources)
             {
                 if(!db.Sources.Any(o=>o.Id == item.Id))
                 db.Sources.Add(item);
             }
             db.SaveChanges();
-            return View(allSources.sources);
+            return View(allSources.Sources);
         }
 
         [HttpPost]
@@ -38,7 +38,7 @@ namespace Nuntius.Controllers
             ApplicationDbContext db = new ApplicationDbContext();
             string currentUserId = User.Identity.GetUserId();
             ApplicationUser currentUser = db.Users.FirstOrDefault(o => o.Id == currentUserId);
-            
+
             foreach (var item in sourceList)
             {
                 var sourceItem = db.Sources.Where(o => o.Id == item).FirstOrDefault();
@@ -54,8 +54,9 @@ namespace Nuntius.Controllers
             ApplicationDbContext db = new ApplicationDbContext();
             string currentUserId = User.Identity.GetUserId();
             ApplicationUser currentUser = db.Users.FirstOrDefault(o => o.Id == currentUserId);
-           
+
             return View(currentUser.Subscription.Sources);
+
         }
     }
 }

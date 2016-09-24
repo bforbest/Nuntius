@@ -1,44 +1,38 @@
 ﻿@model Nuntius.Models.Newsheadline
 
 @{
-	ViewBag.Title = "Home Page";
-	
+        ViewBag.Title = "Latest News";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead"></p>
-    <p><a href="#" class="btn btn-primary btn-lg">Read more &raquo;</a></p>
+<div class="container ">
+    <br />
+    <br />
+
+    @foreach (var item in Model.Articles) {
+        string sourceUrl = item.Url;
+
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="list-group">                
+                <!--Article Image-->
+                <img src="@item.UrlToImage" class="img-responsive" />
+
+                <!--Article Link-->
+                <a href="@item.Url" class="list-group-item">
+                    <!--Article Title-->
+                    <p class="list-group-item-heading"><h3>@item.Title</h3></p>
+                    <!--Article Description-->
+                    <p class="blockquote-inverse">@item.Description</p>
+                    <!--Article Author-->
+                    <p class="blockquote-reverse text-muted">Author: @item.Author</p>
+                    <p class="blockquote-reverse text-muted">Published: @item.PublishedAt</p>
+                    <p class="blockquote-reverse text-muted">Source:</p>
+                </a>
+            </div>
+                <hr />
+          </div>
+    }
+
+
 </div>
 
-<div class="row">
-   @foreach (var item in Model.Articles)
-   {
 
-	<div class="col-md-4">
-		<h2>@item.SourceId</h2>
-		<h3>@item.Title</h3>
-		<br />
-		@*<small>@item.Author</small>*@
-		<p>
-			@*<small> @item.PublishedAt</small>*@
-			<br />
-			<img src="@item.UrlToImage" href="@item.Url" style="max-height:200px; padding: 5px, 5px, 5px, 5px;max-width:250px;display:inline-block;" />
-			<br />
-		</p>
-
-		
-		<div>
-			@{
-				var lastWord = item.Title.Split(' ').Last();
-
-				<a class="glyphicon-bullhorn" data-id="0" href="@Url.Action("Details", "Article", new { id = lastWord, source = @ViewBag.Source})">View Article</a>
-
-			}
-		</div>
-
-	</div>
-	}
-	
-	
-</div>

@@ -1,12 +1,37 @@
 ﻿@model IList<Nuntius.Models.Source>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Subscriptions testtinging";
 }
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+</head>
+
+</html>
+
 
 <h2>Index</h2>
 
+
 <div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-xs-6 col-md-3">
+            <a href="#" class="thumbnail">
+                <img src="@Html.DisplayFor(modelItem => item.UrlsToLogos.Medium)" alt="...">
+            </a>
+        </div>
+
+
+    }
+
     @using (Html.BeginForm())
     {
 
@@ -19,7 +44,9 @@
                     <input type="checkbox" name="sourceList" value="@Model[i].Id">
                 </td>
                 <td>
-                    @Html.DisplayFor(x => x[i].name)
+                    @Html.DisplayFor(x => x[i].Url)
+                    @Html.DisplayFor(x => x[i].Name)
+
                 </td>
             </tr>
         }
