@@ -6,13 +6,14 @@
 
 <div class="container ">
     <br />
-    <br />
+    <hr />
 
-    @foreach (var item in Model.Articles) {
+    @foreach (var item in Model.Articles)
+    {
         string sourceUrl = item.Url;
 
-        <div class="col-sm-5 col-md-4 col-lg-4">
-            <div class="list-group">                
+        <div class="col-lg-4 col-sm-4 col-xs-6">
+            <div class="list-group">
                 <!--Article Image-->
                 <img src="@item.UrlToImage" class="img-responsive" />
 
@@ -20,19 +21,22 @@
                 <a href="@item.Url" class="list-group-item">
                     <!--Article Title-->
                     <p class="list-group-item-heading"><h3>@item.Title</h3></p>
-                    <!--Article Description-->
+                    <!--Article Description (MAX 40 characters atm..) --> 
                     <p class="blockquote-inverse">@item.Description</p>
                     <!--Article Author-->
-                    <p class="blockquote-reverse text-muted">Author: @item.Author</p>
-                    <p class="blockquote-reverse text-muted">Published: @item.PublishedAt</p>
-                    <p class="blockquote-reverse text-muted">Source:</p>
+                    <!--<p class="blockquote-reverse text-muted">Source:</p>-->
+                    <p class="blockquote-reverse text-muted">@item.Author</p>
+                    <!--Article Published-->
+                    <p class="blockquote-reverse text-muted">@item.PublishedAt</p>
                 </a>
             </div>
-                <hr />
-          </div>
+        </div>
+
     }
 
 
 </div>
+
+
 
 

@@ -14,17 +14,16 @@ namespace Nuntius.Controllers
         // GET: Subscription
         public ActionResult Index()
         {
-            ApplicationDbContext db = new ApplicationDbContext();
-
             string currentUserId = User.Identity.GetUserId();
-            ApplicationUser currentUser = db.Users.FirstOrDefault(o => o.Id == currentUserId);
-            WebClient c = new WebClient();
             string downloadjson = "https://newsapi.org/v1/sources?language=en&apiKey=346e17ce990f4aacac337fe81afb6f50";
-            var json =
-                c.DownloadString(downloadjson);
+            WebClient c = new WebClient();
+            var json = c.DownloadString(downloadjson);
+
+            ApplicationDbContext db = new ApplicationDbContext();
+            ApplicationUser currentUser = db.Users.FirstOrDefault(o => o.Id == currentUserId);
             AllSources allSources = Newtonsoft.Json.JsonConvert.DeserializeObject<AllSources>(json);
-            foreach (var item in allSources.Sources)
-            {
+
+            foreach (var item in allSources.Sources) {
                 if(!db.Sources.Any(o=>o.Id == item.Id))
                 db.Sources.Add(item);
             }
@@ -33,7 +32,7 @@ namespace Nuntius.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(List<string> sourceList)
+        public ActionResult Index(List<string> sourceList) 
         {
             ApplicationDbContext db = new ApplicationDbContext();
             string currentUserId = User.Identity.GetUserId();

@@ -38,7 +38,7 @@ namespace Nuntius.Models
 
         [Required]
         [JsonProperty("description")]
-        [StringLength(40)]
+        [MaxLength(5)]
         public string Description { get; set; }
 
         [Required]
@@ -48,9 +48,12 @@ namespace Nuntius.Models
         public string UrlToImage { get; set; }
 
         [Required]
+        [MaxLength(12)]
         [JsonProperty("publishedAt")]
         public string PublishedAt { get; set; }
+        [MaxLength(12)]
         public virtual IList<VotingArticle> VotingArticles { get; set; }
+        [MaxLength(12)]
         public virtual IList<Comment> Comments { get; set; }
 
         [Required]
