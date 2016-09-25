@@ -1,18 +1,19 @@
-﻿@model Nuntius.Models.Newsheadline
+﻿@model Nuntius.Models.Favourite
 
-@{
-        ViewBag.Title = "Latest News";
-}
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 
 <div class="container ">
     <br />
     <br />
 
-    @foreach (var item in Model.Articles) {
+    @foreach (var item in Model.Articles)
+    {
         string sourceUrl = item.Url;
 
         <div class="col-sm-3 col-md-3 col-lg-3">
-            <div class="list-group" style="text-overflow: clip;">                
+            <div class="list-group">
                 <!--Article Image-->
                 <img src="@item.UrlToImage" class="img-responsive" />
 
@@ -28,7 +29,7 @@
                     <p class="blockquote-reverse text-muted">Source:</p>
                 </a>
             </div>
-            
+
             @{
                 var lastWord = item.Title.Split(' ').Last();
 
@@ -36,10 +37,6 @@
 
             }
             <hr />
-          </div>
-    }
-
-
+        </div>
+                }
 </div>
-
-

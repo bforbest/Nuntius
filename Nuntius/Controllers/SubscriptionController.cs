@@ -29,6 +29,16 @@ namespace Nuntius.Controllers
                 db.Sources.Add(item);
             }
             db.SaveChanges();
+            if (currentUser.Subscription != null)
+            {
+                IList<string> sources = new List<string>();
+                foreach (var item in currentUser.Subscription.Sources)
+                {
+                     sources.Add(item.Id);
+                }
+                ViewBag.Usersubs = sources;
+            }
+         
             return View(allSources.Sources);
         }
 
@@ -38,15 +48,30 @@ namespace Nuntius.Controllers
             ApplicationDbContext db = new ApplicationDbContext();
             string currentUserId = User.Identity.GetUserId();
             ApplicationUser currentUser = db.Users.FirstOrDefault(o => o.Id == currentUserId);
-
+            var l = currentUser.Subscription.Sources;
             foreach (var item in sourceList)
             {
-                var sourceItem = db.Sources.Where(o => o.Id == item).FirstOrDefault();
-                currentUser.Subscription.Sources.Add(sourceItem);
+                var subItem = currentUser.Subscription.Sources.FirstOrDefault(a => a.Id == item);
+                if (subItem != null && subItem.Id == item)
+                {
+                   
+                    currentUser.Subscription.Sources.Remove(subItem);
+                }
+                else
+                {
+                    var sourceItem = db.Sources.Where(o => o.Id == item).FirstOrDefault();
+                    currentUser.Subscription.Sources.Add(sourceItem);
+
+                }
+              
+               
 
             }
+            
             db.SaveChanges();
-            return Redirect("Index");
+           
+         
+            return Redirect("/Subscription/Index");
         }
 
         public ActionResult ShowSubscribed()
@@ -56,6 +81,31 @@ namespace Nuntius.Controllers
             ApplicationUser currentUser = db.Users.FirstOrDefault(o => o.Id == currentUserId);
 
             return View(currentUser.Subscription.Sources);
+
+        }
+        public ActionResult _Subscribednews()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+
+            string currentUserId = User.Identity.GetUserId();
+            ApplicationUser currentUser = db.Users.FirstOrDefault(o => o.Id == currentUserId);
+            WebClient c = new WebClient();
+    IList<Newsheadline> Articles = new List<Newsheadline>();
+            
+            foreach (var item in currentUser.Subscription.Sources)
+            {
+                string downloadjson = "https://newsapi.org/v1/articles?source=" + item.Id + /*"&sortBy="+sortedby+*/
+                                  "&apiKey=346e17ce990f4aacac337fe81afb6f50";
+                var json =
+                    c.DownloadString(downloadjson);
+                Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
+
+                Articles.Add(newsheadline);
+            }
+            
+     
+     
+            return View(Articles);
 
         }
     }
