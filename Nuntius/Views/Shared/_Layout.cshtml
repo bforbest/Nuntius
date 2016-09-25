@@ -4,10 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Nuntius</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
 </head>
 <body>
@@ -28,6 +26,7 @@
                         <img src="Img/" title="the messenger" alt="Nunitus" />
                     </a>
                     <!-- End Brand -->
+
                 </div>
 
 
@@ -44,7 +43,7 @@
 
                     @Html.Partial("_LoginPartial")
                 </div>
-
+                </div>
             </div>
 
 
@@ -61,11 +60,11 @@
 
             </div>
 
-
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
         @RenderSection("scripts", required: false)
-
 
 
 
