@@ -12,7 +12,7 @@
     @foreach (var item in Model.Newsheadline.Articles) {
         var sourceUrl = item.Url.Split('/').Last();
 
-        <div class="col-sm-3 col-md-3 col-lg-3">
+        <div class="col-sm-3 col-md-4 col-lg-4">
             <div class="list-group" style="text-overflow: clip;">                
                 <!--Article Image-->
                 <img src="@item.UrlToImage" class="img-responsive" />
@@ -24,7 +24,7 @@
                     <!--Article Description-->
                     <p class="blockquote-inverse">@item.Description</p>
                     <!--Article Author-->
-                    <p class="blockquote-reverse text-muted">Author: @item.Author</p>
+                    <p class="blockquote-reverse text-muted">Aut hor: @item.Author</p>
                     <p class="blockquote-reverse text-muted">Published: @item.PublishedAt</p>
                     <p class="blockquote-reverse text-muted">Source:</p>
                 </a>

@@ -1,5 +1,5 @@
 ﻿@model Nuntius.Models.ArticleSource
-
+@using Nuntius.Helpers
 @{
     ViewBag.Title = "Index";
 }
@@ -10,7 +10,8 @@
 
     <h4>Article</h4>
     <hr />
-    @{  var lastWord = Uri.EscapeDataString(@Model.Article.Url);
+    @{ 
+        var lastWord = helperfunctions.hashing(@Model.Article.Title);
             }
   
       <a class="glyphicon-bullhorn" data-id="0" href="@Url.Action("Create", "Article", new { id = lastWord, source = @Model.Source.Id})">Save to favorites</a>

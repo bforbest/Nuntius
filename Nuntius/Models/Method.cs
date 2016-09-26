@@ -44,15 +44,14 @@ namespace Nuntius.Models
             context.SaveChanges();
 
         }
-        public void RemoveFromFavorites(Article xArticle, string source, string userId)
+        public void RemoveFromFavorites(Article xArticle, string userId, string articleId)
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
 
 
                 //Finds the right article
-                xArticle.Source = context.Sources.FirstOrDefault(a => a.Id == source);
-                xArticle.SourceId = source;
+             
 
 
                 var foundUser = context.Users.FirstOrDefault(a => a.Id == userId);

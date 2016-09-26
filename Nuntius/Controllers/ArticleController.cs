@@ -19,31 +19,7 @@ namespace Nuntius.Controllers
         // GET: Article
         public ActionResult Index(string id, string source)
 		{
-            //ApplicationDbContext context = new ApplicationDbContext();
-
-            //WebClient c = new WebClient();
-            //string downloadjson = "https://newsapi.org/v1/articles?source=" + source +
-            //				"&apiKey=346e17ce990f4aacac337fe81afb6f50";
-            //var json =
-            //  c.DownloadString(downloadjson);
-            //Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
-            //var x = newsheadline.Articles.FirstOrDefault(a => a.Title.Split(' ').Last() == id);
-
-            //return View(x);
-
-
-
-          
-            //Borde verkligen ändra source description/title split idén.
-            //if (source == "")
-            //{
-            //    source = w;
-            //}
-            //      else if (!Request.Url.AbsoluteUri.Contains("source"))
-            //{
-            //    source = Request.UrlReferrer.AbsoluteUri.Split('=').Last();
-            //      }
-
+            
             string downloadjson = "https://newsapi.org/v1/articles?source=" + source +
                             "&apiKey=346e17ce990f4aacac337fe81afb6f50";
             var json =
@@ -81,7 +57,7 @@ namespace Nuntius.Controllers
             var currentUserId = User.Identity.GetUserId();
             Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
             //Finds the Article that is favorite based on the last index of the title
-            var xArticle = newsheadline.Articles.FirstOrDefault(a => a.Url.Split('/').Last() == id);
+            var xArticle = newsheadline.Articles.FirstOrDefault(a => helperfunctions.hashing(a.Title) == id);
 
 
             action.SaveToFavorite(xArticle, source, currentUserId);
