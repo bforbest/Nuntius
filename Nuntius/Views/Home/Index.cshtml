@@ -2,41 +2,47 @@
 
 @{
         ViewBag.Title = "Latest News";
+
+
 }
 
 <div class="container ">
-    <br />
-    <hr />
+    <div class="row">
+        <hr />
 
-    @foreach (var item in Model.Articles)
-    {
-        string sourceUrl = item.Url;
+        @foreach (var item in Model.Articles.Take(9))
+        {
+            string sourceUrl = item.Url;
 
-        <div class="col-lg-4 col-sm-4 col-xs-6">
-            <div class="list-group">
+            <div class="col-lg-4 col-md-4 col-sm-4">
                 <!--Article Image-->
                 <img src="@item.UrlToImage" class="img-responsive" />
 
                 <!--Article Link-->
                 <a href="@item.Url" class="list-group-item">
+
                     <!--Article Title-->
-                    <p class="list-group-item-heading"><h3>@item.Title</h3></p>
-                    <!--Article Description (MAX 40 characters atm..) --> 
-                    <p class="blockquote-inverse">@item.Description</p>
+                    <p class="list-group-item-heading"><h4>@item.Title</h4></p>
+
+                    <!--Article Description (15 characters atm..) -->
+                    <p class="blockquote-inverse">@item.Description.Substring(0, Math.Min(item.Description.Length, 40))...</p>
+
                     <!--Article Author-->
-                    <!--<p class="blockquote-reverse text-muted">Source:</p>-->
                     <p class="blockquote-reverse text-muted">@item.Author</p>
+
                     <!--Article Published-->
-                    <p class="blockquote-reverse text-muted">@item.PublishedAt</p>
-                </a>
-            </div>
-        </div>
+                    <p class="blockquote-reverse text-muted"> </p>
+                 </a>
 
-    }
-
+<br />
 
 </div>
 
+        }
+
+
+    </div>
+</div>
 
 
 
