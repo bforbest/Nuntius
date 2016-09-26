@@ -7,59 +7,68 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages;
 using Microsoft.AspNet.Identity;
+using Nuntius.Helpers;
 
 namespace Nuntius.Controllers
 {
     public class ArticleController : Controller
     {
+        WebClient c = new WebClient();
+        ApplicationDbContext context = new ApplicationDbContext();
         DbActions action = new DbActions();
         // GET: Article
         public ActionResult Index(string id, string source)
 		{
-			ApplicationDbContext context = new ApplicationDbContext();
+            //ApplicationDbContext context = new ApplicationDbContext();
 
-			WebClient c = new WebClient();
-			string downloadjson = "https://newsapi.org/v1/articles?source=" + source +
-							"&apiKey=346e17ce990f4aacac337fe81afb6f50";
-			var json =
-			  c.DownloadString(downloadjson);
-			Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
-			var x = newsheadline.Articles.FirstOrDefault(a => a.Title.Split(' ').Last() == id);
+            //WebClient c = new WebClient();
+            //string downloadjson = "https://newsapi.org/v1/articles?source=" + source +
+            //				"&apiKey=346e17ce990f4aacac337fe81afb6f50";
+            //var json =
+            //  c.DownloadString(downloadjson);
+            //Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
+            //var x = newsheadline.Articles.FirstOrDefault(a => a.Title.Split(' ').Last() == id);
 
-			return View(x);
-		}
+            //return View(x);
+
+
+
+          
+            //Borde verkligen ändra source description/title split idén.
+            //if (source == "")
+            //{
+            //    source = w;
+            //}
+            //      else if (!Request.Url.AbsoluteUri.Contains("source"))
+            //{
+            //    source = Request.UrlReferrer.AbsoluteUri.Split('=').Last();
+            //      }
+
+            string downloadjson = "https://newsapi.org/v1/articles?source=" + source +
+                            "&apiKey=346e17ce990f4aacac337fe81afb6f50";
+            var json =
+              c.DownloadString(downloadjson);
+            Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
+            var x = newsheadline.Articles.FirstOrDefault(a => helperfunctions.hashing(a.Title) == id);
+
+            var sourcearticle = context.Sources.FirstOrDefault(a => a.Id == source);
+            ArticleSource newssource = new ArticleSource()
+            {
+                Article = x,
+                Source = sourcearticle
+            };
+		    var currentuser = User.Identity.GetUserId();
+            @ViewBag.User = context.Users.FirstOrDefault(a => a.Id == currentuser);
+            return View(newssource);
+        }
 
 
 		// GET: Article/Details/5
-		public ActionResult Details(string id, string source)
+		public ActionResult Details()
 		{
-			ApplicationDbContext context = new ApplicationDbContext();
-		 
-            var w = Request.Url.AbsoluteUri.Split('=').Last();
-
-            WebClient c = new WebClient();
-            //Borde verkligen ändra source description/title split idén.
-		    if (source == "")
-		    {
-		        source = w;
-		    }
-            else if (!Request.Url.AbsoluteUri.Contains("source"))
-		    {
-		        source = Request.UrlReferrer.AbsoluteUri.Split('=').Last();
-            }
-			string downloadjson = "https://newsapi.org/v1/articles?source=" + source +
-							"&apiKey=346e17ce990f4aacac337fe81afb6f50";
-			var json =
-			  c.DownloadString(downloadjson);
-			Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
-			var x = newsheadline.Articles.FirstOrDefault(a => a.Title.Split(' ').Last() == id);
-       
-            var p = x;
-            x.Source = context.Sources.FirstOrDefault(a => a.Id == source);
-            @ViewBag.Source = x.Source.Id;
-            return View(x);
+		    return View();
 		}
-
+      
         // GET: Article/Create
         public ActionResult Create(string id, string source)
         {
@@ -72,7 +81,7 @@ namespace Nuntius.Controllers
             var currentUserId = User.Identity.GetUserId();
             Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
             //Finds the Article that is favorite based on the last index of the title
-            var xArticle = newsheadline.Articles.FirstOrDefault(a => a.Title.Split(' ').Last() == id);
+            var xArticle = newsheadline.Articles.FirstOrDefault(a => a.Url.Split('/').Last() == id);
 
 
             action.SaveToFavorite(xArticle, source, currentUserId);
