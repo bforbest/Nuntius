@@ -30,8 +30,16 @@
 
                             <blockquote class="small blockquote-reverse">
                                 <p>@item.Description</p>
-                                <small class="text-muted">@item.Author</small>
+                                <small>
+                                    @if (item.PublishedAt != null)
+                                    {
+                                        @item.PublishedAt.Substring(11, Math.Min(item.PublishedAt.Length, 5))
+                                        @item.PublishedAt.Substring(0, Math.Min(item.PublishedAt.Length, 10))
+                                    }
+                                </small>
+
                             </blockquote>
+
                         </a>
                     </section>
                     <br />
