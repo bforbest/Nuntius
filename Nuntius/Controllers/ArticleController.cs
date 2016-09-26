@@ -166,7 +166,7 @@ namespace Nuntius.Controllers
             string currentUserId = User.Identity.GetUserId();
 
             db.Configuration.ProxyCreationEnabled = false;
-            string jsonMessage = "";
+            string jsonMessage = "Nothing happened";
             if (userId == currentUserId)
             {
                 Comment comment = db.Comments.FirstOrDefault(o => o.CommentId == id);
@@ -174,6 +174,10 @@ namespace Nuntius.Controllers
                 db.Comments.Remove(comment);
                 db.SaveChanges();
                 jsonMessage = "Deleted";
+            }
+            else
+            {
+                jsonMessage = "You can not delete others comment";
             }
             return Json(jsonMessage);
         }

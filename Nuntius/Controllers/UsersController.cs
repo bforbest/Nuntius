@@ -93,7 +93,7 @@ namespace Nuntius.Controllers
 
 
 
-            ViewBag.x = RootObject.sources;
+            ViewBag.x = RootObject.Sources;
             var rootsources = RootObject;
             return PartialView("_Subscription", rootsources);
         }
