@@ -4,18 +4,34 @@
 }
 
 
+.article_menu a{
+  visibility:hidden;
+}
+.article_menu:hover a {
+ visibility:visible;
+}
+
 .container  .img-responsive {
     display: block;
     width: auto;
     max-height: 100%;
+
 }
 
 
-.img-article {
+.img-article-latest-news {
     display: block;
-    max-width: 360px;
-    max-height: 200px;
+    width: 100%;
+
 }
+
+
+.img-article-top-news {
+    display: block;
+    min-height: 100%;
+    min-width: 100%;
+}
+
 
 /* Set padding to keep content from hitting the edges */
 .body-content {

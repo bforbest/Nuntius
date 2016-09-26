@@ -13,22 +13,29 @@
             <h2 class="text-center">Latest News</h2>
             <hr />
 
-            @foreach (var item in Model.Articles.Take(9)) {
+            @foreach (var item in Model.Articles.Take(8))
+            {
                 string sourceUrl = item.Url;
 
-                <div class="col-lg-4 col-md-4 col-sm-4">
-                    <!--Article Image-->
-                    <img src="@item.UrlToImage" class="img-responsive" />
-                    <!--Article Link-->
-                    <a href="@item.Url" class="list-group-item">
-                        <!--Article Title-->
-                        <p class="list-group-item-heading"><h3>@item.Title</h3></p>
-                        <!--Article Published-->
-                        <p class="blockquote-reverse small text-muted">@item.PublishedAt.Substring(0, Math.Min(item.PublishedAt.Length, 10))</p>
-                    </a>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <section>
+                        <!--Article Image-->
+                        <img src="@item.UrlToImage" class="img-thumbnail img-article-latest-news" />
+
+                        <!--Article Link-->
+                        <a href="@item.Url" class="list-group-item">
+
+                            <!--Article Title-->
+                            <p class=""><h4>@item.Title</h4></p>
+
+                            <blockquote class="small blockquote-reverse">
+                                <p>@item.Description</p>
+                                <small class="text-muted">@item.Author</small>
+                            </blockquote>
+                        </a>
+                    </section>
                     <br />
                 </div>
-
             }
            
 

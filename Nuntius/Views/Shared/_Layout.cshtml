@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
 
     <title>@ViewBag.Title - Nuntius</title>
 </head>
@@ -23,7 +24,7 @@
                     </button>
                     <!-- Brand -->
                     <a href="@Url.Action("Index", "Home")" class="navbar-brand">
-                        <img src="Img/" title="the messenger" alt="Nunitus" />
+                        <img src="" title="the messenger" alt="Nunitus" />
                     </a>
                 </div>
 
@@ -34,6 +35,7 @@
                         <li>@Html.ActionLink("Top News", "Top", "Home")</li>
                         <li>@Html.ActionLink("Subscriptions", "Index", "Subscription")</li>
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
                     </ul>
                     @Html.Partial("_LoginPartial")
                 </div>
@@ -52,7 +54,6 @@
                 </div>
 
 
-            </div>
 
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
