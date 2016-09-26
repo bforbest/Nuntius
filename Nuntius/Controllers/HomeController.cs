@@ -11,16 +11,19 @@ namespace Nuntius.Controllers
     public class HomeController : Controller
     {
 
-		public ActionResult Index(string id)
+
+        public ActionResult Index(string id)
 		{
 
-			var list = new List<string>(new[] { "bbc-news", /*"ars-technica", "associated-press","bbc-sport",  "bloomberg",
+			var list = new List<string>(new[] { "bbc-news", /*"associated-press","bbc-sport",  "bloomberg",
 				"business-insider", "business-insider-uk", "buzzfeed", "cnbc", "cnn", "daily-mail", "engadget", "entertainment-weekly",
 				"espn", "financial-times", "focus", "google-news", "ign", "independent", "mashable", "metro", "mirror", "new-scientist",
 				"newsweek","reuters", "sky-news", "techcrunch", "techradar", "the-guardian-uk", "the-huffington-post", "the-new-york-times",
 				"the-telegraph", "the-verge", "the-wall-street-journal", "the-washington-post", "time"*/});
 
-      var rng = new Random();
+
+
+        var rng = new Random();
 			var randomElement = list[rng.Next(list.Count)];
 			string source = randomElement;
 			WebClient c = new WebClient();
@@ -46,5 +49,7 @@ namespace Nuntius.Controllers
 
             return View();
         }
+
     }
+
 }

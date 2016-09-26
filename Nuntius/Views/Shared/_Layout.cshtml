@@ -10,29 +10,24 @@
 </head>
 
 <body>
+        <!-- Begin navbar  -->
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
-                <!-- Begin navbar  -->
+               
+                <!-- Begin navbar header  -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-
-                    <!-- Begin Brand -->
+                    <!-- Brand -->
                     <a href="@Url.Action("Index", "Home")" class="navbar-brand">
                         <img src="Img/" title="the messenger" alt="Nunitus" />
                     </a>
-                    <!-- End Brand -->
-
                 </div>
 
-
-
-
-
-
+                <!-- End navbar header  -->
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Latest News", "Index", "Home")</li>
@@ -40,15 +35,11 @@
                         <li>@Html.ActionLink("Subscriptions", "Index", "Subscription")</li>
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     </ul>
-
-                    <!-- End navbar -->
-
-
                     @Html.Partial("_LoginPartial")
                 </div>
                 </div>
             </div>
-
+            <!-- End navbar  -->
 
 
 
