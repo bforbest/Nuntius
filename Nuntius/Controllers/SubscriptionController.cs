@@ -11,14 +11,14 @@ namespace Nuntius.Controllers
 {
     public class SubscriptionController : Controller
     {
-        // GET: Subscription
+        ApplicationDbContext db = new ApplicationDbContext();
+        ApplicationUser currentUser = new ApplicationUser();
+        WebClient c = new WebClient();
         public ActionResult Index()
         {
-            ApplicationDbContext db = new ApplicationDbContext();
-
             string currentUserId = User.Identity.GetUserId();
-            ApplicationUser currentUser = db.Users.FirstOrDefault(o => o.Id == currentUserId);
-            WebClient c = new WebClient();
+            currentUser = db.Users.FirstOrDefault(o => o.Id == currentUserId);
+         
             string downloadjson = "https://newsapi.org/v1/sources?language=en&apiKey=346e17ce990f4aacac337fe81afb6f50";
             var json =
                 c.DownloadString(downloadjson);
@@ -45,9 +45,9 @@ namespace Nuntius.Controllers
         [HttpPost]
         public ActionResult Index(List<string> sourceList)
         {
-            ApplicationDbContext db = new ApplicationDbContext();
+           
             string currentUserId = User.Identity.GetUserId();
-            ApplicationUser currentUser = db.Users.FirstOrDefault(o => o.Id == currentUserId);
+            currentUser = db.Users.FirstOrDefault(o => o.Id == currentUserId);
             var l = currentUser.Subscription.Sources;
             foreach (var item in sourceList)
             {
@@ -63,34 +63,28 @@ namespace Nuntius.Controllers
                     currentUser.Subscription.Sources.Add(sourceItem);
 
                 }
-              
-               
-
             }
             
-            db.SaveChanges();
-           
-         
+            db.SaveChanges();  
             return Redirect("/Subscription/Index");
         }
 
         public ActionResult ShowSubscribed()
         {
-            ApplicationDbContext db = new ApplicationDbContext();
+            
             string currentUserId = User.Identity.GetUserId();
-            ApplicationUser currentUser = db.Users.FirstOrDefault(o => o.Id == currentUserId);
+            currentUser = db.Users.FirstOrDefault(o => o.Id == currentUserId);
 
             return View(currentUser.Subscription.Sources);
 
         }
         public ActionResult _Subscribednews()
         {
-            ApplicationDbContext db = new ApplicationDbContext();
-
+            
             string currentUserId = User.Identity.GetUserId();
-            ApplicationUser currentUser = db.Users.FirstOrDefault(o => o.Id == currentUserId);
-            WebClient c = new WebClient();
-    IList<Newsheadline> Articles = new List<Newsheadline>();
+            currentUser = db.Users.FirstOrDefault(o => o.Id == currentUserId);
+            
+              IList<Newsheadline> Articles = new List<Newsheadline>();
             
             foreach (var item in currentUser.Subscription.Sources)
             {
@@ -102,9 +96,6 @@ namespace Nuntius.Controllers
 
                 Articles.Add(newsheadline);
             }
-            
-     
-     
             return View(Articles);
 
         }
