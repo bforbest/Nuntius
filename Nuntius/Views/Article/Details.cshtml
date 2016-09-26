@@ -4,72 +4,92 @@
     ViewBag.Title = "Details";
 }
 
+<div class="container-fluid">
 <h2>Details</h2>
 
-<div>
+
     <h4>Article</h4>
     <hr />
     @{  var lastWord = @Model.Title.Split(' ').Last();}
-    <a class="glyphicon-bullhorn" data-id="0" href="@Url.Action("Create", null, new { id = lastWord, source = @ViewBag.Source})">Save to favorites</a>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Author)
-        </dt>
+  
+      <a class="glyphicon-bullhorn" data-id="0" href="@Url.Action("Create", null, new { id = lastWord, source = @ViewBag.Source})">Save to favorites</a>
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="list-group">
+            <!--Article Image-->
+            <img src="@Model.UrlToImage" class="img-responsive" />
 
-        <dd>
-            @Html.DisplayFor(model => model.Author)
-        </dd>
+            <!--Article Link-->
+            <a href="@Model.Url" class="list-group-item">
+                <!--Article Title-->
+                <p class="list-group-item-heading"><h3>@Model.Title</h3></p>
+                <!--Article Description-->
+                <p class="blockquote-inverse">@Model.Description</p>
+                <!--Article Author-->
+                <p class="blockquote-reverse text-muted">Author: @Model.Author</p>
+                <p class="blockquote-reverse text-muted">Published: @Model.PublishedAt</p>
+                <p class="blockquote-reverse text-muted">Source:</p>
+            </a>
+        </div>
+    </div>
+        @*<dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Author)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Author)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Url)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Url)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Url)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UrlToImage)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Url)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.UrlToImage)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.UrlToImage)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PublishedAt)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.UrlToImage)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.PublishedAt)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.PublishedAt)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SourceId)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.PublishedAt)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.SourceId)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.SourceId)
+                </dt>
 
-    </dl>
-</div>
+                <dd>
+                    @Html.DisplayFor(model => model.SourceId)
+                </dd>
+
+            </dl>*@
+    </div>
 <p>
     @*@Html.ActionLink("Edit", "Edit", new { id = Model.ArticleId }) |
     @Html.ActionLink("Back to List", "Index")*@

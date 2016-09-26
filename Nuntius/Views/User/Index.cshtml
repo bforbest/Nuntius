@@ -59,21 +59,7 @@
                     </div>
                 </div>
                 <hr />
-                @*@{
-                    Html.RenderAction("Load", "User");}*@
-
-                @Ajax.ActionLink(
-    "Subscriptions",
-    "Load", new { @class = "btn btn-default" },
-    new AjaxOptions
-    {
-        HttpMethod = "GET",
-        InsertionMode = InsertionMode.Replace,
-        UpdateTargetId = "newID"
-    }
-    )
-
-                <div id="newID" class="newID"></div>
+               
             </div>
         </div>
     </div>

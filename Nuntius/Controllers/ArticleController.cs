@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using Microsoft.AspNet.Identity;
 
 namespace Nuntius.Controllers
@@ -33,8 +34,19 @@ namespace Nuntius.Controllers
 		public ActionResult Details(string id, string source)
 		{
 			ApplicationDbContext context = new ApplicationDbContext();
+		 
+            var w = Request.Url.AbsoluteUri.Split('=').Last();
 
-			WebClient c = new WebClient();
+            WebClient c = new WebClient();
+            //Borde verkligen ändra source description/title split idén.
+		    if (source == "")
+		    {
+		        source = w;
+		    }
+            else if (!Request.Url.AbsoluteUri.Contains("source"))
+		    {
+		        source = Request.UrlReferrer.AbsoluteUri.Split('=').Last();
+            }
 			string downloadjson = "https://newsapi.org/v1/articles?source=" + source +
 							"&apiKey=346e17ce990f4aacac337fe81afb6f50";
 			var json =

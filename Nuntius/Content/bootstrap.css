@@ -1084,6 +1084,7 @@ th {
 html {
   font-size: 10px;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  overflow: visible !important;
 }
 body {
   font-family: Georgia, "Times New Roman", Times, serif;
@@ -1091,6 +1092,7 @@ body {
   line-height: 1.42857143;
   color: #333333;
   background-color: #ffffff;
+    overflow: visible !important;
 }
 input,
 button,
@@ -4253,13 +4255,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     border-radius: 0;
   }
 }
-.navbar-fixed-top,
-.navbar-fixed-bottom {
-  position: fixed;
-  right: 0;
-  left: 0;
-  z-index: 1030;
-}
 @media (min-width: 768px) {
   .navbar-fixed-top,
   .navbar-fixed-bottom {
@@ -6493,6 +6488,7 @@ button.close {
 .modal-footer:after {
   content: " ";
   display: table;
+    
 }
 .clearfix:after,
 .dl-horizontal dd:after,
