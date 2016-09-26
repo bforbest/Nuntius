@@ -50,6 +50,11 @@ namespace Nuntius.Controllers
             return View();
         }
 
+        public ActionResult Top()
+        {
+            return View();
+        }
+
     }
 
 }
