@@ -61,34 +61,34 @@ namespace Nuntius.Controllers
             var json =
                 c.DownloadString(downloadjson);
 
-            Source Sauce = Newtonsoft.Json.JsonConvert.DeserializeObject<Source>(json);
+          
             AllSources RootObject = Newtonsoft.Json.JsonConvert.DeserializeObject<AllSources>(json);
-            Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
-            var w = newsheadline;
-            Article Art = new Article();
-            var v = newsheadline;
+            
+           
+           
+            
 
             ApplicationDbContext context = new ApplicationDbContext();
 
 
 
 
-            //foreach (var item in RootObject.Sources)
-            //{
-            //    Source Saws = new Source();
-            //    Saws.Id = item.Id;
+            foreach (var item in RootObject.Sources)
+            {
+                Source Saws = new Source();
+                Saws.Id = item.Id;
 
-            //    Saws.Name = item.Name;
-            //    Saws.SortBysAvailable = item.SortBysAvailable;
-            //    Saws.Category = item.Category;
-            //    Saws.Country = item.Country;
-            //    Saws.Description = item.Description;
-            //    Saws.Language = item.Language;
-            //    Saws.Url = item.Url;
-            //    Saws.UrlsToLogos = item.UrlsToLogos;
-            //    context.Sources.Add(Saws);
-            //    context.SaveChanges();
-            //};
+                Saws.Name = item.Name;
+                Saws.SortBysAvailable = item.SortBysAvailable;
+                Saws.Category = item.Category;
+                Saws.Country = item.Country;
+                Saws.Description = item.Description;
+                Saws.Language = item.Language;
+                Saws.Url = item.Url;
+                Saws.UrlsToLogos = item.UrlsToLogos;
+                context.Sources.Add(Saws);
+                context.SaveChanges();
+            };
 
 
 

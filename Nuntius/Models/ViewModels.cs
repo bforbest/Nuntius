@@ -16,4 +16,15 @@ namespace Nuntius.Models
 
     }
 
+    public class NewsSource
+    {
+        public Newsheadline Newsheadline;
+        public Source Source;
+    }
+
+    public class ArticleSource
+    {
+        public Article Article;
+        public Source Source;
+    }
 }

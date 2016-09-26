@@ -1,4 +1,5 @@
-﻿@model Nuntius.Models.Newsheadline
+﻿@model Nuntius.Models.NewsSource
+
 
 @{
         ViewBag.Title = "Latest News";
@@ -8,8 +9,8 @@
     <br />
     <br />
 
-    @foreach (var item in Model.Articles) {
-        string sourceUrl = item.Url;
+    @foreach (var item in Model.Newsheadline.Articles) {
+        var sourceUrl = item.Url.Split('/').Last();
 
         <div class="col-sm-3 col-md-3 col-lg-3">
             <div class="list-group" style="text-overflow: clip;">                
@@ -32,7 +33,7 @@
             @{
                 var lastWord = item.Title.Split(' ').Last();
 
-                <a class="glyphicon-bullhorn" data-id="0" href="@Url.Action("Details", "Article", new { id = lastWord, source = @ViewBag.Source})">View Article</a>
+                <a class="glyphicon-bullhorn" data-id="0" href="@Url.Action("Details", "Article", new { id = sourceUrl, source = Model.Source.Id})">View Article</a>
 
             }
             <hr />
