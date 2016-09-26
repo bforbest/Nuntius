@@ -1,48 +1,44 @@
 ﻿@model Nuntius.Models.Newsheadline
-
 @{
         ViewBag.Title = "Latest News";
-
-
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="container ">
+        <div class="row">
+            <h2 class="text-center">Latest News</h2>
+            <hr />
 
-<div class="container ">
-    <div class="row">
-        <hr />
+            @foreach (var item in Model.Articles.Take(9)) {
+                string sourceUrl = item.Url;
 
-        @foreach (var item in Model.Articles.Take(9))
-        {
-            string sourceUrl = item.Url;
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <!--Article Image-->
+                    <img src="@item.UrlToImage" class="img-responsive" />
+                    <!--Article Link-->
+                    <a href="@item.Url" class="list-group-item">
+                        <!--Article Title-->
+                        <p class="list-group-item-heading"><h3>@item.Title</h3></p>
+                        <!--Article Published-->
+                        <p class="blockquote-reverse small text-muted">@item.PublishedAt.Substring(0, Math.Min(item.PublishedAt.Length, 10))</p>
+                    </a>
+                    <br />
+                </div>
 
-            <div class="col-lg-4 col-md-4 col-sm-4">
-                <!--Article Image-->
-                <img src="@item.UrlToImage" class="img-responsive" />
+            }
+           
 
-                <!--Article Link-->
-                <a href="@item.Url" class="list-group-item">
-
-                    <!--Article Title-->
-                    <p class="list-group-item-heading"><h4>@item.Title</h4></p>
-
-                    <!--Article Description (15 characters atm..) -->
-                    <p class="blockquote-inverse">@item.Description.Substring(0, Math.Min(item.Description.Length, 0))</p>
-
-                    <!--Article Author-->
-                    <p class="blockquote-reverse text-muted">@item.Author</p>
-
-                    <!--Article Published-->
-                    <p class="blockquote-reverse text-muted"> </p>
-                 </a>
-
-<br />
-
-</div>
-
-        }
-
-
+        </div>
+        <ul class="pager">
+            <li class="previous"><a href="#">&larr; Older</a></li>
+        </ul>
     </div>
-</div>
+
+</body>
 
 
-
+</html>

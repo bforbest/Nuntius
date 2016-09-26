@@ -1,4 +1,4 @@
-﻿
+﻿@model Nuntius.Models.Newsheadline
 @{
     ViewBag.Title = "Top News";
 }
@@ -10,11 +10,36 @@
     <meta name="viewport" content="width=device-width" />
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
-    <title>@ViewBag.Title</title>
+    <title></title>
 </head>
 <body>
     <div class="container"> 
+        <div class="row">
+            <h2 class="text-center">Top News</h2>
+            <hr />
+            @foreach (var item in Model.Articles) {
+                string sourceUrl = item.Url;
 
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <!--Article Image-->
+                    <img src="@item.UrlToImage" class="img-responsive" />
+                    
+                    <!--Article Link-->
+                    <a href="@item.Url" class="list-group-item">
+
+                        <!--Article Title-->
+                        <p class=""><h3>@item.Title</h3></p>
+                        <p class=""><h4></h4></p>
+
+                        <blockquote class="blockquote-reverse">
+                            <p>@item.Description</p>
+                            <small class="text-muted"><cite title="Source Title">@item.Author</cite></small>
+                        </blockquote>
+                    </a>
+                    <br />
+                </div>
+            }
+        </div>
     </div>
 </body>
 </html>
