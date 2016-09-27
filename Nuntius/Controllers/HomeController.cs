@@ -10,6 +10,8 @@ namespace Nuntius.Controllers
 {
     public class HomeController : Controller
     {
+        ApplicationDbContext context = new ApplicationDbContext();
+        WebClient c = new WebClient();
 
         public ActionResult Index(string id)
 		{
@@ -25,11 +27,11 @@ namespace Nuntius.Controllers
       var rng = new Random();
 			var randomElement = list[rng.Next(list.Count)];
 			string source = randomElement;
+            
 
-			string downloadjson = "https://newsapi.org/v1/articles?source=" + source + /*"&sortBy="+sortedby+*/
+            string downloadjson = "https://newsapi.org/v1/articles?source=" + source + /*"&sortBy="+sortedby+*/
 								  "&apiKey=346e17ce990f4aacac337fe81afb6f50";
-			var json =
-				c.DownloadString(downloadjson);
+			var json = c.DownloadString(downloadjson);
 			Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
 
             var countsource = context.Sources;
@@ -45,10 +47,9 @@ namespace Nuntius.Controllers
 		public void FillDataBasewithSource()
           {
 
-
+            WebClient c = new WebClient();
             string downloadjson2 = "https://newsapi.org/v1/sources?language=en&apiKey=346e17ce990f4aacac337fe81afb6f50";
-            var json2 =
-                c.DownloadString(downloadjson2);
+            var json2 = c.DownloadString(downloadjson2);
 
             AllSources RootObject = Newtonsoft.Json.JsonConvert.DeserializeObject<AllSources>(json2);
 
