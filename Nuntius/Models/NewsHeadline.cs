@@ -8,48 +8,59 @@ using System.Web;
 
 namespace Nuntius.Models
 {
-        public class Newsheadline
-        {
-            [JsonProperty("status")] 
-            public string Status { get; set; }
-            [JsonProperty("source")]
-            public string Source { get; set; }
-            [JsonProperty("sortBy")]
-            public string SortBy { get; set; }
-            [JsonProperty("articles")]
-            public Article[] Articles { get; set; }
-        }
-        //JSON PROPERTIES ARE FOR THE API.
-        //ONE ARTICLE CONTAINS LIST OF COMMENTS, LIST OF CATEGORIES, SOURCE ID AND/OR SOURCE, COULDNT DECIDE WHICH ONE
-        public class Article
-        {
-            [Key]
-            [Required]
-            public int ArticleId { get; set; }
-            [Required]
-            [JsonProperty("author")]
-            public string Author { get; set; }
-            [Required]
-            [JsonProperty("title")]
-            public string Title { get; set; }
-            [Required]
-            [JsonProperty("description")]
-            public string Description { get; set; }
-            [Required]
-            [JsonProperty("url")]
-            public string Url { get; set; }
-            [JsonProperty("urlToImage")]
-            public string UrlToImage { get; set; }
-            [Required]
-            [JsonProperty("publishedAt")]
-            public string PublishedAt { get; set; }
-            public virtual IList<VotingArticle> VotingArticles { get; set; }
-            public virtual IList<Comment> Comments { get; set; }
-            [Required]
-            public string SourceId { get; set; }
-            //[ForeignKey("SourceId")]
-            public Source Source { get; set; }
-        }
+    public class Newsheadline
+    {
+        [JsonProperty("status")] 
+        public string Status { get; set; }
+        [JsonProperty("source")]
+        public string Source { get; set; }
+        [JsonProperty("sortBy")]
+        public string SortBy { get; set; }
+        [JsonProperty("articles")]
+        public Article[] Articles { get; set; }
+    }
+
+    //JSON PROPERTIES ARE FOR THE API.
+    //ONE ARTICLE CONTAINS LIST OF COMMENTS, LIST OF CATEGORIES, SOURCE ID AND/OR SOURCE, COULDNT DECIDE WHICH ONE
+    public class Article
+    {
+        [Key]
+        [Required]
+        public int ArticleId { get; set; }
+
+        [Required]
+        [JsonProperty("author")]
+        public string Author { get; set; }
+
+        [Required]
+        [JsonProperty("title")]
+        public string Title { get; set; }
+
+        [Required]
+        [JsonProperty("description")]
+        [MaxLength(5)]
+        public string Description { get; set; }
+
+        [Required]
+        [JsonProperty("url")]
+        public string Url { get; set; }
+        [JsonProperty("urlToImage")]
+        public string UrlToImage { get; set; }
+
+        [Required]
+        [MaxLength(12)]
+        [JsonProperty("publishedAt")]
+        public string PublishedAt { get; set; }
+        [MaxLength(12)]
+        public virtual IList<VotingArticle> VotingArticles { get; set; }
+        [MaxLength(12)]
+        public virtual IList<Comment> Comments { get; set; }
+
+        [Required]
+        public string SourceId { get; set; }
+        //[ForeignKey("SourceId")]
+        public Source Source { get; set; }
+    }
         //ONE COMMENT CONTAINS COMMENT ID, COMMENT TEXT, DATEPUBLISHED, USERID, ARTICLE/OR ARTICLE ID
         //NOT SURE IF TO USE ONLY ARTICLE ID OR ARTICLE TOO
         public class Comment
@@ -86,10 +97,11 @@ namespace Nuntius.Models
             public string Language { get; set; }
             public string Country { get; set; }
             public string Id { get; set; }
-          //  public string Url { get; set; }
+           //public string Url { get; set; }
             public UrlsToLogos UrlsToLogos { get; set; }
             public List<string> SortBysAvailable { get; set; }
             public virtual ICollection<Subscription> Subscriptions { get; set; }
+
     }
         public class UrlsToLogos
         {

@@ -1,0 +1,53 @@
+﻿@model Nuntius.Models.Newsheadline
+@{
+    ViewBag.Title = "Top News";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="container"> 
+        <div class="row">
+            <h2 class="text-center">Top News</h2>
+            <hr />
+
+            @foreach (var item in Model.Articles.Take(12)) {
+                string sourceUrl = item.Url;
+
+                <div class="col-lg-6 col-md-6col-sm-6 col-xs-6">
+                    <section>
+                        <!--Article Image-->
+                        <img src="@item.UrlToImage" class="img-thumbnail img-article-top-news" />
+
+                        <!--Article Link-->
+                        <a href="@item.Url" class="list-group-item">
+
+                            <!--Article Title-->
+                            <p class=""><h3>@item.Title</h3></p>
+
+                            <blockquote class="blockquote-reverse">
+                                <p>@item.Description</p>
+                                <small class="text-muted">@item.Author</small>
+                            </blockquote>
+                        </a>
+                    </section>
+                    <br />
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/modernizr-2.6.2.js"></script>

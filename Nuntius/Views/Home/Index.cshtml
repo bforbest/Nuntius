@@ -1,46 +1,60 @@
 ﻿@model Nuntius.Models.NewsSource
 
-
 @{
         ViewBag.Title = "Latest News";
 }
-
-<div class="container ">
-    <br />
-    <br />
-
-    @foreach (var item in Model.Newsheadline.Articles) {
-        var sourceUrl = item.Url.Split('/').Last();
-
-        <div class="col-sm-3 col-md-3 col-lg-3">
-            <div class="list-group" style="text-overflow: clip;">                
-                <!--Article Image-->
-                <img src="@item.UrlToImage" class="img-responsive" />
-
-                <!--Article Link-->
-                <a href="@item.Url" class="list-group-item">
-                    <!--Article Title-->
-                    <p class="list-group-item-heading"><h3>@item.Title</h3></p>
-                    <!--Article Description-->
-                    <p class="blockquote-inverse">@item.Description</p>
-                    <!--Article Author-->
-                    <p class="blockquote-reverse text-muted">Author: @item.Author</p>
-                    <p class="blockquote-reverse text-muted">Published: @item.PublishedAt</p>
-                    <p class="blockquote-reverse text-muted">Source:</p>
-                </a>
-            </div>
-            
-            @{
-                var lastWord = item.Title.Split(' ').Last();
-
-                <a class="glyphicon-bullhorn" data-id="0" href="@Url.Action("Details", "Article", new { id = sourceUrl, source = Model.Source.Id})">View Article</a>
-
-            }
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="container ">
+        <div class="row">
+            <h2 class="text-center">Latest News</h2>
             <hr />
-          </div>
-    }
 
+            @foreach (var item in Model.Newsheadline.Articles.Take(8))
+            {
+                string sourceUrl = item.Url;
 
-</div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <section>
+                        <!--Article Image-->
+                        <img src="@item.UrlToImage" class="img-thumbnail img-article-latest-news" />
 
+                        <!--Article Link-->
+                        <a href="@item.Url" class="list-group-item">
 
+                            <!--Article Title-->
+                            <p class=""><h4>@item.Title</h4></p>
+
+                            <blockquote class="small blockquote-reverse">
+                                <p>@item.Description</p>
+                                <small>
+                                    @if (item.PublishedAt != null)
+                                    {
+                                        @item.PublishedAt.Substring(11, Math.Min(item.PublishedAt.Length, 5))
+                                        @item.PublishedAt.Substring(0, Math.Min(item.PublishedAt.Length, 10))
+                                    }
+                                </small>
+
+                            </blockquote>
+
+                        </a>
+                    </section>
+                    <br />
+                </div>
+            }
+           
+
+        </div>
+        <ul class="pager">
+            <li class="previous"><a href="#">&larr; Older</a></li>
+        </ul>
+    </div>
+
+</body>
+</html>
+
+﻿

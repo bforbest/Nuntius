@@ -1,7 +1,6 @@
 ﻿@{
     ViewBag.Title = "Contact";
 }
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,20 +8,25 @@
 </head>
 <body>
     <div class="container">
-        <h2>@ViewBag.Title.</h2>
-        <h3>@ViewBag.Message</h3>
+        <div class="row">
+            <h2 class="text-center">Contact</h2>
+            <hr />
+        </div>
+        
+        <div class="row">
+            <i class="fa fa-comments-o"></i> Feedback &amp; Suggestions
 
-        <address>
-            One Microsoft Way<br />
-            Redmond, WA 98052-6399<br />
-            <abbr title="Phone">P:</abbr>
-            425.555.0100
-        </address>
+        </div>
 
-        <address>
-            <strong class="label-info">Support:</strong>   <a href="mailto:support@nuntius.com">support@nuntius.com</a><br />
-            <strong>Marketing:</strong>   <a href="mailto:marketingt@nuntius.com">marketing@nuntius.com</a><br />
-        </address>
+
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <strong>Support:</strong>   <a href="mailto:support@nuntius.com">support@nuntius.com</a>
+            <br />
+            <strong>Marketing:</strong>   <a href="mailto:marketingt@nuntius.com">marketing@nuntius.com</a>
+        </div>
+        
+        
+        <br />
 
     </div>
 </body>

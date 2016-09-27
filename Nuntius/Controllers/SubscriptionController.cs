@@ -64,7 +64,7 @@ namespace Nuntius.Controllers
 
                 }
             }
-            
+            @ViewBag.SavedSubscription = "Your subscription has been updated and saved";
             db.SaveChanges();  
             return Redirect("/Subscription/Index");
         }
