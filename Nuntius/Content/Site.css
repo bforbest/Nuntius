@@ -1,6 +1,12 @@
 ﻿body padding {
     top: 50px;
-    padding-bottom: 20px;
+}
+
+.text-Source {
+    font-size: 12px;
+}
+.text-SourceUrl {
+    font-size: 10px;
 }
 
 
@@ -24,12 +30,25 @@
     width: 100%;
 
 }
+.img-article-details {
+    display: block;
+    min-width: 100%;
+
+}
 
 
 .img-article-top-news {
     display: block;
     min-height: 100%;
     min-width: 100%;
+}
+
+.img-article-subscriptions {
+    display: block;
+    min-height: 512px;
+    min-width: 512px;
+    max-height: 512px;
+    max-width
 }
 
 
@@ -447,6 +466,8 @@ label img {
 }
 
 .list-group {
-    margin-bottom: 250px;
-    height: 450px;
+    margin-bottom: 100px;
+    max-height: 450px;
+    min-height 450px;
+    
 }

@@ -1,52 +1,64 @@
 ﻿@model IEnumerable<Nuntius.Models.Newsheadline>
 @using Nuntius.Helpers;
-<div class="container">
-    @foreach (var item in Model)
-        {<div class="row">
+@{ 
+    ViewBag.Title = "Subscriptions";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h2 class="text-center">@ViewBag.Title</h2>
             
-             @for (int i = 0; i < item.Articles.Count(); i++)
-             {
+            <hr />
 
-                 <div class="col-sm-3 col-md-3 col-lg-3" style="margin-top: 50px;">
-                   @{
-                       var lastWord = helperfunctions.hashing(item.Articles[i].Title);
-                   }
+            <!--Begin population of selected subscripions-->
+            @foreach (var item in Model) {
+                <div class="row">
+                @for (int i = 0; i < item.Articles.Take(9).Count(); i++) {
+                    <div class="col-sm-4 col xs-4 col-md-4 col-lg-4" style="margin-top: 0px;">
+                        @{var lastWord = helperfunctions.hashing(item.Articles[i].Title);}
 
-                     <div class="list-group">
-                         <!--Article Image-->
-                         <img src="@item.Articles[i].UrlToImage" class="img-responsive" />
-
-                         <!--Article Link-->
-                         <a class="list-group-item" data-id="0" href="@Url.Action("Index", "Article", new {id = lastWord, source = @item.Source})">
-
-                             <!--Article Title-->
-                             <p class="list-group-item-heading">
-                                 <h3>@item.Articles[i].Title</h3>
-                             </p>
-                             <!--Article Description-->
-                             <p class="blockquote-inverse"> @item.Articles[i].Description</p>
-                             <!--Article Author-->
-                             <p class="blockquote-reverse text-muted">Author: @item.Articles[i].Author</p>
-                             <p class="blockquote-reverse text-muted">Published: @item.Articles[i].PublishedAt</p>
-                         </a>
-                         <a href="@item.Articles[i].Url" class="list-group-item">
-                             <p class="blockquote-reverse text-muted">Source: @item.Source.Replace('-', ' ')</p>
-                         </a>
-
-
-                         @{
+                        <div class="list-group">
+                            <!--Article Image-->
+                            <img src="@item.Articles[i].UrlToImage" class="img-thumbnail img-article-latest-news"/>
                             
+                            <!--Article Link-->
+                            <a class="list-group-item" data-id="0" href="@Url.Action("Index", "Article", new {id = lastWord, source = @item.Source})">
+                               
+                                 <!--Article Title-->
+                                <p class="list-group-item-heading">
+                                    <h3>@item.Articles[i].Title</h3>
+                                </p>
 
-                           
-                         }
-                     </div>
-                     <br/>
-                     <br/>
-                     <br/>
-                 </div>
-             }
+                                <!--Article Description-->
+                                <p class="blockquote-inverse">
+                                    @item.Articles[i].Description
+                                </p>
+                            </a>
 
-             <hr />    </div>   
-        }
-    
-</div>
+                            <!--Article Source Label-->
+                            <a href="@item.Articles[i].Url">
+                                <p href="" class="text-SourceSmall text-muted">
+                                    <span class="label label-info">@item.Source.ToUpper()</span>
+                                </p>
+                            </a>
+                            <br />
+                        </div>
+                        
+                    </div>
+                    }
+                </div>
+            }
+            <!--End population of selected subscripions-->
+
+
+
+
+        </div>
+    </div>
+</body>
+</html>
