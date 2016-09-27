@@ -1,6 +1,12 @@
 ﻿body padding {
     top: 50px;
+}
 
+.text-Source {
+    font-size: 12px;
+}
+.text-SourceUrl {
+    font-size: 10px;
 }
 
 
@@ -22,6 +28,11 @@
 .img-article-latest-news {
     display: block;
     width: 100%;
+
+}
+.img-article-details {
+    display: block;
+    min-width: 100%;
 
 }
 

@@ -1,52 +1,60 @@
 ﻿@model IEnumerable<Nuntius.Models.Newsheadline>
 @using Nuntius.Helpers;
-<div class="container">
-    @foreach (var item in Model)
-        {<div class="row">
-            
-             @for (int i = 0; i < item.Articles.Count(); i++)
-             {
-
-                 <div class="col-sm-3 col-md-3 col-lg-3" style="margin-top: 50px;">
-                   @{
-                       var lastWord = helperfunctions.hashing(item.Articles[i].Title);
-                   }
-
-                     <div class="list-group">
-                         <!--Article Image-->
-                         <img src="@item.Articles[i].UrlToImage" class="img-responsive" />
-
-                         <!--Article Link-->
-                         <a class="list-group-item" data-id="0" href="@Url.Action("Index", "Article", new {id = lastWord, source = @item.Source})">
-
-                             <!--Article Title-->
-                             <p class="list-group-item-heading">
-                                 <h3>@item.Articles[i].Title</h3>
-                             </p>
-                             <!--Article Description-->
-                             <p class="blockquote-inverse"> @item.Articles[i].Description</p>
-                             <!--Article Author-->
-                             <p class="blockquote-reverse text-muted">Author: @item.Articles[i].Author</p>
-                             <p class="blockquote-reverse text-muted">Published: @item.Articles[i].PublishedAt</p>
-                         </a>
-                         <a href="@item.Articles[i].Url" class="list-group-item">
-                             <p class="blockquote-reverse text-muted">Source: @item.Source.Replace('-', ' ')</p>
-                         </a>
+@{ 
+    ViewBag.Title = "Subscriptions";
+}
 
 
-                         @{
-                            
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>@ViewBag.Title</title>
+    </head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h2 class="text-center">@ViewBag.Title</h2>
+            <hr />
 
-                           
-                         }
-                     </div>
-                     <br/>
-                     <br/>
-                     <br/>
-                 </div>
-             }
+            @foreach (var item in Model)
+            {<div class="row">
+                @for (int i = 0; i < item.Articles.Take(8).Count(); i++)
+                {
+                    <div class="col-sm-3 col-md-3 col-lg-3" style="margin-top: 50px;">
+                        @{var lastWord = helperfunctions.hashing(item.Articles[i].Title);}
+                        <div class="list-group">
+                            <!--Article Image-->
+                            <img src="@item.Articles[i].UrlToImage" class="img-responsive" />
+                            <!--Article Link-->
+                            <a class="list-group-item" data-id="0" href="@Url.Action("Index", "Article", new {id = lastWord, source = @item.Source})">
+                                <!--Article Title-->
+                                <p class="list-group-item-heading">
+                                    <h3>@item.Articles[i].Title</h3>
+                                </p>
 
-             <hr />    </div>   
-        }
-    
-</div>
+                                <!--Article Description-->
+                                <p class="blockquote-inverse">
+                                    @item.Articles[i].Description
+                                </p>
+
+                                <!--Article Author-->
+                                <p class="blockquote-reverse text-muted">
+                                    Author: @item.Articles[i].Author
+                                </p>
+
+
+                                <a href="@item.Articles[i].Url" class="list-group-item">
+                                    <p class="text-SourceSmall text-muted">
+                                        Source: @item.Source.ToUpper()
+                                    </p>
+                                </a>
+
+                        </div>
+                    </div>
+                            }
+            </div>
+                            }
+        </div>
+    </div>
+</body>
+</html>

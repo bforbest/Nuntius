@@ -1,48 +1,66 @@
 ﻿@model Nuntius.Models.ArticleSource
+@{
+    ViewBag.Title = "Article Details";
+}
+
+
+
 <!DOCTYPE html>
 <html>
+<head>
+    <title>@ViewBag.Title</title>
+</head>
 <body>
-
-</body>
-</html>
-<div class="container">
-
-
-    <h4>Article</h4>
-    <hr />
-    @{  var lastWord = Uri.EscapeDataString(@Model.Article.Url);
-            }
-  
-      <a class="glyphicon-bullhorn" data-id="0" href="@Url.Action("Create", "Article", new { id = lastWord, source = @Model.Source.Id})">Save to favorites</a>
-    <div class="col-sm-12 col-md-12 col-lg-12">
-        <div class="list-group">
-            <!--Article Image-->
-            <img src="@Model.Article.UrlToImage" class="img-responsive" style="max-height: 400px; max-width: 300px;"/>
-
-            <!--Article Link-->
-            <a href="@Model.Article.Url" class="list-group-item">
-                <!--Article Title-->
-                <p class="list-group-item-heading"><h3>@Model.Article.Title</h3></p>
-                <!--Article Description-->
-                <p class="blockquote-inverse" style="text-overflow: clip;">@Model.Article.Description</p>
-                <!--Article Author-->
-                <p class="blockquote-reverse text-muted">Author: @Model.Article.Author</p>
-                <p class="blockquote-reverse text-muted">Published: @Model.Article.PublishedAt</p>
-                <p class="blockquote-reverse text-muted">Source:</p>
+    <div class="container">
+        <div class="row">
+            <h2 class="text-center"></h2>
+            <hr />
+            @{ var lastWord = Uri.EscapeDataString(@Model.Article.Url); }
+            <a class="" data-id="0" href="@Url.Action("Create", "Article", 
+                new { id = lastWord, source = @Model.Source.Id})"> Save to favorites
             </a>
+
+
+                <div class="list-group">
+                    <!--Article Image-->
+                    <img src="@Model.Article.UrlToImage" class="img-article-details" style="" />
+
+                    <!--Article Link-->
+                    <a href="@Model.Article.Url" class="list-group-item">
+                        <!--Article Title-->
+                        <p class="list-group-item-heading"><h3>@Model.Article.Title</h3></p>
+                        <!--Article Description-->
+                        <p class="blockquote-inverse" style="text-overflow: clip;">@Model.Article.Description</p>
+                        <!--Article Author-->
+                        <p class="blockquote-reverse text-muted">Author: @Model.Article.Author</p>
+                        <p class="blockquote-reverse text-muted">Published: @Model.Article.PublishedAt</p>
+                        <p class="blockquote-reverse text-muted">Source:</p>
+                    </a>
+                </div>
+
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+
         </div>
     </div>
-      
-    </div>
+</body>
+</html>
+
+
 <p>
     @*@Html.ActionLink("Edit", "Edit", new { id = Model.ArticleId }) |
     @Html.ActionLink("Back to List", "Index")*@
 </p>
 
-<div class="container">
+<!---
+    <div class="container">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
     <div class="row">
-        <!-- Contenedor Principal -->
         <div class="comments-container">
             <h1>Comments</h1>
             <div id="showAlert">
@@ -83,12 +101,15 @@
         </div>
     </div>
 
-<!--        
+--->
 
+
+
+
+    <!--        
 <div class="row">
 <div class="col-sm-4">
 <div class="news">
-
     <div class="img-figure">
         <img class="img-responsive" src="http://136.243.1.253/~creolitic/bootsnipp/fashion.jpg">
     </div>
@@ -104,10 +125,10 @@
     <p class="more">
         <a href="#">read more</a><i class="fa fa-angle-right" aria-hidden="true"></i>
     </p>
+      </div>
 
 
 </div>
 </div>
 </div>
-
 -->
