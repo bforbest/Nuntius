@@ -1,39 +1,46 @@
-﻿@model Nuntius.Models.AllSources
+﻿@model IList<Nuntius.Models.Source>
 
-@*<table>*@
-<div id="two" class="container-fluid">
-    <div class="card">
-        <header>
-            <h1>Subscriptions</h1>
-        </header>
-        @foreach (var item in Model.sources)
-        {
-            <img class="card-img-top" src="@item.urlsToLogos.small" title="@item.description" style="max-width: 50px; max-height: auto;" alt="Card image cap" />
-            <div class="card-block">
-                <h4>@item.name</h4>
-                <p class="card-text">
-                    <b><small>description:</small> </b><small>@item.description</small>
-                    <b><small>category:</small> </b> <b><small>@item.category</small> </b><br />
-                    <a href="@item.url" class="btn btn-primary"> Go to Website</a>
+@{
+    ViewBag.Title = "Subscriptions testtinging";
+}
 
-                </p>
-                @*@{
-                    var url = Url.Action("AddSubscription", "Subscription", new { id = @item.Id }, null);
+
+<h2>Index</h2>
+
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-xs-6 col-md-3">
+            <a href="#" class="thumbnail">
+                {
                 }
-                @Html.CheckBox(@item.name, new { onclick = "window.location = '" + url + "'" }) Subscribe*@
+               
+
+            </a>
+        </div>
 
 
-            </div>
-            <hr />
-                    }
-    </div>
-</div>
-<script>
+    }
 
-    $(document).on("click", "#Subscribe", function(){
-        if ($(this).is(':checked')){
-            $('form').submit();
+    @using (Html.BeginForm())
+    {
+
+        for (var i = 0; i < Model.Count; i++)
+        {
+           
+
+                    @* @Html.HiddenFor(x=>x[i].description)*@
+                    <input type="checkbox" name="sourceList" value="@Model[i].Id">
+
+                    @Html.DisplayFor(x => x[i].Url)
+                    @Html.DisplayFor(x => x[i].Name)
+                    
+
         }
-    });
-
-</script>
+        <div>
+            <input type="submit" value="save" />
+        </div>
+    }
+   
+</div>

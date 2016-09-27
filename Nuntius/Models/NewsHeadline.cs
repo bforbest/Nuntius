@@ -69,13 +69,13 @@ namespace Nuntius.Models
             public int CommentId { get; set; }
             public string CommentText { get; set; }
             public DateTime DatePublished { get; set; }
-            [ForeignKey("Id")]
+            public string ApplicationUserId { get; set; }
             public ApplicationUser User { get; set; }
-            public string Id { get; set; }
-            public Article Article { get; set; }
             public int ArticleId { get; set; }
+            public Article Article { get; set; }    
             public virtual IList<Comment> Comments { get; set; }
-        }
+            public virtual IList<VotingComment> VotingComment { get; set; }
+    }
         //ONE SUBSCRIPTION CAN CONTAIN MANY SOURCES - ADDED FOREIGN KEY TO USER ID SO IT'S LINKED WITH A USER.
         public class Subscription
         {
@@ -136,7 +136,9 @@ namespace Nuntius.Models
     public class VotingComment
     {
         public int VotingCommentId { get; set; }
-        public virtual IList<Comment> Comments { get; set; }
+        public int CommentId { get; set; }
+        public bool VoteValue { get; set; }
+        public virtual Comment Comment { get; set; }
         public string ApplicationUserID { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
 

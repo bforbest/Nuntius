@@ -11,7 +11,6 @@ namespace Nuntius.Controllers
     public class HomeController : Controller
     {
 
-
         public ActionResult Index(string id)
 		{
 
@@ -23,23 +22,59 @@ namespace Nuntius.Controllers
 
 
 
-        var rng = new Random();
+      var rng = new Random();
 			var randomElement = list[rng.Next(list.Count)];
 			string source = randomElement;
-			WebClient c = new WebClient();
+
 			string downloadjson = "https://newsapi.org/v1/articles?source=" + source + /*"&sortBy="+sortedby+*/
 								  "&apiKey=346e17ce990f4aacac337fe81afb6f50";
 			var json =
 				c.DownloadString(downloadjson);
 			Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
-			@ViewBag.Source = newsheadline.Source;
-			return View(newsheadline);
+
+            var countsource = context.Sources;
+		    if (countsource.Count() <= 1)
+		    {
+                FillDataBasewithSource();
+		    }
+            Source Source = context.Sources.FirstOrDefault(a => a.Id == source);
+		    NewsSource newsource = new NewsSource() {Newsheadline = newsheadline, Source = Source};
+            return View(newsource);
 		}
 
-		public ActionResult About()
-    {
-        return View();
-    }
+		public void FillDataBasewithSource()
+          {
+
+
+            string downloadjson2 = "https://newsapi.org/v1/sources?language=en&apiKey=346e17ce990f4aacac337fe81afb6f50";
+            var json2 =
+                c.DownloadString(downloadjson2);
+
+            AllSources RootObject = Newtonsoft.Json.JsonConvert.DeserializeObject<AllSources>(json2);
+
+
+            var p = context.Sources;
+            if (p.Count() <= 1)
+            {
+                foreach (var item in RootObject.Sources)
+                {
+                    Source Saws = new Source();
+                    Saws.Id = item.Id;
+
+                    Saws.Name = item.Name;
+                    Saws.SortBysAvailable = item.SortBysAvailable;
+                    Saws.Category = item.Category;
+                    Saws.Country = item.Country;
+                    Saws.Description = item.Description;
+                    Saws.Language = item.Language;
+                    Saws.Url = item.Url;
+                    Saws.UrlsToLogos = item.UrlsToLogos;
+                    context.Sources.Add(Saws);
+
+                };
+                context.SaveChanges();
+            }
+        }
 
         public ActionResult Contact()
         {

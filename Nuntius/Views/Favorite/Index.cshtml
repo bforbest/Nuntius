@@ -1,0 +1,42 @@
+﻿@model Nuntius.Models.Favourite
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div class="container ">
+    <br />
+    <br />
+
+    @foreach (var item in Model.Articles)
+    {
+        string sourceUrl = item.Url;
+
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <div class="list-group">
+                <!--Article Image-->
+                <img src="@item.UrlToImage" class="img-responsive" />
+
+                <!--Article Link-->
+                <a href="@item.Url" class="list-group-item">
+                    <!--Article Title-->
+                    <p class="list-group-item-heading"><h3>@item.Title</h3></p>
+                    <!--Article Description-->
+                    <p class="blockquote-inverse">@item.Description</p>
+                    <!--Article Author-->
+                    <p class="blockquote-reverse text-muted">Author: @item.Author</p>
+                    <p class="blockquote-reverse text-muted">Published: @item.PublishedAt</p>
+                    <p class="blockquote-reverse text-muted">Source:</p>
+                </a>
+            </div>
+
+            @{
+                var lastWord = item.Title.Split(' ').Last();
+
+                <a class="glyphicon-bullhorn" data-id="0" href="@Url.Action("Details", "Article", new { id = lastWord, source = @ViewBag.Source})">View Article</a>
+
+            }
+            <hr />
+        </div>
+                }
+</div>

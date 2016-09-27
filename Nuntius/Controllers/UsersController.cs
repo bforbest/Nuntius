@@ -61,18 +61,18 @@ namespace Nuntius.Controllers
             var json =
                 c.DownloadString(downloadjson);
 
-            Source Sauce = Newtonsoft.Json.JsonConvert.DeserializeObject<Source>(json);
+          
             AllSources RootObject = Newtonsoft.Json.JsonConvert.DeserializeObject<AllSources>(json);
-            Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
-            var w = newsheadline;
-            Article Art = new Article();
-            var v = newsheadline;
+            
+           
+           
+            
 
             ApplicationDbContext context = new ApplicationDbContext();
 
 
 
-           
+
             foreach (var item in RootObject.Sources)
             {
                 Source Saws = new Source();

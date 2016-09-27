@@ -177,11 +177,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Migrations.old\201609251121495_InitialCreate.cs" />
     <Compile Include="Migrations.old\201609251121495_InitialCreate.Designer.cs">
       <DependentUpon>201609251121495_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations.old\Configuration.cs" />
+=======
+    <Compile Include="Helpers\helperfunctions.cs" />
+>>>>>>> master
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -254,15 +258,20 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Subscription\Index.cshtml" />
-    <Content Include="Views\Article\Details.cshtml" />
+    <Content Include="Views\Article\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\_Subscription.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Home\Top.cshtml" />
+=======
+    <Content Include="Views\Favorite\Index.cshtml" />
+    <Content Include="Views\Subscription\_ShowSubscribed.cshtml" />
+    <Content Include="Views\Subscription\_Subscribednews.cshtml" />
+>>>>>>> master
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Img\" />
-    <Folder Include="Views\Favorite\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

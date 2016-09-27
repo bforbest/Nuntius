@@ -13,5 +13,19 @@ namespace Nuntius.Models
         public IList<Comment> Comments { get; set; }
         public Subscription Subscription { get; set; }
         public int Favourite { get; set; }
+
+    }
+
+    public class NewsSource
+    {
+        public Newsheadline Newsheadline;
+        public Source Source;
+    }
+
+    public class ArticleSource
+    {
+        public Article Article;
+        public Source Source;
+
     }
 }

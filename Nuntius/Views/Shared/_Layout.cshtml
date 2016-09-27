@@ -8,13 +8,15 @@
     <link href="~/Content/font-awesome.css" rel="stylesheet" />
 
     <title>@ViewBag.Title - Nuntius</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
 </head>
 
 <body>
         <!-- Begin navbar  -->
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
-               
+
                 <!-- Begin navbar header  -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -33,7 +35,6 @@
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Latest News", "Index", "Home")</li>
                         <li>@Html.ActionLink("Top News", "Top", "Home")</li>
-                        <li>@Html.ActionLink("Subscriptions", "Index", "Subscription")</li>
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                         <li>@Html.ActionLink("About", "About", "Home")</li>
                     </ul>
