@@ -22,7 +22,7 @@
                             <img src="@currentUser.ProfilePicture" alt="" class="img-rounded img-responsive" />
                         </div>
                         <div class="col-sm-6 col-md-8">
-                            <h2>blablaUsername</h2>
+                            <h2>@User.Identity.GetUserName() </h2>
                             <p>
                                 <i class="glyphicon glyphicon-envelope"></i>
                                 <small>@currentUser.Email</small>

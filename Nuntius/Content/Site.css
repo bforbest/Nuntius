@@ -43,6 +43,14 @@
     min-width: 100%;
 }
 
+.img-article-subscriptions {
+    display: block;
+    min-height: 512px;
+    min-width: 512px;
+    max-height: 512px;
+    max-width
+}
+
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -458,6 +466,8 @@ label img {
 }
 
 .list-group {
-    margin-bottom: 80px;
-    height: 450px;
+    margin-bottom: 100px;
+    max-height: 450px;
+    min-height 450px;
+    
 }
