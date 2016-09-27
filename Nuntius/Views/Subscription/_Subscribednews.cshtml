@@ -5,9 +5,9 @@
 }
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>@ViewBag.Title</title>
-    </head>
+<head>
+    <title>@ViewBag.Title</title>
+</head>
 <body>
     <div class="container">
         <div class="row">
@@ -17,16 +17,18 @@
             <!--Begin population of selected subscripions-->
             @foreach (var item in Model) {
                 <div class="row">
-                @for (int i = 0; i < item.Articles.Take(8).Count(); i++) {
-                    <div class="col-sm-3 col-md-3 col-lg-3" style="margin-top: 50px;">
+                @for (int i = 0; i < item.Articles.Take(9).Count(); i++) {
+                    <div class="col-sm-4 col xs-4 col-md-4 col-lg-4" style="margin-top: 0px;">
                         @{var lastWord = helperfunctions.hashing(item.Articles[i].Title);}
 
                         <div class="list-group">
                             <!--Article Image-->
                             <img src="@item.Articles[i].UrlToImage" class="img-responsive" />
+                            
                             <!--Article Link-->
                             <a class="list-group-item" data-id="0" href="@Url.Action("Index", "Article", new {id = lastWord, source = @item.Source})">
-                                <!--Article Title-->
+                               
+                                 <!--Article Title-->
                                 <p class="list-group-item-heading">
                                     <h3>@item.Articles[i].Title</h3>
                                 </p>
@@ -35,19 +37,17 @@
                                 <p class="blockquote-inverse">
                                     @item.Articles[i].Description
                                 </p>
+                            </a>
 
-                                <!--Article Author-->
-                                <p class="blockquote-reverse text-muted">
-                                    Author: @item.Articles[i].Author
+                            <!--Article Source Label-->
+                            <a href="@item.Articles[i].Url">
+                                <p href="" class="text-SourceSmall text-muted">
+                                    <span class="label label-info">@item.Source.ToUpper()</span>
                                 </p>
+                            </a>
 
-
-                                <a href="@item.Articles[i].Url" class="list-group-item">
-                                    <p class="text-SourceSmall text-muted">
-                                        Source: @item.Source.ToUpper()
-                                    </p>
-                                </a>
                         </div>
+
                     </div>
                     }
                 </div>
