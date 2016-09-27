@@ -1,4 +1,4 @@
-﻿@model Nuntius.Models.Newsheadline
+﻿@model Nuntius.Models.NewsSource
 
 @{
         ViewBag.Title = "Latest News";
@@ -14,7 +14,7 @@
             <h2 class="text-center">Latest News</h2>
             <hr />
 
-            @foreach (var item in Model.Articles.Take(8))
+            @foreach (var item in Model.Newsheadline.Articles.Take(8))
             {
                 string sourceUrl = item.Url;
 
