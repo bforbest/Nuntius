@@ -46,8 +46,7 @@ namespace Nuntius.Controllers
 
             string downloadjson = "https://newsapi.org/v1/articles?source=" + source +
                             "&apiKey=346e17ce990f4aacac337fe81afb6f50";
-            var json =
-              c.DownloadString(downloadjson);
+            var json = c.DownloadString(downloadjson);
             Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
             var x = newsheadline.Articles.FirstOrDefault(a => helperfunctions.hashing(a.Title) == id);
 
