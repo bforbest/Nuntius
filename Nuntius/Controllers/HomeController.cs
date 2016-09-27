@@ -22,8 +22,6 @@ namespace Nuntius.Controllers
 				"newsweek","reuters", "sky-news", "techcrunch", "techradar", "the-guardian-uk", "the-huffington-post", "the-new-york-times",
 				"the-telegraph", "the-verge", "the-wall-street-journal", "the-washington-post", "time"*/});
 
-
-
       var rng = new Random();
 			var randomElement = list[rng.Next(list.Count)];
 			string source = randomElement;
@@ -82,6 +80,12 @@ namespace Nuntius.Controllers
             ViewBag.ContactEmail = "";
             ViewBag.ContactPhone = "";
             ViewBag.ContactAddress = "";
+
+            return View();
+        }
+
+        public ActionResult About()
+        {
 
             return View();
         }

@@ -183,6 +183,10 @@
     </Compile>
     <Compile Include="Migrations.old\Configuration.cs" />
     <Compile Include="Helpers\helperfunctions.cs" />
+    <Compile Include="Migrations\201609271108296_test.cs" />
+    <Compile Include="Migrations\201609271108296_test.Designer.cs">
+      <DependentUpon>201609271108296_test.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -262,7 +266,6 @@
     <Content Include="Views\Favorite\Index.cshtml" />
     <Content Include="Views\Subscription\_ShowSubscribed.cshtml" />
     <Content Include="Views\Subscription\_Subscribednews.cshtml" />
-
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -279,6 +282,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations.old\201609251121495_InitialCreate.resx">
       <DependentUpon>201609251121495_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609271108296_test.resx">
+      <DependentUpon>201609271108296_test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
