@@ -295,12 +295,12 @@ html, body, div {
        overflow-x: visible !important;
 }
 
-ul {
+#ulsubs {
   list-style-type: none;
 }
 
-li {
-  display: inline-block;
+#lisubs {
+    display: inline-block;
 }
 
 input[type="checkbox"][id^="cb"] {
@@ -325,6 +325,7 @@ label:before {
   content: " ";
   display: block;
   border-radius: 50%;
+    -moz-border-radius: 50%;
   border: 1px solid grey;
   position: absolute;
   top: -5px;
@@ -335,12 +336,16 @@ label:before {
   line-height: 28px;
   transition-duration: 0.4s;
   transform: scale(0);
+    -moz-transform: scale(0);
+    -moz-transition-duration: 0.4s;
 }
 
 label img {
   height: auto;
   width: auto;
     max-height: 80px;
+    -moz-transform-duration: 0.2s;
+    -moz-transform-origin: 50% 50%;
   transition-duration: 0.2s;
   transform-origin: 50% 50%;
 }
@@ -353,9 +358,11 @@ label img {
   content: "✓";
  background-color:steelblue;
   transform: scale(1);
+    -moz-transform: scale(1);
 }
 
 :checked + label img {
+    -moz-transform: scale(0.9);
   transform: scale(0.9);
   box-shadow: 0 0 5px #333;
   z-index: -1;
@@ -369,6 +376,9 @@ label img {
     max-height: 80px;
   transition-duration: 0.2s;
   transform-origin: 50% 50%;
+  
+ -moz-transition-duration: 0.2s;
+  -moz-transform-origin: 50% 50%;
 }
 
 :checked + #already {
@@ -379,6 +389,7 @@ label img {
   content: "✓";
   background-color:steelblue;
   transform: scale(1);
+    -moz-transform: scale(1);
 }
 
 :not(:checked)  + #already img {
@@ -415,6 +426,8 @@ label img {
   line-height: 28px;
   transition-duration: 0.4s;
   transform: scale(0);
+    -moz-transition-duration: 0.4s;
+    -moz-transform: scale(0);
 }
 
 .list-group {

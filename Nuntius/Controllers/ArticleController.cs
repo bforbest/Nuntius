@@ -58,7 +58,10 @@ namespace Nuntius.Controllers
             Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
             //Finds the Article that is favorite based on the last index of the title
             var xArticle = newsheadline.Articles.FirstOrDefault(a => helperfunctions.hashing(a.Title) == id);
-
+            if (xArticle.Author == null)
+            {
+                xArticle.Author = "Unknown";
+            }
 
             action.SaveToFavorite(xArticle, source, currentUserId);
 

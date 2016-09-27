@@ -1,4 +1,5 @@
-﻿@model Nuntius.Models.NewsSource
+﻿@using Nuntius.Helpers
+@model Nuntius.Models.NewsSource
 
 
 @{
@@ -24,16 +25,16 @@
                     <!--Article Description-->
                     <p class="blockquote-inverse">@item.Description</p>
                     <!--Article Author-->
-                    <p class="blockquote-reverse text-muted">Aut hor: @item.Author</p>
+                    <p class="blockquote-reverse text-muted">Author: @item.Author</p>
                     <p class="blockquote-reverse text-muted">Published: @item.PublishedAt</p>
                     <p class="blockquote-reverse text-muted">Source:</p>
                 </a>
             </div>
             
             @{
-                var lastWord = item.Title.Split(' ').Last();
+                var lastWord = helperfunctions.hashing(@item.Title);
 
-                <a class="glyphicon-bullhorn" data-id="0" href="@Url.Action("Details", "Article", new { id = sourceUrl, source = Model.Source.Id})">View Article</a>
+                <a class="glyphicon-bullhorn" data-id="0" href="@Url.Action("Index", "Article", new { id = lastWord, source = Model.Source.Id})">View Article</a>
 
             }
             <hr />

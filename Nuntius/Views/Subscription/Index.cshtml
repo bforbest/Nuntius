@@ -8,7 +8,10 @@
 
 <h4>Manage your subscriptions</h4>
 
-
+@if (@ViewBag.SavedSubscription != null)
+{
+    <p>  @ViewBag.SavedSubscription</p>
+}
 <div class="row">
  
     @*@foreach (var item in Model)
@@ -24,11 +27,11 @@
 
     @using (Html.BeginForm())
     {
-        <ul>
+        <ul id="ulsubs">
             @for (var i = 0; i < Model.Count; i++)
             { 
          
-                <li>
+                <li id="lisubs">
                     @if (@ViewBag.Usersubs != null)
                     {
 
@@ -55,11 +58,7 @@
                   
                 </li>
 
-            @*<input type="checkbox" name="sourceList" value="@Model[i].Id">
-
-            @Html.DisplayFor(x => x[i].Url)
-            @Html.DisplayFor(x => x[i].Name)*@
-                   @* @Html.HiddenFor(x=>x[i].description)*@
+          
 
 
 

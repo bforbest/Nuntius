@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 
@@ -41,7 +42,20 @@ namespace Nuntius.Models
             favourite.Articles.Add(xArticle);
 
             context.Entry(favourite).State = EntityState.Modified;
-            context.SaveChanges();
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in entityValidationErrors.ValidationErrors)
+                    {
+                        var m = "Property: " + validationError.PropertyName + " Error: " + validationError.ErrorMessage;
+                    }
+                }
+            }
 
         }
         public void RemoveFromFavorites(Article xArticle, string userId, string articleId)
