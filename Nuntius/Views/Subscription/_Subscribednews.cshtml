@@ -3,8 +3,6 @@
 @{ 
     ViewBag.Title = "Subscriptions";
 }
-
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,12 +14,13 @@
             <h2 class="text-center">@ViewBag.Title</h2>
             <hr />
 
-            @foreach (var item in Model)
-            {<div class="row">
-                @for (int i = 0; i < item.Articles.Take(8).Count(); i++)
-                {
+            <!--Begin population of selected subscripions-->
+            @foreach (var item in Model) {
+                <div class="row">
+                @for (int i = 0; i < item.Articles.Take(8).Count(); i++) {
                     <div class="col-sm-3 col-md-3 col-lg-3" style="margin-top: 50px;">
                         @{var lastWord = helperfunctions.hashing(item.Articles[i].Title);}
+
                         <div class="list-group">
                             <!--Article Image-->
                             <img src="@item.Articles[i].UrlToImage" class="img-responsive" />
@@ -48,12 +47,16 @@
                                         Source: @item.Source.ToUpper()
                                     </p>
                                 </a>
-
                         </div>
                     </div>
-                            }
-            </div>
-                            }
+                    }
+                </div>
+            }
+            <!--End population of selected subscripions-->
+
+
+
+
         </div>
     </div>
 </body>

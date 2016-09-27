@@ -2,13 +2,14 @@
 @{
     ViewBag.Title = "Article Details";
 }
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
     <title>@ViewBag.Title</title>
+
 </head>
 <body>
     <div class="container">
@@ -16,26 +17,22 @@
             <h2 class="text-center"></h2>
             <hr />
             @{ var lastWord = Uri.EscapeDataString(@Model.Article.Url); }
-            <a class="" data-id="0" href="@Url.Action("Create", "Article", 
-                new { id = lastWord, source = @Model.Source.Id})"> Save to favorites
-            </a>
 
+            <a class="" data-id="0" href="@Url.Action("Create", "Article", 
+                new { id = lastWord, source = @Model.Source.Id})"> <span class="fa-heart-o"></span>
+            </a>
 
                 <div class="list-group">
                     <!--Article Image-->
-                    <img src="@Model.Article.UrlToImage" class="img-article-details" style="" />
+                    <img src="@Model.Article.UrlToImage" class="img-responsive img-thumbnail"/>
 
                     <!--Article Link-->
-                    <a href="@Model.Article.Url" class="list-group-item">
-                        <!--Article Title-->
-                        <p class="list-group-item-heading"><h3>@Model.Article.Title</h3></p>
-                        <!--Article Description-->
-                        <p class="blockquote-inverse" style="text-overflow: clip;">@Model.Article.Description</p>
-                        <!--Article Author-->
-                        <p class="blockquote-reverse text-muted">Author: @Model.Article.Author</p>
-                        <p class="blockquote-reverse text-muted">Published: @Model.Article.PublishedAt</p>
-                        <p class="blockquote-reverse text-muted">Source:</p>
-                    </a>
+
+                    <!--Article Title-->
+
+                    <!--Article Description-->
+
+                    <!--Article Author-->
                 </div>
 
             <br />
