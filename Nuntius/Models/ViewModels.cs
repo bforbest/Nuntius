@@ -26,5 +26,6 @@ namespace Nuntius.Models
     {
         public Article Article;
         public Source Source;
+        public IList<Article> Articles;
     }
 }

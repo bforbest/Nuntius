@@ -55,7 +55,8 @@ namespace Nuntius.Controllers
             ArticleSource newssource = new ArticleSource()
             {
                 Article = x,
-                Source = sourcearticle
+                Source = sourcearticle,
+                Articles = newsheadline.Articles
             };
 		    var currentuser = User.Identity.GetUserId();
             @ViewBag.User = context.Users.FirstOrDefault(a => a.Id == currentuser);

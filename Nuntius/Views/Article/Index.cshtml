@@ -2,40 +2,60 @@
 
 <div class="container-fluid">
 
-
-    <h4>Article</h4>
     <hr />
     @{  var lastWord = Uri.EscapeDataString(@Model.Article.Url);
-            }
-  
-      <a class="glyphicon-bullhorn" data-id="0" href="@Url.Action("Create", "Article", new { id = lastWord, source = @Model.Source.Id})">Save to favorites</a>
-    <div class="col-sm-12 col-md-12 col-lg-12">
-        <div class="list-group">
-            <!--Article Image-->
-            <img src="@Model.Article.UrlToImage" class="img-responsive" style="max-height: 400px; max-width: 300px;"/>
+    }
 
-            <!--Article Link-->
-            <a href="@Model.Article.Url" class="list-group-item">
-                <!--Article Title-->
-                <p class="list-group-item-heading"><h3>@Model.Article.Title</h3></p>
-                <!--Article Description-->
-                <p class="blockquote-inverse" style="text-overflow: clip;">@Model.Article.Description</p>
-                <!--Article Author-->
-                <p class="blockquote-reverse text-muted">Author: @Model.Article.Author</p>
-                <p class="blockquote-reverse text-muted">Published: @Model.Article.PublishedAt</p>
-                <p class="blockquote-reverse text-muted">Source:</p>
-            </a>
+    <a class="glyphicon-bullhorn" data-id="0" href="@Url.Action("Create", "Article", new { id = lastWord, source = @Model.Source.Id })">Save to favorites</a>
+    <div class="row">
+        <div class="col-sm-12 col-md-7 col-lg-7">
+            <div class="list-group">
+                <!--Article Image-->
+                <img src="@Model.Article.UrlToImage" class="img-responsive" />
+
+                <!--Article Link-->
+                <a href="@Model.Article.Url" class="list-group-item">
+                    <!--Article Title-->
+                    <p class="list-group-item-heading"><h3>@Model.Article.Title</h3></p>
+                    <!--Article Description-->
+                    <p class="blockquote-inverse" style="text-overflow: clip;">@Model.Article.Description</p>
+                    <!--Article Author-->
+                    <p class="blockquote-reverse text-muted">Author: @Model.Article.Author</p>
+                    <p class="blockquote-reverse text-muted">Published: @Model.Article.PublishedAt</p>
+                    <p class="blockquote-reverse text-muted">Source:</p>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-5 col-lg-5">
+
+            @for (int i = 0; i < 4; i++)
+            {
+                <div class="col-md-12 jasgrid">
+                    <div class="box-item">
+                        <div class="box-post">
+                            <span class="label label-success">
+                                <a href="#" rel="tag">Travel</a>
+                            </span>
+                            <h4 class="post-title">
+                                <a href="#">
+                                    @Html.DisplayFor(model => model.Articles[i].Title)
+                                    </a >
+                        </h4 >
+                                    <span class="meta">
+                                    <span><i class="glyphicon glyphicon-comment"></i> <a href=""> No Comments</a></span>
+                                    <span>
+                                        <i class="glyphicon glyphicon-time"></i> @Html.DisplayFor(model => model.Articles[i].PublishedAt)</span >
+                                    </span >
+                        </div>
+                    <img src = "@Html.DisplayFor(model => model.Articles[i].UrlToImage)" alt = ""
+                    class="">
+                </div>
+            </div>
+            }
+
         </div>
     </div>
-      
-    </div>
-<p>
-    @*@Html.ActionLink("Edit", "Edit", new { id = Model.ArticleId }) |
-    @Html.ActionLink("Back to List", "Index")*@
-</p>
 
-<div class="container">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
     <div class="row">
         <!-- Contenedor Principal -->
         <div class="comments-container">
@@ -50,7 +70,7 @@
                             <div class="comment-head">
                                 <i id="SendComment" class="glyphicon glyphicon-send"></i>
                             </div>
-                  
+
                             <div class="comment-content">
                                 <form>
                                     <div class="form-group">
@@ -70,37 +90,8 @@
                 </li>
             </ul>
             <input id="url" hidden value="@Html.DisplayFor(model => model.Article.Url)" />
-            <ul id="comments-list" class="comments-list">
+            <ul id="comments-list" class="comments-list"></ul>
 
-                
-            </ul>
-            
         </div>
     </div>
-
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="news">
-                    <div class="img-figure">
-                        <div class="cat">fashion</div>
-                        <img src="http://136.243.1.253/~creolitic/bootsnipp/fashion.jpg" class="img-responsive">
-                    </div>
-
-                    <div class="title">
-                        <h1>The start of the web and web design</h1>
-                    </div>
-                    <p class="description">
-                        If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden...
-                    </p>
-
-                    <p class="more">
-                        <a href="#">read more</a><i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </p>
-                </div>
-
-
-            </div>
-        </div>
-
-
 </div>
