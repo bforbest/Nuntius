@@ -12,23 +12,24 @@ namespace Nuntius.Controllers
     {
         ApplicationDbContext context = new ApplicationDbContext();
         WebClient c = new WebClient();
+
         public ActionResult Index(string id)
 		{
 
-	var list = new List<string>(new[] { "bbc-news", "ars-technica", "associated-press","bbc-sport",  "bloomberg",
+			var list = new List<string>(new[] { "cnn", /*"associated-press","bbc-sport",  "bloomberg",
 				"business-insider", "business-insider-uk", "buzzfeed", "cnbc", "cnn", "daily-mail", "engadget", "entertainment-weekly",
 				"espn", "financial-times", "focus", "google-news", "ign", "independent", "mashable", "metro", "mirror", "new-scientist",
 				"newsweek","reuters", "sky-news", "techcrunch", "techradar", "the-guardian-uk", "the-huffington-post", "the-new-york-times",
-				"the-telegraph", "the-verge", "the-wall-street-journal", "the-washington-post", "time"});
+				"the-telegraph", "the-verge", "the-wall-street-journal", "the-washington-post", "time"*/});
 
       var rng = new Random();
 			var randomElement = list[rng.Next(list.Count)];
 			string source = randomElement;
-			
-			string downloadjson = "https://newsapi.org/v1/articles?source=" + source + /*"&sortBy="+sortedby+*/
+            
+
+            string downloadjson = "https://newsapi.org/v1/articles?source=" + source + /*"&sortBy="+sortedby+*/
 								  "&apiKey=346e17ce990f4aacac337fe81afb6f50";
-			var json =
-				c.DownloadString(downloadjson);
+			var json = c.DownloadString(downloadjson);
 			Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
 
             var countsource = context.Sources;
@@ -44,13 +45,12 @@ namespace Nuntius.Controllers
 		public void FillDataBasewithSource()
           {
 
-          
+            WebClient c = new WebClient();
             string downloadjson2 = "https://newsapi.org/v1/sources?language=en&apiKey=346e17ce990f4aacac337fe81afb6f50";
-            var json2 =
-                c.DownloadString(downloadjson2);
+            var json2 = c.DownloadString(downloadjson2);
 
             AllSources RootObject = Newtonsoft.Json.JsonConvert.DeserializeObject<AllSources>(json2);
-         
+
 
             var p = context.Sources;
             if (p.Count() <= 1)
@@ -83,5 +83,33 @@ namespace Nuntius.Controllers
 
             return View();
         }
+
+        public ActionResult About()
+        {
+            return View();
+        }
+
+        public ActionResult Top()
+        {
+            var list = new List<string>(new[] { "cnn", /*"associated-press","bbc-sport",  "bloomberg",
+				"business-insider", "business-insider-uk", "buzzfeed", "cnbc", "cnn", "daily-mail", "engadget", "entertainment-weekly",
+				"espn", "financial-times", "focus", "google-news", "ign", "independent", "mashable", "metro", "mirror", "new-scientist",
+				"newsweek","reuters", "sky-news", "techcrunch", "techradar", "the-guardian-uk", "the-huffington-post", "the-new-york-times",
+				"the-telegraph", "the-verge", "the-wall-street-journal", "the-washington-post", "time"*/});
+
+            var rng = new Random();
+            var randomElement = list[rng.Next(list.Count)];
+            string source = randomElement;
+            WebClient c = new WebClient();
+            string downloadjson = "https://newsapi.org/v1/articles?source=" + source + /*"&sortBy="+sortedby+*/
+                                  "&apiKey=346e17ce990f4aacac337fe81afb6f50";
+            var json =
+                c.DownloadString(downloadjson);
+            Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
+            @ViewBag.Source = newsheadline.Source;
+            return View(newsheadline);
+        }
+
     }
+
 }
