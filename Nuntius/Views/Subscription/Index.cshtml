@@ -1,26 +1,8 @@
 ﻿@model IList<Nuntius.Models.Source>
-
 @{
     ViewBag.Title = "Manage Subscriptions";
 }
-
 <!DOCTYPE html>
-<<<<<<< HEAD
-
-<h4>Manage your subscriptions</h4>
-
-@if (@ViewBag.SavedSubscription != null)
-{
-    <p>  @ViewBag.SavedSubscription</p>
-}
-<div class="row">
-
-
-    @using (Html.BeginForm())
-    {
-        <ul id="ulsubs">
-            @for (var i = 0; i < Model.Count; i++)
-=======
 <html>
 <head>
     <title>@ViewBag.Title</title>
@@ -36,47 +18,61 @@
 
             <!--Begin populate list of available subscription sources-->
             @using (Html.BeginForm())
->>>>>>> 41d1769bf9300c314028250c1933a77603897351
             {
-
-                <li id="lisubs">
-                    @if (@ViewBag.Usersubs != null)
-                    {
-
-                        if (@ViewBag.Usersubs.Contains(@Model[i].Id))
-                        {
-                            <input type="checkbox" id=@i name="sourceList" value="@Model[i].Id">
-                            <label id="already" for=@i><img src="@Model[i].UrlsToLogos.Small" /></label>
-                        }
-                        else
-                        {
-                            <input type="checkbox" id=@i name="sourceList" value="@Model[i].Id">
-                            <label for=@i><img src="@Model[i].UrlsToLogos.Small" /></label>
-                        }
+                <ul>
+                    @for (var i = 0; i < Model.Count; i++) {
+                        <li>
+                            @if (@ViewBag.Usersubs != null)
+                            {
+                                if (@ViewBag.Usersubs.Contains(@Model[i].Id))
+                                {
+                                    <input type="checkbox" id=@i name="sourceList" value="@Model[i].Id">
+                                    <label id="already" for=@i><img src="@Model[i].UrlsToLogos.Small" /></label>
+                                }
+                                else
+                                {
+                                    <input type="checkbox" id=@i name="sourceList" value="@Model[i].Id">
+                                    <label for=@i><img src="@Model[i].UrlsToLogos.Small" /></label>
+                                }
+                            } @if (@ViewBag.Usersubs == null) {
+                                <input type="checkbox" id=@i name="sourceList" value="@Model[i].Id">
+                                <label for=@i><img src="@Model[i].UrlsToLogos.Small" /></label>
+                            }
+                        </li>
                     }
-                    @if (@ViewBag.Usersubs == null)
-                    {
-
-                        <input type="checkbox" id=@i name="sourceList" value="@Model[i].Id">
-                        <label for=@i><img src="@Model[i].UrlsToLogos.Small" /></label>
-                    }
-
-
-
-
-                </li>
-
-
-
-
-
+                </ul>
+                <div>
+                    <input type="submit" value="save" />
+                </div>
             }
-        </ul>
 
 
-        <div>
-            <input type="submit" value="save" />
         </div>
-    }
+    </div>
 
-</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+@*@foreach (var item in Model)
+    {
+        <div class="col-xs-6 col-md-3">
+            <a href="#" class="thumbnail">
+                <img class="submit"src="@item.UrlsToLogos.Small" alt="...">
+            </a>
+        </div>
+    }*@
+
+
+
+@*<input type="checkbox" name="sourceList" value="@Model[i].Id">
+    @Html.DisplayFor(x => x[i].Url)
+    @Html.DisplayFor(x => x[i].Name)*@
+@* @Html.HiddenFor(x=>x[i].description)*@
