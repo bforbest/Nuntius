@@ -485,137 +485,120 @@ textarea {
 }
 
 /*social share*/
-.icon-circle .fa{
-    font-size           : 25px;
-    color               : #e84700;
-    margin              : 0 auto;
-    height              : 80px;
-    width               : 80px;
-    border-radius       : 50%;
-    border              :2px solid #e84700;
-    line-height         : 80px;
-    cursor              : pointer;
-    -webkit-transition  : all  ease-in-out 0.35s;
-    -moz-transition     : all  ease-in-out 0.35s;
-    -o-transition       : all  ease-in-out 0.35s;
-    -ms-transition      : all  ease-in-out 0.35s;
-    transition          : all  ease-in-out 0.20s,background-color ease-in-out 0.05s;
+.pad50{
+  padding-top: 50px;
+}
+.button {
+
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+  padding-right: 30px;
+  padding-left: 70px;
+  position: relative;
+  background-color:rgb(0,0,0);
+  color:rgb(255,255,255);
+  text-decoration: none;
+  text-transform: lowercase;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+  text-shadow:0px 1px 0px rgba(0,0,0,0.5);
+-ms-filter:"progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=1,Color=#ff123852,Positive=true)";zoom:1;
+filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=1,Color=#ff123852,Positive=true);
+
+  -moz-box-shadow:0px 2px 2px rgba(0,0,0,0.2);
+  -webkit-box-shadow:0px 2px 2px rgba(0,0,0,0.2);
+  box-shadow:0px 2px 2px rgba(0,0,0,0.2);
+  -ms-filter:"progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=2,Color=#33000000,Positive=true)";
+filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=2,Color=#33000000,Positive=true);
 }
 
-.icon-circle  .fa:hover{
-    
-    background-color        : #e84700;    
-    color                   : #fff;
-    border                  : 1px solid #e84711;
-    -moz-box-shadow         : inset 0px 0px 0px 5px #ffffff;
-    -o-box-shadow           : inset 0px 0px 0px 5px #ffffff;
-    -ms-box-shadow          : inset 0px 0px 0px 5px #ffffff;
-    -webkit-box-shadow      : inset 0px 0px 0px 5px #ffffff;
-    box-shadow              : inset 0px 0px 0px 5px #ffffff;
-    -ms-transform           : scale(1.2,1.2); 
-    -webkit-transform       : scale(1.2,1.2);
-    -moz-transform          : scale(1.2,1.2); 
-    -o-transform            : scale(1.2,1.2); 
-    transform               : scale(1.2,1.2);  
+.button:hover{
+    text-decoration: none;
+  color: #eeeaee;
 }
 
-.icon-circle  i:before{
-    margin-left         : 0px;
-    font-size           : 40px;
+.button p{font-size: 18px;}
+.button span {
+  position: absolute;
+  left: 0;
+  width: 50px;
+  font-size:30px;
+  -webkit-border-top-left-radius: 5px;
+-webkit-border-bottom-left-radius: 5px;
+-moz-border-radius-topleft: 5px;
+-moz-border-radius-bottomleft: 5px;
+border-top-left-radius: 5px;
+border-bottom-left-radius: 5px;
+padding-left: 7px;
+border-right: 1px solid  rgba(0,0,0,0.15);
+    text-decoration: none;
 }
 
-@media (min-width:320px) and (max-width:768px) {
-
-
- .icon-circle .fa{
-    font-size           : 15px;
-    color               : #e84700;
-    margin              : 0 auto;
-    height              : 40px;
-    width               : 40px;
-    border-radius       : 50%;
-    border              :2px solid #e84700;
-    line-height         : 40px;
-    cursor              : pointer;
-    -webkit-transition  : all  ease-in-out 0.35s;
-    -moz-transition     : all  ease-in-out 0.35s;
-    -o-transition       : all  ease-in-out 0.35s;
-    -ms-transition      : all  ease-in-out 0.35s;
-    transition          : all  ease-in-out 0.20s,background-color ease-in-out 0.05s;
+.button.twitter {
+  background: #00acee;
 }
 
-.icon-circle  .fa:hover{
-    
-    background-color        : #e84700;    
-    color                   : #fff;
-    border                  : 1px solid #e84711;
-    -moz-box-shadow         : inset 0px 0px 0px 5px #ffffff;
-    -o-box-shadow           : inset 0px 0px 0px 5px #ffffff;
-    -ms-box-shadow          : inset 0px 0px 0px 5px #ffffff;
-    -webkit-box-shadow      : inset 0px 0px 0px 5px #ffffff;
-    box-shadow              : inset 0px 0px 0px 5px #ffffff;
-    -ms-transform           : scale(1.2,1.2); 
-    -webkit-transform       : scale(1.2,1.2);
-    -moz-transform          : scale(1.2,1.2); 
-    -o-transform            : scale(1.2,1.2); 
-    transform               : scale(1.2,1.2);  
+.button.facebook {
+ background: #3b5998;
 }
 
-.icon-circle  i:before{
-    margin-left         : 0px;
-    font-size           : 20px;
-}   
+.button.google-plus{
+  background: #db4a39;
 }
 
-.ifacebook .fa{
-    color               :#3B5998;
-    border              :2px solid #3B5998;
+.button.linkedin {
+  background: #0e76a8;
 }
 
-.ifacebook .fa:hover{
-    
-    background-color        : #3B5998;    
-    color                   : #fff;
-    border                  : 1px solid #3B5998;
-
+.button.youtube {
+ background: #c4302b;
 }
 
-.itwittter .fa{
-    color               : #33ccff;
-    border              :2px solid #33ccff;
+.button.github{
+  background: #171515;
 }
 
-.itwittter .fa:hover{
-    
-    background-color        : #33ccff;    
-    color                   : #fff;
-    border                  : 1px solid #33ccff;
-
+.button.android {
+  background: #a4c639;
 }
 
-.igoogle .fa{
-    color               : #BD3518;
-    border              :2px solid #BD3518;
+.button.skype {
+ background: #00aff0;
+ }
+
+.button.dropbox{
+  background: #3d9ae8;
 }
 
-.igoogle .fa:hover{
-    
-    background-color        : #BD3518;    
-    color                   : #fff;
-    border                  : 1px solid #BD3518;
-
+.button.foursquare{
+  background: #25a0ca;
 }
 
-.iLinkedin .fa{
-    color               : #007bb7;
-    border              :2px solid #007bb7;
+.button.apple{
+  background: #cdcdcd;
 }
 
-.iLinkedin .fa:hover{
-    
-    background-color        :#007bb7;    
-    color                   : #fff;
-    border                  : 1px solid #007bb7;
-
+.button.dribbble{
+  background: #ea4c89;
 }
 
+.button.instagram{
+  background: #3f729b;
+}
+
+.button.pinterest{
+  background: #c8232c;
+}
+
+.button.stackexchange{
+  background: #ef8236;
+}
+
+.button.flickr{
+  background: #ff0084;
+}
+
+.text-center{
+  text-align: center;
+}

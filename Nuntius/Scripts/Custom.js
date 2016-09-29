@@ -132,7 +132,7 @@ function showtv(channel) {
                     showData.empty();
                     showTitle.empty();
                     showDescription.empty();
-                    var divcontent1 = '<iframe class="single_iframe" scrolling="No" width="100%" height="460" src="' + 'http://afsoonplay.com/play/fplayer.php?id=' + data.streams[0].url + '" frameborder="0" allowfullscreen=""></iframe>'
+                    var divcontent1 = '<iframe class="single_iframe" scrolling="No" width="100%" height="460" src="' + 'http://afsoonplay.com/play/nun.php?id=' + data.streams[0].url + '" frameborder="0" allowfullscreen=""></iframe>'
                     showData.append(divcontent1);
                     showTitle.append(data.title);
                     showDescription.append(data.description)
