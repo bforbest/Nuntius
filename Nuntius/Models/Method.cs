@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 
@@ -26,7 +27,7 @@ namespace Nuntius.Models
 
     public class DbActions
     {
-       
+
         public void SaveToFavorite(Article xArticle, string source, string userId)
         {
             ApplicationDbContext context = new ApplicationDbContext();
@@ -34,16 +35,37 @@ namespace Nuntius.Models
             xArticle.SourceId = source;
 
             var p = userId;
-            var x = context.Users.FirstOrDefault(a => a.Id == p);
+            var userFavorite = context.Users.FirstOrDefault(a => a.Id == p);
             Favourite favor = new Favourite();
-            Favourite favourite = context.Favourits.FirstOrDefault(a => a.FavouriteId == x.FavouriteId);
+            Favourite favourite = context.Favourits.FirstOrDefault(a => a.FavouriteId == userFavorite.FavouriteId);
+            var containsArticle = favourite.Articles.FirstOrDefault(a => a.Title == xArticle.Title);
+            if (containsArticle == null)
+            {
+                favourite.Articles.Add(xArticle);
+                context.Entry(favourite).State = EntityState.Modified;
+            }
 
-            favourite.Articles.Add(xArticle);
 
-            context.Entry(favourite).State = EntityState.Modified;
-            context.SaveChanges();
+
+
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in entityValidationErrors.ValidationErrors)
+                    {
+                        var m = "Property: " + validationError.PropertyName + " Error: " + validationError.ErrorMessage;
+                    }
+                }
+            }
 
         }
+
+
         public void RemoveFromFavorites(Article xArticle, string source, string userId)
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
@@ -62,9 +84,23 @@ namespace Nuntius.Models
                 favourite.Articles.Remove(xArticle);
 
                 context.Entry(favourite).State = EntityState.Modified;
-                context.SaveChanges();
+                try
+                {
+                    context.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                    {
+                        foreach (var validationError in entityValidationErrors.ValidationErrors)
+                        {
+                            var m = "Property: " + validationError.PropertyName + " Error: " + validationError.ErrorMessage;
+                        }
+                    }
+                }
+
             }
         }
-        
     }
+
 }

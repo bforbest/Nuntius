@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Nuntius.Models.Newsheadline>
 @using Nuntius.Helpers;
-@{ 
+@{
     ViewBag.Title = "Subscriptions";
 }
 <!DOCTYPE html>
@@ -9,27 +9,31 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <h2 class="text-center">@ViewBag.Title</h2>
-            
-            <hr />
+    <div class="container-fluid">
 
-            <!--Begin population of selected subscripions-->
-            @foreach (var item in Model) {
-                <div class="row">
-                @for (int i = 0; i < item.Articles.Take(9).Count(); i++) {
-                    <div class="col-sm-4 col xs-4 col-md-4 col-lg-4" style="margin-top: 0px;">
+        <h2 class="text-center">@ViewBag.Title</h2>
+
+        <hr />
+
+        <!--Begin population of selected subscripions-->
+        @foreach (var item in Model)
+        {
+            <div class="row" style="margin-bottom: 5%;">
+                <center>  <h1>  @item.Source.ToUpper().Replace('-', ' ')</h1> </center>
+                @for (int i = 0; i < item.Articles.Take(4).Count(); i++)
+                {
+                    <div class="col-sm-4 col xs-4 col-md-3 col-lg-3" style="margin-top: 0px;">
+
                         @{var lastWord = helperfunctions.hashing(item.Articles[i].Title);}
 
                         <div class="list-group">
                             <!--Article Image-->
-                            <img src="@item.Articles[i].UrlToImage" class="img-thumbnail img-article-latest-news"/>
-                            
+                            <img src="@item.Articles[i].UrlToImage" class="img-thumbnail img-article-latest-news" />
+
                             <!--Article Link-->
                             <a class="list-group-item" data-id="0" href="@Url.Action("Index", "Article", new {id = lastWord, source = @item.Source})">
-                               
-                                 <!--Article Title-->
+
+                                <!--Article Title-->
                                 <p class="list-group-item-heading">
                                     <h3>@item.Articles[i].Title</h3>
                                 </p>
@@ -41,24 +45,33 @@
                             </a>
 
                             <!--Article Source Label-->
-                            <a href="@item.Articles[i].Url">
-                                <p href="" class="text-SourceSmall text-muted">
-                                    <span class="label label-info">@item.Source.ToUpper()</span>
-                                </p>
-                            </a>
+                            <div style="border: 1px solid lightgrey;">
+                                <a href="@item.Articles[i].Url" style="display: inline-block">
+                                    <p href="" class="text-SourceSmall text-muted">
+                                        <span class="label label-info">@item.Source.ToUpper()</span>
+                                    </p>
+                                </a>
+                                <div class="pull-right">
+                                    <a class="pull-right" title="Save to Favorites" data-id="0" href="@Url.Action("Create", "Article", new {id = lastWord, source = item.Source})">
+                                        <p href="" class="text-SourceSmall text-muted">
+                                            <span class="label label-info">Save Article</span>
+                                        </p>
+                                    </a>
+                                </div>
+                            </div>
                             <br />
                         </div>
-                        
+
                     </div>
-                    }
-                </div>
-            }
-            <!--End population of selected subscripions-->
+                            }
+            </div>
+                            }
+        <!--End population of selected subscripions-->
 
 
 
 
-        </div>
     </div>
+
 </body>
 </html>
