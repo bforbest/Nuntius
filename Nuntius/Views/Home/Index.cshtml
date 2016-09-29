@@ -9,7 +9,7 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <div class="container ">
+    <div class="container body-content">
         <div class="row">
             <h2 class="text-center">Latest News</h2>
             <hr />
@@ -30,7 +30,8 @@
                             <p class=""><h4>@item.Title</h4></p>
 
                             <blockquote class="small blockquote-reverse">
-                                <p>@item.Description</p>
+                                <p>@item.Description.Substring(0,80)</p>
+                                <!--Artile PublishedAt-->
                                 <small>
                                     @if (item.PublishedAt != null)
                                     {
@@ -40,12 +41,9 @@
                                 </small>
 
                             </blockquote>
-
                         </a>
+                        <br />
                     </section>
-                    <br />
-                    <br />
-                    <br />
 
                 </div>
             }

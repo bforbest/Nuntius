@@ -16,7 +16,7 @@ namespace Nuntius.Controllers
         public ActionResult Index(string id)
 		{
 
-			var list = new List<string>(new[] { "cnn", /*"associated-press","bbc-sport",  "bloomberg",
+			var list = new List<string>(new[] { "bbc-news"  /*"associated-press","bbc-sport",  "bloomberg",
 				"business-insider", "business-insider-uk", "buzzfeed", "cnbc", "cnn", "daily-mail", "engadget", "entertainment-weekly",
 				"espn", "financial-times", "focus", "google-news", "ign", "independent", "mashable", "metro", "mirror", "new-scientist",
 				"newsweek","reuters", "sky-news", "techcrunch", "techradar", "the-guardian-uk", "the-huffington-post", "the-new-york-times",
@@ -91,7 +91,7 @@ namespace Nuntius.Controllers
 
         public ActionResult Top()
         {
-            var list = new List<string>(new[] { "cnn", /*"associated-press","bbc-sport",  "bloomberg",
+            var list = new List<string>(new[] { "bbc-news", /*"associated-press","bbc-sport",  "bloomberg",
 				"business-insider", "business-insider-uk", "buzzfeed", "cnbc", "cnn", "daily-mail", "engadget", "entertainment-weekly",
 				"espn", "financial-times", "focus", "google-news", "ign", "independent", "mashable", "metro", "mirror", "new-scientist",
 				"newsweek","reuters", "sky-news", "techcrunch", "techradar", "the-guardian-uk", "the-huffington-post", "the-new-york-times",
