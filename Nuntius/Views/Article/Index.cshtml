@@ -57,38 +57,29 @@
     </div>
 
     <div class="row">
+            
         <!-- Contenedor Principal -->
         <div class="comments-container">
-            <h1>Comments</h1>
+            <div class="status-upload">
+  
+                    <textarea id="message-text" placeholder="Write a comment?"></textarea>
+                   
+                    <input id="urlId" hidden value="@Html.DisplayFor(model => model.Article.Url)" />
+                    <input id="articleSource" hidden value="@Model.Source.Id" />
+
+            </div>
+
+                <div class="btn-group btn-group-justified">
+                     <span class="btn-group">
+            <button id="SendComment" class="btn btn-default" ><i class="fa fa-send"></i></button>
+                         </span>
+                    <span class="btn-group">
+                        <button onclick="ShowComments()" class="btn btn-default" ><i class="fa fa-comment"></i> </button>
+                        </span>
+</div>
             <div id="showAlert">
 
             </div>
-            <ul>
-                <li>
-                    <div class="comment-main-level">
-                        <div class="comment-box">
-                            <div class="comment-head">
-                                <i id="SendComment" class="glyphicon glyphicon-send"></i>
-                            </div>
-
-                            <div class="comment-content">
-                                <form>
-                                    <div class="form-group">
-                                        <label for="message-text" class="control-label">Comment:</label>
-
-                                        <textarea class="form-control" id="message-text"></textarea>
-
-                                        <input id="urlId" hidden value="@Html.DisplayFor(model => model.Article.Url)" />
-
-                                        <input id="articleSource" hidden value="@Model.Source.Id" />
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                </li>
-            </ul>
             <input id="url" hidden value="@Html.DisplayFor(model => model.Article.Url)" />
             <ul id="comments-list" class="comments-list"></ul>
 

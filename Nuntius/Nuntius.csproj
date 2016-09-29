@@ -173,20 +173,12 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SubscriptionController.cs" />
+    <Compile Include="Controllers\TvController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations.old\201609251121495_InitialCreate.cs" />
-    <Compile Include="Migrations.old\201609251121495_InitialCreate.Designer.cs">
-      <DependentUpon>201609251121495_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations.old\Configuration.cs" />
     <Compile Include="Helpers\helperfunctions.cs" />
-    <Compile Include="Migrations\201609271108296_test.cs" />
-    <Compile Include="Migrations\201609271108296_test.Designer.cs">
-      <DependentUpon>201609271108296_test.cs</DependentUpon>
-    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -199,6 +191,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\Subscription.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -266,6 +259,7 @@
     <Content Include="Views\Favorite\Index.cshtml" />
     <Content Include="Views\Subscription\_ShowSubscribed.cshtml" />
     <Content Include="Views\Subscription\_Subscribednews.cshtml" />
+    <Content Include="Views\Tv\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -278,14 +272,6 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations.old\201609251121495_InitialCreate.resx">
-      <DependentUpon>201609251121495_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609271108296_test.resx">
-      <DependentUpon>201609271108296_test.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
