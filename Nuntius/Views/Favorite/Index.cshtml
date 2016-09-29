@@ -1,42 +1,59 @@
 ﻿@model Nuntius.Models.Favourite
+@using Nuntius.Helpers
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="container-fluid ">
+    <div class="row">
+        <section></section>
+        <h2 class="text-center">Saved News</h2>
+        <hr />
 
-<div class="container ">
-    <br />
-    <br />
+        @foreach (var item in Model.Articles)
+        {
+            string sourceUrl = item.Url;
 
-    @foreach (var item in Model.Articles)
-    {
-        string sourceUrl = item.Url;
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <section>
+                    <!--Article Image-->
+                    <img src="@item.UrlToImage" class="img-thumbnail img-article-latest-news" />
 
-        <div class="col-sm-3 col-md-3 col-lg-3">
-            <div class="list-group">
-                <!--Article Image-->
-                <img src="@item.UrlToImage" class="img-responsive" />
+                    <!--Article Link-->
+                    <a href="@item.Url" class="list-group-item">
 
-                <!--Article Link-->
-                <a href="@item.Url" class="list-group-item">
-                    <!--Article Title-->
-                    <p class="list-group-item-heading"><h3>@item.Title</h3></p>
-                    <!--Article Description-->
-                    <p class="blockquote-inverse">@item.Description</p>
-                    <!--Article Author-->
-                    <p class="blockquote-reverse text-muted">Author: @item.Author</p>
-                    <p class="blockquote-reverse text-muted">Published: @item.PublishedAt</p>
-                    <p class="blockquote-reverse text-muted">Source:</p>
-                </a>
+                        <!--Article Title-->
+                        <p class="">
+                            <h4>@item.Title</h4>
+                        </p>
+
+                        <blockquote class="small blockquote-reverse">
+                            <p>@item.Description</p>
+                            <small>
+                                @if (item.PublishedAt != null)
+                                {
+                                    @item.PublishedAt.Substring(11, Math.Min(item.PublishedAt.Length, 5))
+                                    @item.PublishedAt.Substring(0, Math.Min(item.PublishedAt.Length, 10))
+                                }
+                            </small>
+
+
+                        </blockquote>
+
+                    </a>
+                    @{
+
+                        var lastWord = helperfunctions.hashing(item.Title);
+
+
+                    }
+                    <div style="border: 1px solid lightgrey;">
+                        <a style="color: lightblue;" data-id="0" href="@Url.Action("Index", "Article", new {id = lastWord, source = @item.SourceId})"><i class="fa fa-align-justify" aria-hidden="true"></i>Go to Article</a>
+
+                        <a class="pull-right" style="color: red;" data-id="0" href="@Url.Action("Delete", "Favorite", new {id = @item.ArticleId})">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </section>
+                <br />
             </div>
-
-            @{
-                var lastWord = item.Title.Split(' ').Last();
-
-                <a class="glyphicon-bullhorn" data-id="0" href="@Url.Action("Details", "Article", new { id = lastWord, source = @ViewBag.Source})">View Article</a>
-
-            }
-            <hr />
-        </div>
-                }
+                        }
+    </div>
 </div>
