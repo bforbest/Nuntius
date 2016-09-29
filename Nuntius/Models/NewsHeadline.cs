@@ -48,9 +48,6 @@ namespace Nuntius.Models
         public string PublishedAt { get; set; }
       
         public virtual IList<VotingArticle> VotingArticles { get; set; }
-        [JsonProperty("publishedAt")]
-        public string PublishedAt { get; set; }
-        public virtual IList<VotingArticle> VotingArticles { get; set; }
         public virtual IList<Comment> Comments { get; set; }
 
     
@@ -122,7 +119,7 @@ namespace Nuntius.Models
         public class VotingArticle
         {
             public int VotingArticleId { get; set; }
-            public int VoteValue { get; set; }
+            public bool VoteValue { get; set; }
             public int ArticleId { get; set; }
             public virtual Article Article { get; set; }
             public string ApplicationUserID { get; set; }
