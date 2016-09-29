@@ -30,10 +30,10 @@
                         <a href="@item.Url" class="list-group-item">
 
                             <!--Article Title-->
-                            <p class=""><h3>@item.Title</h3></p>
+                            <p class=""><h3>@item.Title.Substring(0, 20)</h3></p>
 
                             <blockquote class="blockquote-reverse">
-                                <p>@item.Description</p>
+                                <p>@item.Description.Substring(0,50)</p>
                                 <!--<small class="text-muted">@item.Author</small>-->
                             </blockquote>
                         </a>
