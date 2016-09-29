@@ -5,6 +5,7 @@
 }
 
 <!DOCTYPE html>
+<<<<<<< HEAD
 
 <h4>Manage your subscriptions</h4>
 
@@ -19,6 +20,23 @@
     {
         <ul id="ulsubs">
             @for (var i = 0; i < Model.Count; i++)
+=======
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/Subscription.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="contaier">
+        <div class="row">
+            <h2 class="text-center">@ViewBag.Title</h2>
+            <hr />
+
+            <!--Begin populate list of available subscription sources-->
+            @using (Html.BeginForm())
+>>>>>>> 41d1769bf9300c314028250c1933a77603897351
             {
 
                 <li id="lisubs">

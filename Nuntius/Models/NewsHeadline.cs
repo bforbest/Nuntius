@@ -37,7 +37,10 @@ namespace Nuntius.Models
         public string Title { get; set; }
         
         [JsonProperty("description")]
+<<<<<<< HEAD
    
+=======
+>>>>>>> 41d1769bf9300c314028250c1933a77603897351
         public string Description { get; set; }
 
 
@@ -46,6 +49,7 @@ namespace Nuntius.Models
         [JsonProperty("urlToImage")]
         public string UrlToImage { get; set; }
 
+<<<<<<< HEAD
    
 
         [JsonProperty("publishedAt")]
@@ -53,6 +57,12 @@ namespace Nuntius.Models
       
         public virtual IList<VotingArticle> VotingArticles { get; set; }
    
+=======
+        [Required]
+        [JsonProperty("publishedAt")]
+        public string PublishedAt { get; set; }
+        public virtual IList<VotingArticle> VotingArticles { get; set; }
+>>>>>>> 41d1769bf9300c314028250c1933a77603897351
         public virtual IList<Comment> Comments { get; set; }
 
     
