@@ -1,36 +1,75 @@
-﻿@model Nuntius.Models.NewsSource
-
+﻿@model Nuntius.Models.ArticleLists
+@using Nuntius.Helpers
 @{
         ViewBag.Title = "Latest News";
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <title>@ViewBag.Title</title>
-</head>
-<body>
+
     <div class="container ">
         <div class="row">
-            <h2 class="text-center">Latest News</h2>
-            <hr />
-
-            @foreach (var item in Model.Newsheadline.Articles.Take(8))
+            <h4 class="text-center">Random News</h4>
+            @foreach (var item in Model.Random.Take(4))
             {
-                string sourceUrl = item.Url;
+                var lastWord = helperfunctions.hashing(item.Title);
 
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <div class="col-md-3 jasgrid">
+                    <div class="box-item">
+                        <div class="box-post">
+                            <span class="label label-success">
+                                <a href="#" rel="tag">@Model.Source.Name</a>
+                            </span>
+                            <h6 class="post-title">
+                                <a href="@Url.Action("Index", "Article", new {id = lastWord, source = Model.Source.Id})">
+                                    @if (item.Title.Length > 40)
+                                    {
+                                        <p>@item.Title.ToString().Substring(0, 40)</p>
+                                    }
+                                    else
+                                    {
+                                        <p>@item.Title</p>
+                                    }
+                                </a>
+                            </h6>
+                            <span class="meta">
+                                <span>
+                                    <i class="glyphicon glyphicon-time"></i> @item.PublishedAt
+                                </span>
+                            </span>
+                        </div>
+                        <img src="@item.UrlToImage" alt=""
+                             class="">
+                    </div>
+                </div>
+            }
+
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <h4 class="text-center">Latest News</h4>
+            @foreach (var item in Model.Latest.Take(6))
+            {
+               var lastWord = helperfunctions.hashing(item.Title);
+
+                    string sourceUrl = item.Url;
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <section>
                         <!--Article Image-->
                         <img src="@item.UrlToImage" class="img-thumbnail img-article-latest-news" />
 
                         <!--Article Link-->
-                        <a href="@item.Url" class="list-group-item">
+                        <a href="@Url.Action("Index", "Article", new {id = lastWord, source = "cnn"})" class="list-group-item">
 
                             <!--Article Title-->
                             <p class=""><h4>@item.Title</h4></p>
 
                             <blockquote class="small blockquote-reverse">
-                                <p>@item.Description</p>
+                                @if (item.Description.Length>70) {
+                                   <p> @item.Description.Substring(0, 70) </p> }
+                                else
+                                {
+                                    <p>@item.Description</p>
+                                }
+                                
                                 <small>
                                     @if (item.PublishedAt != null)
                                     {
@@ -46,15 +85,83 @@
                     <br />
                 </div>
             }
-           
+           </div>
+            <div class="col-md-4">
+                <h4 class="text-center">Most commented</h4>
+                @foreach (var item in Model.MostCommented)
+                {
+                    var lastWord = helperfunctions.hashing(item.Title);
+                    string sourceUrl = item.Url;
 
-        </div>
-        <ul class="pager">
-            <li class="previous"><a href="#">&larr; Older</a></li>
-        </ul>
+                    <div class="col-md-12 jasgrid">
+                        <div class="box-item">
+                            <div class="box-post">
+                                <span class="label label-success">
+                                    <a href="#" rel="tag">@item.Source.Name</a>
+                                </span>
+                                <h6 class="post-title">
+                                    <a href="@Url.Action("Saved", "Article", new {id = lastWord, source = item.SourceId})">
+                                        @if (item.Title.Length > 40)
+                                        {
+                                            <p>@item.Title.ToString().Substring(0, 40)</p>
+                                        }
+                                        else
+                                        {
+                                            <p>@item.Title</p>
+                                        }
+                                    </a>
+                                </h6>
+                                <span class="meta">
+                                    <span><i class="glyphicon glyphicon-comment"></i> <a href=""> @item.Comments.Count()</a></span>
+                                    <span>
+                                        <i class="glyphicon glyphicon-time"></i> @item.PublishedAt
+                                    </span>
+                                </span>
+                            </div>
+                            <img src="@item.UrlToImage" alt=""
+                                 class="">
+                        </div>
+                    </div>
+                }
+               
+                <h4 class="text-center">Most Upvoted</h4>
+
+                @foreach (var item in Model.MostFavorite)
+                {
+                    var lastWord = helperfunctions.hashing(item.Title);
+                    string sourceUrl = item.Url;
+
+                    <div class="col-md-12 jasgrid">
+                        <div class="box-item">
+                            <div class="box-post">
+                                <span class="label label-success">
+                                    <a href="#" rel="tag">@item.Source.Name</a>
+                                </span>
+                                <h6 class="post-title">
+                                    <a href="@Url.Action("Saved", "Article", new {id = lastWord, source = item.SourceId})">
+                                        @if (item.Title.Length > 40)
+                                        {
+                                            <p>@item.Title.ToString().Substring(0, 40)</p>
+                                        }
+                                        else
+                                        {
+                                            <p>@item.Title</p>
+                                        }
+                                    </a>
+                                </h6>
+                                <span class="meta">
+                                    <span><i class="glyphicon glyphicon-comment"></i> <a href=""> @item.Comments.Count()</a></span>
+                                    <span>
+                                        <i class="glyphicon glyphicon-time"></i> @item.PublishedAt
+                                    </span>
+                                </span>
+                            </div>
+                            <img src="@item.UrlToImage" alt=""
+                                 class="">
+                        </div>
+                    </div>
+                }
+            </div>
     </div>
-
-</body>
-</html>
-
+        </div>
 ﻿

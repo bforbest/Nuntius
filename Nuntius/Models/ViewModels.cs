@@ -28,4 +28,12 @@ namespace Nuntius.Models
         public Source Source;
         public IList<Article> Articles;
     }
+    public class ArticleLists
+    {
+        public Source Source;
+        public IList<Article> MostCommented;
+        public IList<Article> MostFavorite;
+        public IList<Article> Latest;
+        public IList<Article> Random;
+    }
 }

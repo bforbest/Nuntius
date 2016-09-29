@@ -5,24 +5,30 @@
 <link href='http://fonts.googleapis.com/css?family=Signika+Negative:400,700' rel='stylesheet' type='text/css'>
 <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
-<p ><h3>@Model.Article.Title</h3></p>
+<p><h3>@Model.Article.Title</h3></p>
 <div class="container-fluid">
 
-    <hr />
+
     @{var lastWord = helperfunctions.hashing(Model.Article.Title);}
 
-    
     <div class="row">
-        
-        <div class="col-sm-12 col-md-8 col-lg-8">
-            <div class="container">
-
-                <a href="#" class="button facebook"><span><i class="fa fa-facebook"></i></span><p>Facebook</p></a>
-                <a href="#" class="button google-plus"><span><i class="fa fa-google-plus"></i></span><p>Google +</p></a>
-                <a href="#" class="button twitter"><span><i class="fa fa-twitter"></i></span><p>Twitter</p></a>
-                <a  data-id="0" href="@Url.Action("Create", "Article", new { id = lastWord, source = @Model.Source.Id })" class="button pinterest"><span><i class="fa fa-heart"></i></span><p>favorite</p></a>
-            </div>
+        <div class="container">
+            <!------------------------------------------------------>
+            <a href="#" onclick="ArticleUpvote(this)" data-urlId='@Model.Article.Url' data-articleSource='@Model.Source.Id' data-vote="upvote" class="button android"><span><i class="fa fa-heart"></i></span><p id="upCount">Facebook</p></a>
+            <!------------->
             
+            <!------------------------------------------------------>
+            <a href="#" class="button github"><span><i class="fa fa-github"></i></span><p>Github</p></a>
+            <a href="#" class="button facebook"><span><i class="fa fa-facebook"></i></span><p>Facebook</p></a>
+            <a href="#" class="button google-plus"><span><i class="fa fa-google-plus"></i></span><p>Google +</p></a>
+            <a href="#" class="button twitter"><span><i class="fa fa-twitter"></i></span><p>Twitter</p></a>
+            <a data-id="0" href="@Url.Action("Create", "Article", new { id = lastWord, source = @Model.Source.Id })" class="button pinterest"><span><i class="fa fa-heart"></i></span><p>favorite</p></a>
+            <a href="#" onclick="ArticleUpvote(this)" data-urlId='@Model.Article.Url' data-articleSource='@Model.Source.Id' data-vote="downvote" class="button youtube"><span><i class="fa fa-heart-o"></i></span><p id="downCount">Facebook</p></a>
+
+        </div>
+        <div class="col-sm-12 col-md-8 col-lg-8">
+            
+
             <div class="list-group">
                 <!--Article Image-->
                 <img src="@Model.Article.UrlToImage" class="img-responsive" />
@@ -30,7 +36,6 @@
                 <!--Article Link-->
                 <a href="@Model.Article.Url" class="list-group-item">
                     <!--Article Title-->
-                    
                     <!--Article Description-->
                     <p class="blockquote-inverse" style="text-overflow: clip;">@Model.Article.Description</p>
                     <!--Article Author-->
@@ -53,45 +58,53 @@
                             </span>
                             <h6 class="post-title">
                                 <a href="@Html.DisplayFor(model=>model.Articles[i].Url)">
-                                    @Html.DisplayFor(model => model.Articles[i].Title).ToString().Substring(0, 40)
-                                    </a >
-                        </h6 >
-                                    <span class="meta">
-                                    <span><i class="glyphicon glyphicon-user"></i> <a href=""> @Html.DisplayFor(model=>model.Articles[i].Author)</a></span>
-                                    <span>
-                                        <i class="glyphicon glyphicon-time"></i> @Html.DisplayFor(model => model.Articles[i].PublishedAt)</span >
-                                    </span >
+                                    @if (Model.Articles[i].Title.Length > 40)
+                                    {
+                                        @Html.DisplayFor(model => model.Articles[i].Title).ToString().Substring(0, 40);
+                                    }
+                                    else
+                                    {
+                                        @Html.DisplayFor(model => model.Articles[i].Title);
+                                    }
+                                </a>
+                            </h6>
+                            <span class="meta">
+                                <span><i class="glyphicon glyphicon-user"></i> <a href=""> @Html.DisplayFor(model => model.Articles[i].Author)</a></span>
+                                <span>
+                                    <i class="glyphicon glyphicon-time"></i> @Html.DisplayFor(model => model.Articles[i].PublishedAt)
+                                </span>
+                            </span>
                         </div>
-                    <img src = "@Html.DisplayFor(model => model.Articles[i].UrlToImage)" alt = ""
-                    class="">
+                        <img src="@Html.DisplayFor(model => model.Articles[i].UrlToImage)" alt=""
+                             class="">
+                    </div>
                 </div>
-            </div>
             }
 
         </div>
     </div>
 
     <div class="row">
-            
+
         <!-- Contenedor Principal -->
         <div class="comments-container">
             <div class="status-upload">
-  
-                    <textarea id="message-text" placeholder="Write a comment?"></textarea>
-                   
-                    <input id="urlId" hidden value="@Html.DisplayFor(model => model.Article.Url)" />
-                    <input id="articleSource" hidden value="@Model.Source.Id" />
+
+                <textarea id="message-text" placeholder="Write a comment?"></textarea>
+
+                <input id="urlId" hidden value="@Html.DisplayFor(model => model.Article.Url)" />
+                <input id="articleSource" hidden value="@Model.Source.Id" />
 
             </div>
 
-                <div class="btn-group btn-group-justified">
-                     <span class="btn-group">
-            <button id="SendComment" class="btn btn-default" ><i class="fa fa-send"></i></button>
-                         </span>
-                    <span class="btn-group">
-                        <button onclick="ShowComments()" class="btn btn-default" ><i class="fa fa-comment"></i> </button>
-                        </span>
-</div>
+            <div class="btn-group btn-group-justified">
+                <span class="btn-group">
+                    <button id="SendComment" class="btn btn-default"><i class="fa fa-send"></i></button>
+                </span>
+                <span class="btn-group">
+                    <button onclick="ShowComments()" class="btn btn-default"><i class="fa fa-comment"></i> </button>
+                </span>
+            </div>
             <div id="showAlert">
 
             </div>
@@ -101,3 +114,7 @@
         </div>
     </div>
 </div>
+
+@section scripts {
+    <script type="text/javascript">CountArticle('@Model.Article.Url')</script> 
+        }

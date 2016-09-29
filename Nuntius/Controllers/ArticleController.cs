@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Web.WebPages;
 using Microsoft.AspNet.Identity;
 using Nuntius.Helpers;
+using System.Data.Entity;
 
 namespace Nuntius.Controllers
 {
@@ -37,8 +38,28 @@ namespace Nuntius.Controllers
             @ViewBag.User = context.Users.FirstOrDefault(a => a.Id == currentuser);
             return View(newssource);
         }
+        public ActionResult Saved(string id, string source)
+        {
 
-        
+            string downloadjson = "https://newsapi.org/v1/articles?source=" + source +
+                            "&apiKey=346e17ce990f4aacac337fe81afb6f50";
+            var json = c.DownloadString(downloadjson);
+            Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
+            var x = context.Articles.ToList().FirstOrDefault( a => helperfunctions.hashing(a.Title) == id);
+
+            var sourcearticle = context.Sources.FirstOrDefault(a => a.Id == source);
+            ArticleSource newssource = new ArticleSource()
+            {
+                Article = x,
+                Source = sourcearticle,
+                Articles = newsheadline.Articles
+            };
+            var currentuser = User.Identity.GetUserId();
+            @ViewBag.User = context.Users.FirstOrDefault(a => a.Id == currentuser);
+            return View("Index",newssource);
+        }
+
+
         // GET: Article/Create
         public ActionResult Create(string id, string source)
         {
@@ -87,13 +108,17 @@ namespace Nuntius.Controllers
                     //Check if the article is already in the database if not save it in database
                     var IsThereAnyArticle = context.Articles.Any(o => o.Url == article.Url);
                     article.Source = context.Sources.Where(o => o.Id == articleSource).FirstOrDefault();
+                    Article savedArticle;
                     if (!IsThereAnyArticle)
                     {
 
-                        var savedArticle = context.Articles.Add(article);
-
+                        savedArticle = context.Articles.Add(article);
+                        context.SaveChanges();
                     }
-                    context.Comments.Add(new Comment { CommentText = comment, Article = article, DatePublished = DateTime.Now, User = currentUser });
+                    
+                        savedArticle = context.Articles.Include("Comments").FirstOrDefault(o => o.Url == urlId);
+
+                    savedArticle.Comments.Add(new Comment { CommentText = comment,  ArticleId = article.ArticleId, DatePublished = DateTime.Now, ApplicationUserId = currentUserId });
                     context.SaveChanges();
                     jsonMessage = "Comment is sent";
                 }
@@ -191,17 +216,78 @@ namespace Nuntius.Controllers
             upvoteCount = comment.VotingComment.Where(o => o.VoteValue).Count().ToString();
             return Json(upvoteCount + " : " + count);
         }
-
-        [ChildActionOnly]
-        public ActionResult NewsPartial(string source)
+        [HttpPost]
+        public ActionResult ArticleUpvote(string vote,string urlId, string articleSource)
         {
-            string downloadjson = "https://newsapi.org/v1/articles?source=" + source +
+            ApplicationDbContext context = new ApplicationDbContext();
+            context.Configuration.ProxyCreationEnabled = false;
+            int upvoteCount = 0;
+            /*********************************/
+            WebClient c = new WebClient();
+            string downloadjson = "https://newsapi.org/v1/articles?source=" + articleSource +
                             "&apiKey=346e17ce990f4aacac337fe81afb6f50";
-            var json =
-              c.DownloadString(downloadjson);
-            Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
-            var articles = newsheadline.Articles;
-            return PartialView("_NewsPartial", articles);
+            string currentUserId = User.Identity.GetUserId();
+            if (currentUserId != null)
+            {
+                var json =
+                  c.DownloadString(downloadjson);
+                ApplicationUser currentUser = context.Users.FirstOrDefault(o => o.Id == currentUserId);
+                Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
+                Article article = newsheadline.Articles.Where(o => o.Url == urlId).FirstOrDefault();
+                //Check if the article is already in the database if not save it in database
+                var IsThereAnyArticle = context.Articles.Any(o => o.Url == article.Url);
+                article.Source = context.Sources.Where(o => o.Id == articleSource).FirstOrDefault();
+                Article savedArticle;
+                if (!IsThereAnyArticle)
+                {
+                    savedArticle = context.Articles.Add(article);
+                    context.SaveChanges();
+                    savedArticle = context.Articles.Include("VotingArticles").FirstOrDefault(o => o.Url == urlId);
+                }
+                else
+                {
+                    savedArticle = context.Articles.Include("VotingArticles").FirstOrDefault(o => o.Url == urlId);
+                }
+                var b =
+                context.VotingArticles.Any(x => x.ApplicationUserID == currentUserId && x.Article.Url == urlId);
+                if (!b)
+                {
+                    if (vote == "upvote")
+                    {
+                        savedArticle.VotingArticles.Add(new VotingArticle { ArticleId = article.ArticleId, VoteValue = true, ApplicationUserID = currentUserId });
+                    }
+                    else if (vote == "upvote")
+                    {
+                        savedArticle.VotingArticles.Add(new VotingArticle { ArticleId = article.ArticleId, VoteValue = false, ApplicationUserID = currentUserId });
+                    }
+                }
+                else
+                {
+                    if (vote == "upvote")
+                        savedArticle.VotingArticles.FirstOrDefault(x => x.ApplicationUserID == currentUserId && x.Article.Url == urlId).VoteValue = true;
+                    if (vote == "downvote")
+                        savedArticle.VotingArticles.FirstOrDefault(x => x.ApplicationUserID == currentUserId && x.Article.Url == urlId).VoteValue = false;
+                }
+
+                context.SaveChanges();
+                upvoteCount = savedArticle.VotingArticles.Where(o => o.VoteValue).Count();
+            }
+            return Json("success");
+        }
+        public ActionResult CountArticleVote(string url)
+        {
+           
+            ApplicationDbContext db = new ApplicationDbContext();
+            db.Configuration.ProxyCreationEnabled = false;
+            int upCount = 0;
+            int downCount = 0;
+            if (db.Articles.Any(o => o.Url == url))
+            {
+                var article = db.Articles.Include("VotingArticles").Where(o => o.Url == url).FirstOrDefault();
+                 upCount = article.VotingArticles.Where(o => o.VoteValue).Count();
+                 downCount = article.VotingArticles.Where(o => o.VoteValue == false).Count();
+            }
+            return Json(new int[] {upCount,downCount });
         }
     }
 }

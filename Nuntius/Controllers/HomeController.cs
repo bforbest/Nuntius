@@ -16,13 +16,13 @@ namespace Nuntius.Controllers
         public ActionResult Index(string id)
 		{
 
-			var list = new List<string>(new[] { "cnn", /*"associated-press","bbc-sport",  "bloomberg",
+			var list = new List<string>(new[] { "cnn", "associated-press","bbc-sport",  "bloomberg",
 				"business-insider", "business-insider-uk", "buzzfeed", "cnbc", "cnn", "daily-mail", "engadget", "entertainment-weekly",
 				"espn", "financial-times", "focus", "google-news", "ign", "independent", "mashable", "metro", "mirror", "new-scientist",
 				"newsweek","reuters", "sky-news", "techcrunch", "techradar", "the-guardian-uk", "the-huffington-post", "the-new-york-times",
-				"the-telegraph", "the-verge", "the-wall-street-journal", "the-washington-post", "time"*/});
+				"the-telegraph", "the-verge", "the-wall-street-journal", "the-washington-post", "time"});
 
-      var rng = new Random();
+            var rng = new Random();
 			var randomElement = list[rng.Next(list.Count)];
 			string source = randomElement;
             
@@ -32,17 +32,54 @@ namespace Nuntius.Controllers
 			var json = c.DownloadString(downloadjson);
 			Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
 
+            string downloadjson2 = "https://newsapi.org/v1/articles?source=cnn" + /*"&sortBy="+sortedby+*/
+                                  "&apiKey=346e17ce990f4aacac337fe81afb6f50";
+            var json2 = c.DownloadString(downloadjson2);
+            Newsheadline newsheadline2 = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json2);
             var countsource = context.Sources;
 		    if (countsource.Count() <= 1)
 		    {
                 FillDataBasewithSource();
 		    }
             Source Source = context.Sources.FirstOrDefault(a => a.Id == source);
-		    NewsSource newsource = new NewsSource() {Newsheadline = newsheadline, Source = Source};
+            Source Source2 = context.Sources.FirstOrDefault(o=>o.Id == "cnn");
+            IList<Article> mostCommented = context.Articles.Include("Source").OrderByDescending(o => o.Comments.Count()).Take(3).ToList();
+            var mostLiked = context.Articles.Include("Source").OrderByDescending(o => o.VotingArticles.Count()).Take(3).ToList();
+
+		    ArticleLists newsource = new ArticleLists() { Latest  = newsheadline2.Articles, Source = Source, MostCommented=mostCommented,MostFavorite=mostLiked, Random = newsheadline.Articles};
             return View(newsource);
 		}
+        public ActionResult Latest(string id)
+        {
 
-		public void FillDataBasewithSource()
+            var list = new List<string>(new[] { "cnn", /*"associated-press","bbc-sport",  "bloomberg",
+				"business-insider", "business-insider-uk", "buzzfeed", "cnbc", "cnn", "daily-mail", "engadget", "entertainment-weekly",
+				"espn", "financial-times", "focus", "google-news", "ign", "independent", "mashable", "metro", "mirror", "new-scientist",
+				"newsweek","reuters", "sky-news", "techcrunch", "techradar", "the-guardian-uk", "the-huffington-post", "the-new-york-times",
+				"the-telegraph", "the-verge", "the-wall-street-journal", "the-washington-post", "time"*/});
+
+            var rng = new Random();
+            var randomElement = list[rng.Next(list.Count)];
+            string source = randomElement;
+
+
+            string downloadjson = "https://newsapi.org/v1/articles?source=" + source + /*"&sortBy="+sortedby+*/
+                                  "&apiKey=346e17ce990f4aacac337fe81afb6f50";
+            var json = c.DownloadString(downloadjson);
+            Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
+
+            var countsource = context.Sources;
+            if (countsource.Count() <= 1)
+            {
+                FillDataBasewithSource();
+            }
+            Source Source = context.Sources.FirstOrDefault(a => a.Id == source);
+            NewsSource newsource = new NewsSource() { Newsheadline = newsheadline, Source = Source };
+            return View(newsource);
+        }
+
+
+        public void FillDataBasewithSource()
           {
 
             WebClient c = new WebClient();
