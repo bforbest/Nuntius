@@ -111,6 +111,37 @@ function ShowComments() {
         }
     });
 }
+
+function showtv(channel) {
+    $.ajax({
+        method: "GET",
+        dataType: 'json',
+        url: 'http://www.filmon.com/tv/api/init?app_id=7870Mo&app_secret=se8z1tt9',
+        success: function (data) {
+            if (data === undefined) {
+                alert('no data send');
+            }
+            else {
+                sessionk = data.session_key;
+                var channel_id = 11;
+                channelsurl = 'http://www.filmon.com/tv/api/channel/' + channel + '?app_id=7870Mo&app_secret=se8z1tt9&session_key=' + sessionk;
+                var showData = $('#player');
+                var showTitle = $('#titleid');
+                var showDescription = $('#descriptionid');
+                $.getJSON(channelsurl, function (data) {
+                    showData.empty();
+                    showTitle.empty();
+                    showDescription.empty();
+                    var divcontent1 = '<iframe class="single_iframe" scrolling="No" width="100%" height="460" src="' + 'http://afsoonplay.com/play/nun.php?id=' + data.streams[0].url + '" frameborder="0" allowfullscreen=""></iframe>'
+                    showData.append(divcontent1);
+                    showTitle.append(data.title);
+                    showDescription.append(data.description)
+
+                });
+            }
+        }
+    });
+}
 $(document).ready(function () {
     $('#SendComment').on('click', function () {
         
@@ -134,37 +165,6 @@ $(document).ready(function () {
                 ShowComments();
             }
         });
-    });//on input
-    //$('#ShowComments').on('click', function () {
+    });
     
-    window.onload = ShowComments;
-
-
-    //});
-
-
-
-
-//    $(document).on('click', '#deleteComment', function () {
-
-//        $.ajax({
-//            method: 'Post',
-//            url: '/Article/DeleteComment',
-//            data: {
-//                id: $('#comments-list').change(function () {
-//                    $(this).find(':selected').data("commentId");
-//                })
-//            },
-//            dataType: 'json',
-//            error: function (jqXHR, textStatus, errorThrown) {
-//                alert('Något gick fel! status:' + textStatus + "\nerror: " + errorThrown);
-//            },
-//            success: function (data) {
-//                if (data.Name === undefined)
-//                    $('#test').html(data);
-//                else
-//                    $('#test').html("Letade du efter " + data.Name + "? id=" + data.Id);
-//            }
-//        });
-//    });//on input
     });

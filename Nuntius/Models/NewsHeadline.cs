@@ -28,35 +28,29 @@ namespace Nuntius.Models
         [Required]
         public int ArticleId { get; set; }
 
-        [Required]
+     
         [JsonProperty("author")]
         public string Author { get; set; }
 
-        [Required]
+       
         [JsonProperty("title")]
         public string Title { get; set; }
-
-        [Required]
+        
         [JsonProperty("description")]
-        [MaxLength(5)]
         public string Description { get; set; }
 
-        [Required]
+
         [JsonProperty("url")]
         public string Url { get; set; }
         [JsonProperty("urlToImage")]
         public string UrlToImage { get; set; }
-
-        [Required]
-        [MaxLength(12)]
         [JsonProperty("publishedAt")]
         public string PublishedAt { get; set; }
-        [MaxLength(12)]
+      
         public virtual IList<VotingArticle> VotingArticles { get; set; }
-        [MaxLength(12)]
         public virtual IList<Comment> Comments { get; set; }
 
-        [Required]
+    
         public string SourceId { get; set; }
         //[ForeignKey("SourceId")]
         public Source Source { get; set; }
@@ -125,7 +119,7 @@ namespace Nuntius.Models
         public class VotingArticle
         {
             public int VotingArticleId { get; set; }
-            public int VoteValue { get; set; }
+            public bool VoteValue { get; set; }
             public int ArticleId { get; set; }
             public virtual Article Article { get; set; }
             public string ApplicationUserID { get; set; }

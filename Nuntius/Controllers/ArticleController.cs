@@ -19,30 +19,6 @@ namespace Nuntius.Controllers
         // GET: Article
         public ActionResult Index(string id, string source)
 		{
-            //ApplicationDbContext context = new ApplicationDbContext();
-
-            //WebClient c = new WebClient();
-            //string downloadjson = "https://newsapi.org/v1/articles?source=" + source +
-            //				"&apiKey=346e17ce990f4aacac337fe81afb6f50";
-            //var json =
-            //  c.DownloadString(downloadjson);
-            //Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
-            //var x = newsheadline.Articles.FirstOrDefault(a => a.Title.Split(' ').Last() == id);
-
-            //return View(x);
-
-
-
-          
-            //Borde verkligen ändra source description/title split idén.
-            //if (source == "")
-            //{
-            //    source = w;
-            //}
-            //      else if (!Request.Url.AbsoluteUri.Contains("source"))
-            //{
-            //    source = Request.UrlReferrer.AbsoluteUri.Split('=').Last();
-            //      }
 
             string downloadjson = "https://newsapi.org/v1/articles?source=" + source +
                             "&apiKey=346e17ce990f4aacac337fe81afb6f50";
@@ -54,20 +30,15 @@ namespace Nuntius.Controllers
             ArticleSource newssource = new ArticleSource()
             {
                 Article = x,
-                Source = sourcearticle
+                Source = sourcearticle,
+                Articles = newsheadline.Articles
             };
 		    var currentuser = User.Identity.GetUserId();
             @ViewBag.User = context.Users.FirstOrDefault(a => a.Id == currentuser);
             return View(newssource);
         }
 
-
-		// GET: Article/Details/5
-		public ActionResult Details()
-		{
-		    return View();
-		}
-      
+        
         // GET: Article/Create
         public ActionResult Create(string id, string source)
         {
@@ -80,7 +51,7 @@ namespace Nuntius.Controllers
             var currentUserId = User.Identity.GetUserId();
             Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
             //Finds the Article that is favorite based on the last index of the title
-            var xArticle = newsheadline.Articles.FirstOrDefault(a => a.Url.Split('/').Last() == id);
+            var xArticle = newsheadline.Articles.FirstOrDefault(a => helperfunctions.hashing(a.Title) == id);
 
 
             action.SaveToFavorite(xArticle, source, currentUserId);
@@ -89,65 +60,7 @@ namespace Nuntius.Controllers
             return Redirect(Request.UrlReferrer.PathAndQuery);
         }
 
-        // POST: Article/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Article/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Article/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Article/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Article/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+   
         [HttpPost]
         public ActionResult AddComment(string urlId, String comment, string articleSource)
         {
