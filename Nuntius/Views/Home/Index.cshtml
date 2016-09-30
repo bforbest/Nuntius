@@ -1,8 +1,12 @@
 ﻿@model Nuntius.Models.NewsSource
 
 @{
-        ViewBag.Title = "Latest News";
-}
+    ViewBag.Title = "Latest News";
+    ViewBag.Article_Title_Chars = 25;
+    ViewBag.Article_Description_MaxChars = 25;
+    ViewBag.Article_
+
+ }
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +33,13 @@
             
 
                             <blockquote class="small blockquote-reverse">
-                                <p>@item.Description.Substring(0, 50);</p>
+                                
+                                @*/begin some cheescake piecof code, should consider to re-arrenge  *@
+                                @if (ViewBag.Article_Description_MaxChars >=  @item.Description.Length)
+ {
+
+                                }
+                                <p>@item.Description.Substring(0, 40);</p>
                                 <!--Artile PublishedAt-->
                                 <small>
                                     @if (item.PublishedAt != null)

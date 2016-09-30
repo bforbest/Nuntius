@@ -13,20 +13,30 @@ namespace Nuntius.Controllers
 {
     public class ArticleController : Controller
     {
-        WebClient c = new WebClient();
+        WebClient webclient = new WebClient();
         ApplicationDbContext context = new ApplicationDbContext();
         DbActions action = new DbActions();
+
+        public List<string> APITokens = new List<string> {
+            "& apiKey = 346e17ce990f4aacac337fe81afb6f50", // [index 0 = mustafa-Token]
+            "& apiKey = 4bf42a39a33e47649b605487698cd8eb" // [index 1 = jimmy-Token]
+
+        };
+
+
         // GET: Article
-        public ActionResult Index(string id, string source)
+        public ActionResult Index(string id, string source, WebClient client)
 		{
-
-            string downloadjson = "https://newsapi.org/v1/articles?source=" + source +
-                            "&apiKey=346e17ce990f4aacac337fe81afb6f50";
-            var json = c.DownloadString(downloadjson);
+            string downloadjson = "https://newsapi.org/v1/articles?source=" + source + APITokens[0];
+            var json = webclient.DownloadString(downloadjson);
+             client = new WebClient();
             Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
-            var x = newsheadline.Articles.FirstOrDefault(a => helperfunctions.hashing(a.Title) == id);
 
+            
+            
+            var x = newsheadline.Articles.FirstOrDefault(a => helperfunctions.hashing(a.Title) == id);
             var sourcearticle = context.Sources.FirstOrDefault(a => a.Id == source);
+
             ArticleSource newssource = new ArticleSource()
             {
                 Article = x,
@@ -40,20 +50,18 @@ namespace Nuntius.Controllers
 
         
         // GET: Article/Create
-        public ActionResult Create(string id, string source)
+        public ActionResult Create(string id, string source, WebClient client)
         {
-            WebClient c = new WebClient();
+            client = new WebClient();
             //This makes sure it uses the real source and thus duplicates of same titles are to be very rare
-            string downloadjson = "https://newsapi.org/v1/articles?source=" + source +
-                            "&apiKey=346e17ce990f4aacac337fe81afb6f50";
-            var json =
-              c.DownloadString(downloadjson);
+            string downloadjson = "https://newsapi.org/v1/articles?source=" + source + "&apiKey=346e17ce990f4aacac337fe81afb6f50";
+
+            var json = client.DownloadString(downloadjson);
             var currentUserId = User.Identity.GetUserId();
+
             Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
             //Finds the Article that is favorite based on the last index of the title
             var xArticle = newsheadline.Articles.FirstOrDefault(a => helperfunctions.hashing(a.Title) == id);
-
-
             action.SaveToFavorite(xArticle, source, currentUserId);
 
 
@@ -72,8 +80,7 @@ namespace Nuntius.Controllers
                 //This makes sure it uses the real source and thus duplicates of same titles are to be very rare
                 string downloadjson = "https://newsapi.org/v1/articles?source=" + articleSource +
                                 "&apiKey=346e17ce990f4aacac337fe81afb6f50";
-                var json =
-                  c.DownloadString(downloadjson);
+                var json = c.DownloadString(downloadjson);
                 string currentUserId = User.Identity.GetUserId();
                 ApplicationUser currentUser = context.Users.FirstOrDefault(o => o.Id == currentUserId);
                 Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
@@ -193,12 +200,10 @@ namespace Nuntius.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult NewsPartial(string source)
+        public ActionResult NewsPartial(string source, WebClient client)
         {
-            string downloadjson = "https://newsapi.org/v1/articles?source=" + source +
-                            "&apiKey=346e17ce990f4aacac337fe81afb6f50";
-            var json =
-              c.DownloadString(downloadjson);
+            string downloadjson = "https://newsapi.org/v1/articles?source=" + source + APITokens[0];
+            var json = client.DownloadString(downloadjson);
             Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
             var articles = newsheadline.Articles;
             return PartialView("_NewsPartial", articles);
