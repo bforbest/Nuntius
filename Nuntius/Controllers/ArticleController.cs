@@ -20,6 +20,9 @@ namespace Nuntius.Controllers
 
         // Currently 2 API-tokens for newsapi.org registred
         // See https://newsapi.org/ for more
+        // THis could probably be a separated class / classes modelsVIews
+        // List that holds the 2 currently registred api-tokens. Limit?
+
         public List<string> APITokens = new List<string> {
             "& apiKey = 346e17ce990f4aacac337fe81afb6f50", // [index 0 = mustafa-Token]
             "& apiKey = 4bf42a39a33e47649b605487698cd8eb" // [index 1 = jimmy-Token]
