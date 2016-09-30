@@ -35,12 +35,12 @@
 
                                 <!--Article Title-->
                                 <p class="list-group-item-heading">
-                                    <h3>@item.Articles[i].Title</h3>
+                                    <h5>@item.Articles[i].Title.Substring(0, 15)</h5>
                                 </p>
 
                                 <!--Article Description-->
                                 <p class="blockquote-inverse">
-                                    @item.Articles[i].Description
+                                    @item.Articles[i].Description.Substring(0, 1)
                                 </p>
                             </a>
 

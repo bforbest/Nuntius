@@ -19,6 +19,7 @@ namespace Nuntius.Models
         [JsonProperty("articles")]
         public Article[] Articles { get; set; }
     }
+   
 
     //JSON PROPERTIES ARE FOR THE API.
     //ONE ARTICLE CONTAINS LIST OF COMMENTS, LIST OF CATEGORIES, SOURCE ID AND/OR SOURCE, COULDNT DECIDE WHICH ONE

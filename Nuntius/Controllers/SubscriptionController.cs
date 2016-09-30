@@ -80,7 +80,8 @@ namespace Nuntius.Controllers
         }
         public ActionResult _Subscribednews()
         {
-            
+            WebClient c = new WebClient();
+
             string currentUserId = User.Identity.GetUserId();
             currentUser = db.Users.FirstOrDefault(o => o.Id == currentUserId);
             
@@ -90,8 +91,7 @@ namespace Nuntius.Controllers
             {
                 string downloadjson = "https://newsapi.org/v1/articles?source=" + item.Id + /*"&sortBy="+sortedby+*/
                                   "&apiKey=346e17ce990f4aacac337fe81afb6f50";
-                var json =
-                    c.DownloadString(downloadjson);
+                var json = c.DownloadString(downloadjson);
                 Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
 
                 Articles.Add(newsheadline);

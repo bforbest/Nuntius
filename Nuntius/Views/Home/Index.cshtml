@@ -1,15 +1,19 @@
 ﻿@model Nuntius.Models.NewsSource
 
 @{
-        ViewBag.Title = "Latest News";
-}
+    ViewBag.Title = "Latest News";
+    ViewBag.Article_Title_MaxChars = 25;
+    ViewBag.Article_Description_MaxChars = 25;
+    ViewBag.Article_PublishedAt_MaxChars = 10;
+
+ }
 <!DOCTYPE html>
 <html>
 <head>
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <div class="container ">
+    <div class="container body-content">
         <div class="row">
             <h2 class="text-center">Latest News</h2>
             <hr />
@@ -20,30 +24,36 @@
 
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                     <section>
-                        <!--Article Image-->
+                        <!-- Article Image-->
+                        <!-- Razor img source""-->
                         <img src="@item.UrlToImage" class="img-thumbnail img-article-latest-news" />
 
-                        <!--Article Link-->
+                        <!--Article Link -->
+                        <!-- Redirects user to article origin page source -->
                         <a href="@item.Url" class="list-group-item">
-
-                            <!--Article Title-->
-                            <p class=""><h4>@item.Title</h4></p>
-
+                            
                             <blockquote class="small blockquote-reverse">
-                                <p>@item.Description</p>
+                                @*/begin some cheescake piecof code, should consider to fix later  *@
+                                @if (ViewBag.Article_Description_MaxChars >= @item.Description.Length) {
+                                    int cnt = 0;
+                                    cnt += @item.Description.ToString().Length;
+
+                                    <p>@item.Description.Substring(0, cnt).ToString();</p>
+                                }
+                               
+                                <!--Artile PublishedAt-->
                                 <small>
-                                    @if (item.PublishedAt != null)
-                                    {
+                                    @if (@item.PublishedAt != null && @item.PublishedAt.ToString() != ""){
                                         @item.PublishedAt.Substring(11, Math.Min(item.PublishedAt.Length, 5))
                                         @item.PublishedAt.Substring(0, Math.Min(item.PublishedAt.Length, 10))
                                     }
                                 </small>
 
                             </blockquote>
-
                         </a>
+                        <br />
                     </section>
-                    <br />
+
                 </div>
             }
            

@@ -3,50 +3,43 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nuntius.NET - The independent News providing super aggeregator">
+    
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
-    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" type="text/css" />
+
 
     <title>@ViewBag.Title - Nuntius</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
 </head>
-
 <body>
+
         <!-- Begin navbar  -->
         <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
 
-                <!-- Begin navbar header  -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <!-- Brand -->
-                    <a href="@Url.Action("Index", "Home")" class="navbar-brand">
-                        <img src="" title="the messenger" alt="Nunitus" />
-                    </a>
-                </div>
-
+            <!-- Begin navbar header  -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+              </div>
                 <!-- End navbar header  -->
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Latest News", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Top News", "Top", "Home")</li>
+                        <!--<li>@Html.ActionLink("Top News", "Top", "Home")</li>-->
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                         <li>@Html.ActionLink("About", "About", "Home")</li>
                     </ul>
                     @Html.Partial("_LoginPartial")
                 </div>
-                </div>
             </div>
-            <!-- End navbar  -->
 
 
 
-                <div class="container body-content">
+                <div class="container">
                     @RenderBody()
                     <hr />
                     <footer>
@@ -61,7 +54,6 @@
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
         @RenderSection("scripts", required: false)
-
 
 </body>
 </html>
