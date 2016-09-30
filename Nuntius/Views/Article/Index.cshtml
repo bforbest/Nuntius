@@ -14,7 +14,9 @@
     <div class="row">
         <div class="container">
             <!------------------------------------------------------>
-            <a href="#" onclick="ArticleUpvote(this)" data-urlId='@Model.Article.Url' data-articleSource='@Model.Source.Id' data-vote="upvote" class="button android"><span><i class="fa fa-heart"></i></span><p id="upCount">Facebook</p></a>
+            <a href="#" onclick="ArticleUpvote(this)" data-urlId='@Model.Article.Url' data-articleSource='@Model.Source.Id' data-vote="upvote" class="button android"><span><i class="fa fa-thumbs-o-up"></i></span><p id="upCount">Facebook</p></a>
+            <a href="#" onclick="ArticleUpvote(this)" data-urlId='@Model.Article.Url' data-articleSource='@Model.Source.Id' data-vote="downvote" class="button youtube"><span><i class="fa fa-thumbs-o-down"></i></span><p id="downCount">Facebook</p></a>
+
             <!------------->
             
             <!------------------------------------------------------>
@@ -22,8 +24,7 @@
             <a href="#" class="button facebook"><span><i class="fa fa-facebook"></i></span><p>Facebook</p></a>
             <a href="#" class="button google-plus"><span><i class="fa fa-google-plus"></i></span><p>Google +</p></a>
             <a href="#" class="button twitter"><span><i class="fa fa-twitter"></i></span><p>Twitter</p></a>
-            <a data-id="0" href="@Url.Action("Create", "Article", new { id = lastWord, source = @Model.Source.Id })" class="button pinterest"><span><i class="fa fa-heart"></i></span><p>favorite</p></a>
-            <a href="#" onclick="ArticleUpvote(this)" data-urlId='@Model.Article.Url' data-articleSource='@Model.Source.Id' data-vote="downvote" class="button youtube"><span><i class="fa fa-heart-o"></i></span><p id="downCount">Facebook</p></a>
+            <a data-id="0" href="@Url.Action("Create", "Article", new { id = lastWord, source = @Model.Source.Id })" class="button pinterest"><span><i class="fa fa-floppy-o"></i></span><p>Save</p></a>
 
         </div>
         <div class="col-sm-12 col-md-8 col-lg-8">

@@ -151,7 +151,8 @@ namespace Nuntius.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Favourite = new Favourite(), Subscription = new Subscription() };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Favourite = new Favourite(), Subscription = new Subscription()
+                , ProfilePicture = "http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-ponsy-deer.png"};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
