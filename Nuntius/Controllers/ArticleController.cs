@@ -1,4 +1,12 @@
-﻿using Nuntius.Models;
+﻿/*
+// File: Controller Class: ['ArticleController']
+// Project: Nuntius - The independent news aggeregator
+// THORDS: Mustafa, Omran, Ali, Jimmy
+// Description: The 'fair' customizable independent news provider
+// Last Update: 04:24
+*/
+
+using Nuntius.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +26,7 @@ namespace Nuntius.Controllers
         DbActions action = new DbActions();
 
 
-        // Currently 2 API-tokens for newsapi.org registred
-        // See https://newsapi.org/ for more
+        // See https://newsapi.org/ for more api-tokens
         // THis could probably be a separated class / classes modelsVIews
         // List that holds the 2 currently registred api-tokens. Limit?
 
@@ -33,7 +40,7 @@ namespace Nuntius.Controllers
         public ActionResult Index(string id, string source, WebClient client)
 		{
             string downloadjson = "https://newsapi.org/v1/articles?source=" + source + APITokens[0];
-            var json = webclient.DownloadString(downloadjson);
+            var json = client.DownloadString(downloadjson);
             client = new WebClient();
             Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
 

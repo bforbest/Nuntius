@@ -29,6 +29,7 @@ namespace Nuntius.Controllers
         }
 
         public ApplicationSignInManager SignInManager
+
         {
             get
             {

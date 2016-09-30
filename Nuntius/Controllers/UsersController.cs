@@ -1,4 +1,9 @@
-﻿using Nuntius.Models;
+﻿
+
+//ApplicationUser OwnUser =   context.Users.FirstOrDefault(a => a.Id == id);
+//   return View("Index",OwnUser);
+
+using Nuntius.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -15,51 +20,32 @@ namespace Nuntius.Controllers
     public class UserController : Controller
     {
         // GET: User
-        public ActionResult Index(string id)
-        {
-            if (Request.IsAuthenticated && id == User.Identity.GetUserId())
-            {
-                using (ApplicationDbContext context = new ApplicationDbContext())
-                {
+        public ActionResult Index(string id)  {
+            if (Request.IsAuthenticated && id == User.Identity.GetUserId()) {
+                using (ApplicationDbContext context = new ApplicationDbContext()) {
                     var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-                    try
-                    {
-                        var x = context.Users.FirstOrDefault(a => a.Id == id);
-                        //ApplicationUser OwnUser =   context.Users.FirstOrDefault(a => a.Id == id);
-                        //   return View("Index",OwnUser);
-                        var currentUser = manager.FindById(User.Identity.GetUserId());
-                        UserViewModel userViewmodel = new UserViewModel();
-                        userViewmodel.Name = x.UserName;
-                        userViewmodel.Comments = context.Comments.Where(a => a.User.Id == currentUser.Id).ToList();
+                    try {
+                            var x = context.Users.FirstOrDefault(a => a.Id == id);
+                            var currentUser = manager.FindById(User.Identity.GetUserId());
+
+                            UserViewModel userViewmodel = new UserViewModel();
+                            userViewmodel.Name = x.UserName;
+                            userViewmodel.Comments = context.Comments.Where(a => a.User.Id == currentUser.Id).ToList();
                       
-                        userViewmodel.ProfilePicture = x.ProfilePicture;
-                        return View(userViewmodel);
-
-
-                    }
-                    catch
-                    {
-
-
-                    }
-                }
-
-
-
-            }
-            else
-            {
-
-            }
-            return View();
+                            userViewmodel.ProfilePicture = x.ProfilePicture;
+                            return View(userViewmodel);
+                        } catch (Exception error) {
+                            Console.WriteLine("Exception in: UserController: " + error); }
+                     }
+                } else {
+                    Console.WriteLine(""); }   
+                return View();
         }
-        public PartialViewResult Load()
-        {
-
-            WebClient c = new WebClient();
+        public PartialViewResult Load(WebClient client){
+            client = new WebClient();
             string downloadjson = "https://newsapi.org/v1/sources?language=en&apiKey=346e17ce990f4aacac337fe81afb6f50";
             var json =
-                c.DownloadString(downloadjson);
+                client.DownloadString(downloadjson);
 
           
             AllSources RootObject = Newtonsoft.Json.JsonConvert.DeserializeObject<AllSources>(json);
