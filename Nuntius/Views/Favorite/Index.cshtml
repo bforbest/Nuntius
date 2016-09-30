@@ -1,59 +1,70 @@
 ﻿@model Nuntius.Models.Favourite
 @using Nuntius.Helpers
-
-<div class="container-fluid ">
-    <div class="row">
-        <section></section>
+@{ 
+    ViewBag.Title = "My News";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta content="utf-8" />   
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
         <h2 class="text-center">Saved News</h2>
         <hr />
+                @foreach (var item in Model.Articles)
+                {
+                    string sourceUrl = item.Url;
 
-        @foreach (var item in Model.Articles)
-        {
-            string sourceUrl = item.Url;
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <section>
+                            <!--Article Image-->
+                            <img src="@item.UrlToImage" class="img-thumbnail img-article-latest-news" />
 
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                <section>
-                    <!--Article Image-->
-                    <img src="@item.UrlToImage" class="img-thumbnail img-article-latest-news" />
+                            <!--Article Link-->
+                            <a href="@item.Url" class="list-group-item">
 
-                    <!--Article Link-->
-                    <a href="@item.Url" class="list-group-item">
+                                <!--Article Title-->
+                                <p class="">
+                                    <h4>@item.Title</h4>
+                                </p>
 
-                        <!--Article Title-->
-                        <p class="">
-                            <h4>@item.Title</h4>
-                        </p>
-
-                        <blockquote class="small blockquote-reverse">
-                            <p>@item.Description</p>
-                            <small>
-                                @if (item.PublishedAt != null)
-                                {
-                                    @item.PublishedAt.Substring(11, Math.Min(item.PublishedAt.Length, 5))
-                                    @item.PublishedAt.Substring(0, Math.Min(item.PublishedAt.Length, 10))
-                                }
-                            </small>
-
-
-                        </blockquote>
-
-                    </a>
-                    @{
-
-                        var lastWord = helperfunctions.hashing(item.Title);
+                                <blockquote class="small blockquote-reverse">
+                                    <p>@item.Description</p>
+                                    <small>
+                                        @if (item.PublishedAt != null)
+                                        {
+                                            @item.PublishedAt.Substring(11, Math.Min(item.PublishedAt.Length, 5))
+                                            @item.PublishedAt.Substring(0, Math.Min(item.PublishedAt.Length, 10))
+                                        }
+                                    </small>
 
 
-                    }
-                    <div style="border: 1px solid lightgrey;">
-                        <a style="color: lightblue;" data-id="0" href="@Url.Action("Index", "Article", new {id = lastWord, source = @item.SourceId})"><i class="fa fa-align-justify" aria-hidden="true"></i>Go to Article</a>
+                                </blockquote>
 
-                        <a class="pull-right" style="color: red;" data-id="0" href="@Url.Action("Delete", "Favorite", new {id = @item.ArticleId})">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                        </a>
+                            </a>
+                            @{
+
+                                var lastWord = helperfunctions.hashing(item.Title);
+
+
+                            }
+                            <div style="border: 1px solid lightgrey;">
+                                <a style="color: lightblue;" data-id="0" href="@Url.Action("Index", "Article", new {id = lastWord, source = @item.SourceId})"><i class="fa fa-align-justify" aria-hidden="true"></i>Go to Article</a>
+
+                                <a class="pull-right" style="color: red;" data-id="0" href="@Url.Action("Delete", "Favorite", new {id = @item.ArticleId})">
+                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </section>
+                        <br />
                     </div>
-                </section>
-                <br />
+                                }
             </div>
-                        }
-    </div>
-</div>
+        </div>
+    </body>
+
+</html>

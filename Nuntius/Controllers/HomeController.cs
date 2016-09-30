@@ -11,7 +11,7 @@ namespace Nuntius.Controllers
     public class HomeController : Controller
     {
         ApplicationDbContext context = new ApplicationDbContext();
-        WebClient c = new WebClient();
+        WebClient client = new WebClient();
 
         public ActionResult Index(string id)
 		{
@@ -22,14 +22,14 @@ namespace Nuntius.Controllers
 				"newsweek","reuters", "sky-news", "techcrunch", "techradar", "the-guardian-uk", "the-huffington-post", "the-new-york-times",
 				"the-telegraph", "the-verge", "the-wall-street-journal", "the-washington-post", "time"*/});
 
-      var rng = new Random();
-			var randomElement = list[rng.Next(list.Count)];
-			string source = randomElement;
+            var rng = new Random();
+			var randomSourceElement = list[rng.Next(list.Count)];
+			string source = randomSourceElement;
             
 
             string downloadjson = "https://newsapi.org/v1/articles?source=" + source + /*"&sortBy="+sortedby+*/
 								  "&apiKey=346e17ce990f4aacac337fe81afb6f50";
-			var json = c.DownloadString(downloadjson);
+			var json = client.DownloadString(downloadjson);
 			Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
 
             var countsource = context.Sources;

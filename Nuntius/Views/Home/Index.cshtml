@@ -2,9 +2,10 @@
 
 @{
     ViewBag.Title = "Latest News";
-    ViewBag.Article_Title_Chars = 25;
+
+    ViewBag.Article_Title_MaxChars = 25;
     ViewBag.Article_Description_MaxChars = 25;
-    ViewBag.Article_
+    ViewBag.Article_PublishedAt_MaxChars = 10;
 
  }
 <!DOCTYPE html>
@@ -24,22 +25,22 @@
 
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                     <section>
-                        <!--Article Image-->
+                        <!-- Article Image-->
+                        <!-- HTML-URL razor injected to the img src=""-->
                         <img src="@item.UrlToImage" class="img-thumbnail img-article-latest-news" />
 
-                        <!--Article Link-->
+                        <!--Article Link -->
+                        <!-- Redirects user to article origin page source -->
                         <a href="@item.Url" class="list-group-item">
-
-            
-
                             <blockquote class="small blockquote-reverse">
-                                
-                                @*/begin some cheescake piecof code, should consider to re-arrenge  *@
-                                @if (ViewBag.Article_Description_MaxChars >=  @item.Description.Length)
- {
-
+                                @*/begin some cheescake piecof code, should consider to fix later  *@
+                                @if (ViewBag.Article_Description_MaxChars >= @item.Description.Length)
+                                {
+                                    int cnt = 0;
+                                    cnt += @item.Description.ToString().Length;
+                                    <p>@item.Description.Substring(0, cnt);</p>
                                 }
-                                <p>@item.Description.Substring(0, 40);</p>
+                               
                                 <!--Artile PublishedAt-->
                                 <small>
                                     @if (item.PublishedAt != null)

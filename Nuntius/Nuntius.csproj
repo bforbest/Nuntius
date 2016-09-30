@@ -258,7 +258,7 @@
     <Content Include="Views\Article\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\_Subscription.cshtml" />
-    <Content Include="Views\Home\Top.cshtml" />
+    <Content Include="Views\Manage\Top.cshtml" />
     <Content Include="Views\Favorite\Index.cshtml" />
     <Content Include="Views\Subscription\_ShowSubscribed.cshtml" />
     <Content Include="Views\Subscription\_Subscribednews.cshtml" />

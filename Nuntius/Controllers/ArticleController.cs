@@ -17,10 +17,12 @@ namespace Nuntius.Controllers
         ApplicationDbContext context = new ApplicationDbContext();
         DbActions action = new DbActions();
 
+
+        // Currently 2 API-tokens for newsapi.org registred
+        // See https://newsapi.org/ for more
         public List<string> APITokens = new List<string> {
             "& apiKey = 346e17ce990f4aacac337fe81afb6f50", // [index 0 = mustafa-Token]
             "& apiKey = 4bf42a39a33e47649b605487698cd8eb" // [index 1 = jimmy-Token]
-
         };
 
 
@@ -29,7 +31,7 @@ namespace Nuntius.Controllers
 		{
             string downloadjson = "https://newsapi.org/v1/articles?source=" + source + APITokens[0];
             var json = webclient.DownloadString(downloadjson);
-             client = new WebClient();
+            client = new WebClient();
             Newsheadline newsheadline = Newtonsoft.Json.JsonConvert.DeserializeObject<Newsheadline>(json);
 
             
@@ -104,11 +106,8 @@ namespace Nuntius.Controllers
                     context.SaveChanges();
                     jsonMessage = "Comment is sent";
                 }
-            }
-            else
-            {
-                jsonMessage = "Please write a comment";
-            }
+            } else {
+                jsonMessage = "Please write a comment"; }
             return Json(jsonMessage);
         }
 
